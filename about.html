@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | IronPulse Gym Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #0F0F1A;
+      --bg-card: #1A1A2E;
+      --bg-card-hover: #23233D;
+      --primary-orange: #FF4500;
+      --primary-orange-hover: #E03E00;
+      --accent-glow: rgba(255, 69, 0, 0.35);
+      --border-color: #2E2E48;
+      --text-main: #FFFFFF;
+      --text-muted: #94A3B8;
+      --font-main: 'Outfit', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: var(--font-main);
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Standardized Header & Nav (Matches React Navbar perfectly) */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 15, 26, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      height: 96px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
+      height: 100%;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .brand-logo-icon {
+      background: rgba(255, 69, 0, 0.2);
+      border: 1px solid rgba(255, 69, 0, 0.4);
+      padding: 0.65rem 0.75rem;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-orange);
+      font-size: 1.6rem;
+      transition: all 0.3s ease;
+    }
+
+    .brand-logo:hover .brand-logo-icon {
+      background: var(--primary-orange);
+      color: #fff;
+    }
+
+    .brand-logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .brand-title span {
+      color: var(--primary-orange);
+    }
+
+    .brand-subtitle {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      list-style: none;
+      white-space: nowrap;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 800;
+      color: #E2E8F0;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: #FFFFFF;
+      background: rgba(26, 26, 46, 0.8);
+    }
+
+    .nav-links a.active {
+      color: var(--primary-orange);
+      font-weight: 900;
+    }
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .btn-login {
+      font-size: 0.875rem;
+      font-weight: 800;
+      color: #E2E8F0;
+      padding: 0.625rem 1.25rem;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-login:hover {
+      color: #FFFFFF;
+      background: rgba(26, 26, 46, 0.8);
+    }
+
+    .btn-orange {
+      background-color: var(--primary-orange);
+      color: #fff;
+      padding: 0.625rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 900;
+      font-size: 0.875rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(255, 69, 0, 0.3);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-orange:hover {
+      background-color: var(--primary-orange-hover);
+      transform: translateY(-2px);
+    }
+
+    .mobile-hamburger {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--primary-orange);
+      font-size: 1.75rem;
+      cursor: pointer;
+    }
+
+    .mobile-drawer {
+      display: none;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 1.5rem;
+    }
+
+    .mobile-drawer.open {
+      display: block;
+    }
+
+    .mobile-drawer a {
+      display: block;
+      padding: 0.75rem 0;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 1rem;
+      white-space: nowrap;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      text-decoration: none;
+    }
+
+    @media (max-width: 1024px) {
+      .nav-links, .header-cta {
+        display: none !important;
+      }
+      .mobile-hamburger {
+        display: block !important;
+      }
+    }  box-shadow: 0 6px 20px rgba(255, 69, 0, 0.5);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+
+    /* Section Header */
+    .section-tag {
+      color: var(--primary-orange);
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 700px;
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Hero Banner */
+    .hero-about {
+      position: relative;
+      padding: 5rem 1.5rem;
+      background: linear-gradient(180deg, rgba(255, 69, 0, 0.08) 0%, transparent 100%);
+      border-bottom: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .hero-about h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .hero-about p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 750px;
+      margin: 0 auto 2rem auto;
+    }
+
+    .badge-est {
+      display: inline-block;
+      background: rgba(255, 69, 0, 0.15);
+      border: 1px solid rgba(255, 69, 0, 0.4);
+      color: var(--primary-orange);
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 2rem 1.5rem;
+      border-radius: 1.25rem;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 69, 0, 0.4);
+    }
+
+    .stat-number {
+      font-size: 2.75rem;
+      font-weight: 900;
+      color: var(--primary-orange);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Story & Mission Section */
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .story-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+    }
+
+    .story-card h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: #fff;
+    }
+
+    .story-card h3 i {
+      color: var(--primary-orange);
+    }
+
+    .story-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Team Section */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .trainer-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .trainer-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary-orange);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .trainer-img-wrapper {
+      height: 360px;
+      background: var(--bg-card-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trainer-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .trainer-card:hover .trainer-img-wrapper img {
+      transform: scale(1.04);
+    }
+
+    .trainer-info {
+      padding: 1.5rem;
+    }
+
+    .trainer-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .trainer-role {
+      color: var(--primary-orange);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .trainer-desc {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* USP Grid */
+    .usp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .usp-card {
+      background: rgba(26, 26, 46, 0.6);
+      border: 1px solid var(--border-color);
+      padding: 1.75rem;
+      border-radius: 1.25rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .usp-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 69, 0, 0.15);
+      border: 1px solid rgba(255, 69, 0, 0.3);
+      border-radius: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-orange);
+      font-size: 1.25rem;
+      shrink: 0;
+    }
+
+    .usp-content h4 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+    }
+
+    .usp-content p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #090912;
+      border-top: 1px solid var(--border-color);
+      padding: 4rem 1.5rem 2rem 1.5rem;
+    }
+
+    .footer-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-col h4 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      color: #fff;
+    }
+
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.65rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-orange);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .social-icons a {
+      width: 36px;
+      height: 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .social-icons a:hover {
+      background: var(--primary-orange);
+      color: #fff;
+      border-color: var(--primary-orange);
+    }
+
+    .copyright {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <header>
+    <div class="nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-logo-icon">
+          <i class="fa-solid fa-dumbbell"></i>
+        </div>
+        <div class="brand-logo-text">
+          <span class="brand-title">IRON<span>PULSE</span></span>
+          <span class="brand-subtitle">FITNESS & GYM CLUB</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html" class="active">About Us</a></li>
+        <li><a href="/membership.html">Membership</a></li>
+        <li><a href="/facilities.html">Facilities</a></li>
+        <li><a href="/testimonials.html">Testimonials</a></li>
+      </ul>
+
+      <div class="header-cta">
+        <a href="/login" class="btn-login">Login</a>
+        <a href="/register" class="btn-orange">Join Now</a>
+      </div>
+
+      <button class="mobile-hamburger" onclick="toggleMobileDrawer()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobileDrawer" class="mobile-drawer">
+      <a href="/">Home</a>
+      <a href="/about.html">About Us</a>
+      <a href="/membership.html">Membership</a>
+      <a href="/facilities.html">Facilities</a>
+      <a href="/testimonials.html">Testimonials</a>
+      <div style="padding-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+        <a href="/login" style="text-align: center; background: var(--bg-card); color: #fff;">Login</a>
+        <a href="/register" style="text-align: center; background: var(--primary-orange); color: #fff; border: none;">Join Now</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero-about">
+    <span class="badge-est"><i class="fa-solid fa-award"></i> ESTABLISHED IN 2018</span>
+    <h1>ABOUT IRONPULSE GYM</h1>
+    <p>We are more than just a gym — we are a movement dedicated to sculpting strength, fostering resilience, and delivering real fitness transformations.</p>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">250+</div>
+        <div class="stat-label">Active Members</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Expert Trainers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2,000</div>
+        <div class="stat-label">Sq Ft Training Space</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story & Mission -->
+  <section class="container">
+    <span class="section-tag">WHO WE ARE</span>
+    <h2 class="section-title">OUR LEGACY & MISSION</h2>
+    
+    <div class="story-grid">
+      <div class="story-card">
+        <h3><i class="fa-solid fa-book-open"></i> Our Story</h3>
+        <p>Founded in 2018, IronPulse Gym started with a simple belief: everyone deserves a world-class training environment equipped with cutting-edge machinery and expert guidance.</p>
+        <p>Over the past years, we have expanded into a 10,000 sq ft fitness sanctuary serving over 5,000 active fitness enthusiasts, powerlifters, and athletes.</p>
+      </div>
+
+      <div class="story-card">
+        <h3><i class="fa-solid fa-bullseye"></i> Mission & Vision</h3>
+        <p><strong>Mission:</strong> To empower individuals of all fitness levels to unlock their maximum potential through science-backed training, structured nutrition, and an inspiring atmosphere.</p>
+        <p><strong>Vision:</strong> To remain the gold standard in physical fitness, known for producing extraordinary transformation stories and building an unbreakable fitness community.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gym USP Section -->
+  <section class="container" style="padding-top: 0;">
+    <span class="section-tag">WHY CHOOSE US</span>
+    <h2 class="section-title">WHAT MAKES US DIFFERENT</h2>
+    <p class="section-desc">We combine elite equipment, luxury amenities, and personalized attention to give you an unparalleled fitness experience.</p>
+
+    <div class="usp-grid">
+      <div class="usp-card">
+        <div class="usp-icon"><i class="fa-solid fa-key"></i></div>
+        <div class="usp-content">
+          <h4>24/7 Smart Access</h4>
+          <p>Keyless QR biometric entry allowing seamless workouts around your busy schedule.</p>
+        </div>
+      </div>
+
+      <div class="usp-card">
+        <div class="usp-icon"><i class="fa-solid fa-dumbbell"></i></div>
+        <div class="usp-content">
+          <h4>Heavy-Duty Equipment</h4>
+          <p>Hammer Strength, Eleiko Olympic bars, and premium machines for peak performance.</p>
+        </div>
+      </div>
+
+      <div class="usp-card">
+        <div class="usp-icon"><i class="fa-solid fa-spa"></i></div>
+        <div class="usp-content">
+          <h4>Recovery Spa & Sauna</h4>
+          <p>Therapeutic steam room and Finnish sauna suites to accelerate muscle recovery post-workout.</p>
+        </div>
+      </div>
+
+      <div class="usp-card">
+        <div class="usp-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+        <div class="usp-content">
+          <h4>Digital App Tracking</h4>
+          <p>Log your workouts, track member attendance, and generate PDF invoices instantly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trainers Section -->
+  <section class="container">
+    <span class="section-tag">EXPERT GUIDANCE</span>
+    <h2 class="section-title">MEET OUR MASTER TRAINERS</h2>
+    <p class="section-desc">Our certified trainers bring decades of combined experience in strength conditioning, functional training, and nutrition.</p>
+
+    <div class="team-grid">
+      <div class="trainer-card">
+        <div class="trainer-img-wrapper"><img src="images/coach_alex_rivera.jpg" alt="Alex Rivera - Head Strength Coach" /></div>
+        <div class="trainer-info">
+          <div class="trainer-name">Alex Rivera</div>
+          <div class="trainer-role">Senior Strength Instructor</div>
+          <div class="trainer-desc">Specializes in hypertrophy, powerlifting, and athletic performance with 8+ years experience.</div>
+        </div>
+      </div>
+
+      <div class="trainer-card">
+        <div class="trainer-img-wrapper"><img src="images/coach_priya_sharma.jpg" alt="Priya Sharma - HIIT Coach" /></div>
+        <div class="trainer-info">
+          <div class="trainer-name">Priya Sharma</div>
+          <div class="trainer-role">HIIT & Functional Expert</div>
+          <div class="trainer-desc">Certified functional movement specialist focused on fat loss, stamina, and agility conditioning.</div>
+        </div>
+      </div>
+
+      <div class="trainer-card">
+        <div class="trainer-img-wrapper"><img src="images/coach_marcus_vance.jpg" alt="Marcus Vance - Master Coach" /></div>
+        <div class="trainer-info">
+          <div class="trainer-name">Marcus Vance</div>
+          <div class="trainer-role">Master Bodybuilding Coach</div>
+          <div class="trainer-desc">Bodybuilding contest prep specialist with proven results in body recomposition and mass building.</div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="brand-logo" style="margin-bottom: 1rem;">
+          <i class="fa-solid fa-dumbbell"></i>
+          <span>IRONPULSE</span>
+        </div>
+        <p>IronPulse Gym is a high-performance fitness center committed to transforming lives through elite coaching, equipment, and community support.</p>
+        <div class="social-icons">
+          <a href="https://instagram.com" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://facebook.com" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="https://youtube.com" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://maps.google.com/?q=123+Fitness+Boulevard" title="Google Maps"><i class="fa-solid fa-location-dot"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About IronPulse</a></li>
+          <li><a href="membership.html">Membership Plans</a></li>
+          <li><a href="facilities.html">Facilities & Amenities</a></li>
+          <li><a href="testimonials.html">Member Testimonials</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Gym Timings</h4>
+        <p><strong>Monday - Saturday:</strong> 5:00 AM - 11:00 PM</p>
+        <p><strong>Sunday:</strong> 6:00 AM - 9:00 PM</p>
+        <p><strong>24/7 VIP Access:</strong> Available for Champion Members</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <p><i class="fa-solid fa-location-dot" style="color:var(--primary-orange)"></i> 456 Muscle Avenue, Workout City</p>
+        <p><i class="fa-solid fa-phone" style="color:var(--primary-orange)"></i> +91 99988 87770</p>
+        <p><i class="fa-solid fa-envelope" style="color:var(--primary-orange)"></i> support@ironpulse.com</p>
+      </div>
+    </div>
+
+    <div class="copyright">
+      &copy; 2026 IronPulse Gym Management System. All Rights Reserved.
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileDrawer() {
+      document.getElementById('mobileDrawer').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

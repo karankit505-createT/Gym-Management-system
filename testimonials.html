@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Member Testimonials & Transformation Stories | IronPulse Gym</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #0F0F1A;
+      --bg-card: #1A1A2E;
+      --bg-card-hover: #23233D;
+      --primary-orange: #FF4500;
+      --primary-orange-hover: #E03E00;
+      --accent-glow: rgba(255, 69, 0, 0.35);
+      --border-color: #2E2E48;
+      --text-main: #FFFFFF;
+      --text-muted: #94A3B8;
+      --font-main: 'Outfit', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: var(--font-main);
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Standardized Header & Nav (Matches React Navbar perfectly) */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 15, 26, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      height: 96px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
+      height: 100%;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .brand-logo-icon {
+      background: rgba(255, 69, 0, 0.2);
+      border: 1px solid rgba(255, 69, 0, 0.4);
+      padding: 0.65rem 0.75rem;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-orange);
+      font-size: 1.6rem;
+      transition: all 0.3s ease;
+    }
+
+    .brand-logo:hover .brand-logo-icon {
+      background: var(--primary-orange);
+      color: #fff;
+    }
+
+    .brand-logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .brand-title span {
+      color: var(--primary-orange);
+    }
+
+    .brand-subtitle {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      list-style: none;
+      white-space: nowrap;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 800;
+      color: #E2E8F0;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: #FFFFFF;
+      background: rgba(26, 26, 46, 0.8);
+    }
+
+    .nav-links a.active {
+      color: var(--primary-orange);
+      font-weight: 900;
+    }
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .btn-login {
+      font-size: 0.875rem;
+      font-weight: 800;
+      color: #E2E8F0;
+      padding: 0.625rem 1.25rem;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-login:hover {
+      color: #FFFFFF;
+      background: rgba(26, 26, 46, 0.8);
+    }
+
+    .btn-orange {
+      background-color: var(--primary-orange);
+      color: #fff;
+      padding: 0.625rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 900;
+      font-size: 0.875rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(255, 69, 0, 0.3);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-orange:hover {
+      background-color: var(--primary-orange-hover);
+      transform: translateY(-2px);
+    }
+
+    .mobile-hamburger {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--primary-orange);
+      font-size: 1.75rem;
+      cursor: pointer;
+    }
+
+    .mobile-drawer {
+      display: none;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 1.5rem;
+    }
+
+    .mobile-drawer.open {
+      display: block;
+    }
+
+    .mobile-drawer a {
+      display: block;
+      padding: 0.75rem 0;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 1rem;
+      white-space: nowrap;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      text-decoration: none;
+    }
+
+    @media (max-width: 1024px) {
+      .nav-links, .header-cta {
+        display: none !important;
+      }
+      .mobile-hamburger {
+        display: block !important;
+      }
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      padding: 4.5rem 1.5rem 3rem 1.5rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255, 69, 0, 0.08) 0%, transparent 100%);
+    }
+
+    .hero-banner h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-banner p {
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      max-width: 700px;
+    }
+
+    /* Infinite Scrolling Marquee Slider Styles */
+    .marquee-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 1.5rem 0;
+      margin-bottom: 4rem;
+      mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 2rem;
+      width: max-content;
+      animation: scrollMarquee 35s linear infinite;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scrollMarquee {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .review-card {
+      width: 360px;
+      flex-shrink: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+    }
+
+    .review-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary-orange);
+      box-shadow: 0 10px 30px rgba(255, 69, 0, 0.25);
+    }
+
+    .stars {
+      color: #FFD700;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .review-quote {
+      color: var(--text-main);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1.25rem;
+    }
+
+    .reviewer-avatar {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-card-hover);
+      border: 1px solid var(--primary-orange);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-orange);
+      font-size: 1.25rem;
+    }
+
+    .reviewer-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .reviewer-meta {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+    }
+
+    /* Transformation Cards Grid */
+    .trans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .trans-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .trans-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary-orange);
+    }
+
+    .trans-image-cover {
+      height: 240px;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .trans-body {
+      padding: 1.5rem;
+    }
+
+    .trans-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .trans-program {
+      color: var(--primary-orange);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .trans-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      background: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .stat-box small {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+
+    .stat-box strong {
+      color: #fff;
+      font-size: 0.95rem;
+    }
+
+    /* Video Testimonial Section */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .video-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary-orange);
+    }
+
+    .video-thumb-container {
+      height: 220px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 15, 26, 0.45);
+      transition: background 0.3s;
+    }
+
+    .video-thumb-container:hover .video-overlay {
+      background: rgba(15, 15, 26, 0.2);
+    }
+
+    .play-btn {
+      position: relative;
+      z-index: 2;
+      width: 65px;
+      height: 65px;
+      background: var(--primary-orange);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.5rem;
+      box-shadow: 0 0 25px rgba(255, 69, 0, 0.8);
+      transition: transform 0.3s;
+    }
+
+    .video-thumb-container:hover .play-btn {
+      transform: scale(1.15);
+      background: var(--primary-orange-hover);
+    }
+
+    .video-info {
+      padding: 1.5rem;
+    }
+
+    .video-info h4 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .video-info p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* Video Player Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1.5rem;
+      width: 100%;
+      max-width: 800px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 0 40px rgba(0,0,0,0.8);
+    }
+
+    .modal-header {
+      padding: 1rem 1.5rem;
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .close-modal {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-modal:hover {
+      color: var(--primary-orange);
+    }
+
+    .modal-body video {
+      width: 100%;
+      height: 420px;
+      background: #000;
+      display: block;
+    }
+
+    /* Big Join CTA Section */
+    .cta-banner {
+      background: linear-gradient(135deg, rgba(255, 69, 0, 0.2) 0%, rgba(26, 26, 46, 0.9) 100%);
+      border: 1px solid var(--primary-orange);
+      border-radius: 2rem;
+      padding: 3.5rem 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      box-shadow: 0 0 35px rgba(255, 69, 0, 0.15);
+    }
+
+    .cta-banner h2 {
+      font-size: 2.75rem;
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-banner p {
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto 2rem auto;
+      font-size: 1.05rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #090912;
+      border-top: 1px solid var(--border-color);
+      padding: 4rem 1.5rem 2rem 1.5rem;
+    }
+
+    .footer-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-col h4 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      color: #fff;
+    }
+
+    .footer-col p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.65rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-orange);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .social-icons a {
+      width: 36px;
+      height: 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .social-icons a:hover {
+      background: var(--primary-orange);
+      color: #fff;
+      border-color: var(--primary-orange);
+    }
+
+    .copyright {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <header>
+    <div class="nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-logo-icon">
+          <i class="fa-solid fa-dumbbell"></i>
+        </div>
+        <div class="brand-logo-text">
+          <span class="brand-title">IRON<span>PULSE</span></span>
+          <span class="brand-subtitle">FITNESS & GYM CLUB</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About Us</a></li>
+        <li><a href="/membership.html">Membership</a></li>
+        <li><a href="/facilities.html">Facilities</a></li>
+        <li><a href="/testimonials.html" class="active">Testimonials</a></li>
+      </ul>
+
+      <div class="header-cta">
+        <a href="/login" class="btn-login">Login</a>
+        <a href="/register" class="btn-orange">Join Now</a>
+      </div>
+
+      <button class="mobile-hamburger" onclick="toggleMobileDrawer()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobileDrawer" class="mobile-drawer">
+      <a href="/">Home</a>
+      <a href="/about.html">About Us</a>
+      <a href="/membership.html">Membership</a>
+      <a href="/facilities.html">Facilities</a>
+      <a href="/testimonials.html">Testimonials</a>
+      <div style="padding-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+        <a href="/login" style="text-align: center; background: var(--bg-card); color: #fff;">Login</a>
+        <a href="/register" style="text-align: center; background: var(--primary-orange); color: #fff; border: none;">Join Now</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <h1>MEMBER TESTIMONIALS & REVIEWS</h1>
+    <p>Real stories, real sweat, and real life-changing fitness transformations from the IronPulse Gym community.</p>
+  </section>
+
+  <!-- Continuous Live Marquee Section -->
+  <section class="container" style="padding-bottom: 1rem;">
+    <h2 class="section-title">WHAT OUR MEMBERS SAY</h2>
+    <p class="section-desc">Continuous live member reviews. <b>Hover over any review card to pause and read.</b></p>
+  </section>
+
+  <!-- Infinite Marquee Slider Row -->
+  <div class="marquee-container">
+    <div class="marquee-track">
+      
+      <!-- Duplicate Set 1 -->
+      <div class="review-card">
+        <div>
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-quote">"IronPulse has completely redefined my fitness journey. The trainers actually care about your progress and the steam sauna is the perfect post-workout treat!"</p>
+        </div>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar"><i class="fa-solid fa-user-check"></i></div>
+          <div>
+            <div class="reviewer-name">Vikram Sethi</div>
+            <div class="reviewer-meta">Member since 2024 • Quarterly Pro</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div>
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-quote">"The 24/7 VIP access is a lifesaver for my corporate schedule. Heavy duty Eleiko power racks and zero crowd queues late at night!"</p>
+        </div>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar"><i class="fa-solid fa-user-check"></i></div>
+          <div>
+            <div class="reviewer-name">Sneha Roy</div>
+            <div class="reviewer-meta">Member since 2023 • Yearly VIP</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div>
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-quote">"I hired Alex Rivera for 1-on-1 personal training and lost 15kg in under 4 months. The PDF digital receipts and app check-in make everything super easy."</p>
+        </div>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar"><i class="fa-solid fa-user-check"></i></div>
+          <div>
+            <div class="reviewer-name">Amit Sharma</div>
+            <div class="reviewer-meta">Member since 2025 • PT Client</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div>
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-quote">"The cleanest gym I've ever stepped into. Showers are pristine, lockers are digital, and the group HIIT classes are intense and rewarding."</p>
+        </div>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar"><i class="fa-solid fa-user-check"></i></div>
+          <div>
+            <div class="reviewer-name">Rohan Malhotra</div>
+            <div class="reviewer-meta">Member since 2024 • Half-Yearly Elite</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div>
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-quote">"Joining IronPulse was the best decision of my 30s. Great community vibe, helpful staff, and top tier machines that don't jerk your joints."</p>
+        </div>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar"><i class="fa-solid fa-user-check"></i></div>
+          <div>
+            <div class="reviewer-name">Kavita Reddy</div>
+            <div class="reviewer-meta">Member since 2023 • Yearly VIP</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div>
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-quote">"Smooth Razorpay online payments, instant digital PDF invoice downloads, and fantastic cardio StairMasters. 10/10 recommendation!"</p>
+        </div>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar"><i class="fa-solid fa-user-check"></i></div>
+          <div>
+            <div class="reviewer-name">Deepak Nair</div>
+            <div class="reviewer-meta">Member since 2025 • Quarterly Pro</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Duplicate Set 2 (for 100% Seamless Infinite Animation) -->
+      <div class="review-card">
+        <div>
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-quote">"IronPulse has completely redefined my fitness journey. The trainers actually care about your progress and the steam sauna is the perfect post-workout treat!"</p>
+        </div>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar"><i class="fa-solid fa-user-check"></i></div>
+          <div>
+            <div class="reviewer-name">Vikram Sethi</div>
+            <div class="reviewer-meta">Member since 2024 • Quarterly Pro</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div>
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-quote">"The 24/7 VIP access is a lifesaver for my corporate schedule. Heavy duty Eleiko power racks and zero crowd queues late at night!"</p>
+        </div>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar"><i class="fa-solid fa-user-check"></i></div>
+          <div>
+            <div class="reviewer-name">Sneha Roy</div>
+            <div class="reviewer-meta">Member since 2023 • Yearly VIP</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div>
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-quote">"I hired Alex Rivera for 1-on-1 personal training and lost 15kg in under 4 months. The PDF digital receipts and app check-in make everything super easy."</p>
+        </div>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar"><i class="fa-solid fa-user-check"></i></div>
+          <div>
+            <div class="reviewer-name">Amit Sharma</div>
+            <div class="reviewer-meta">Member since 2025 • PT Client</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <section class="container" style="padding-top:0;">
+
+    <!-- Transformation Stories Section with Photos -->
+    <h2 class="section-title">TRANSFORMATION STORIES & PHOTOS</h2>
+    <p class="section-desc">Before & After photographic proof of members who shattered their limits.</p>
+
+    <div class="trans-grid">
+      
+      <div class="trans-card">
+        <img src="images/client_transform_rahul.jpg" alt="Siddharth Before and After Transformation" class="trans-image-cover" />
+        <div class="trans-body">
+          <div class="trans-name">Siddharth Menon</div>
+          <div class="trans-program">12-Week Fat Loss Shred</div>
+          <p style="color:var(--text-muted); font-size:0.85rem;">"Dropped 16kg of body fat while adding 40kg to my deadlift through progressive overload."</p>
+          <div class="trans-stats-bar">
+            <div class="stat-box"><small>Weight</small><strong>96kg &rarr; 80kg</strong></div>
+            <div class="stat-box"><small>Body Fat</small><strong>28% &rarr; 14%</strong></div>
+            <div class="stat-box"><small>Time</small><strong>12 Wks</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trans-card">
+        <img src="images/client_transform_ananya.jpg" alt="Pooja Before and After Transformation" class="trans-image-cover" />
+        <div class="trans-body">
+          <div class="trans-name">Pooja Deshmukh</div>
+          <div class="trans-program">16-Week Athletic Recomposition</div>
+          <p style="color:var(--text-muted); font-size:0.85rem;">"Sculpted peak core strength, eliminated back pain, and built lean muscle definition."</p>
+          <div class="trans-stats-bar">
+            <div class="stat-box"><small>Weight</small><strong>68kg &rarr; 59kg</strong></div>
+            <div class="stat-box"><small>Squat PR</small><strong>20kg &rarr; 75kg</strong></div>
+            <div class="stat-box"><small>Time</small><strong>16 Wks</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trans-card">
+        <img src="images/client_transform_karan.jpg" alt="Manish Before and After Transformation" class="trans-image-cover" />
+        <div class="trans-body">
+          <div class="trans-name">Manish Kapoor</div>
+          <div class="trans-program">20-Week Hypertrophy Mass Bulk</div>
+          <p style="color:var(--text-muted); font-size:0.85rem;">"Went from a skinny frame to adding 8kg of solid muscle mass with targeted coaching."</p>
+          <div class="trans-stats-bar">
+            <div class="stat-box"><small>Weight</small><strong>58kg &rarr; 67kg</strong></div>
+            <div class="stat-box"><small>Bench PR</small><strong>40kg &rarr; 95kg</strong></div>
+            <div class="stat-box"><small>Time</small><strong>20 Wks</strong></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Video Testimonials & Interviews Section -->
+    <h2 class="section-title">VIDEO REVIEWS & INTERVIEWS</h2>
+    <p class="section-desc">Watch real IronPulse members share their video transformations. Click any video to play.</p>
+
+    <div class="video-grid">
+      
+      <!-- Video 1 -->
+      <div class="video-card">
+        <div class="video-thumb-container" style="background-image: url('images/gym_video_arjun.jpg');" onclick="openVideoModal('Arjun\'s 20kg Weight Loss Journey', 'https://www.w3schools.com/html/mov_bbb.mp4');">
+          <div class="video-overlay"></div>
+          <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="video-info">
+          <h4>"How I Lost 20kg in 5 Months"</h4>
+          <p>Watch Arjun's full video interview on diet, strength training, and mindset.</p>
+        </div>
+      </div>
+
+      <!-- Video 2 -->
+      <div class="video-card">
+        <div class="video-thumb-container" style="background-image: url('images/gym_video_neha.jpg');" onclick="openVideoModal('Neha\'s Marathon Fitness Journey', 'https://www.w3schools.com/html/mov_bbb.mp4');">
+          <div class="video-overlay"></div>
+          <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="video-info">
+          <h4>"From Desk Job to Marathon Fitness"</h4>
+          <p>Neha shares how IronPulse HIIT & cardio equipment transformed her stamina.</p>
+        </div>
+      </div>
+
+      <!-- Video 3 -->
+      <div class="video-card">
+        <div class="video-thumb-container" style="background-image: url('images/gym_video_ramesh.jpg');" onclick="openVideoModal('Ramesh\'s 180kg Squat Powerlifting', 'https://www.w3schools.com/html/mov_bbb.mp4');">
+          <div class="video-overlay"></div>
+          <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="video-info">
+          <h4>"Building Powerlifting Strength at 40"</h4>
+          <p>Ramesh on squatting 180kg with zero injuries under 1-on-1 coaching.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Big CTA Section -->
+    <div class="cta-banner">
+      <h2>READY TO START YOUR TRANSFORMATION?</h2>
+      <p>Join over 5,000+ members achieving their peak strength and health goals at IronPulse Gym.</p>
+      <a href="membership.html" class="btn-orange" style="font-size:1.1rem; padding: 1rem 2.5rem;">
+        <i class="fa-solid fa-bolt"></i> CHOOSE YOUR PLAN NOW
+      </a>
+    </div>
+
+  </section>
+
+  <!-- Video Modal Overlay -->
+  <div id="videoModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="videoModalTitle">IronPulse Member Video</h3>
+        <button class="close-modal" onclick="closeVideoModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <video id="videoPlayer" controls autoplay preload="metadata">
+          <source src="" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="brand-logo" style="margin-bottom: 1rem;">
+          <i class="fa-solid fa-dumbbell"></i>
+          <span>IRONPULSE</span>
+        </div>
+        <p>IronPulse Gym is a high-performance fitness center committed to transforming lives through elite coaching, equipment, and community support.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About IronPulse</a></li>
+          <li><a href="membership.html">Membership Plans</a></li>
+          <li><a href="facilities.html">Facilities & Amenities</a></li>
+          <li><a href="testimonials.html">Member Testimonials</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Gym Timings</h4>
+        <p><strong>Monday - Saturday:</strong> 5:00 AM - 11:00 PM</p>
+        <p><strong>Sunday:</strong> 6:00 AM - 9:00 PM</p>
+        <p><strong>24/7 VIP Access:</strong> Available for Champion Members</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <p><i class="fa-solid fa-location-dot" style="color:var(--primary-orange)"></i> 456 Muscle Avenue, Workout City</p>
+        <p><i class="fa-solid fa-phone" style="color:var(--primary-orange)"></i> +91 99988 87770</p>
+        <p><i class="fa-solid fa-envelope" style="color:var(--primary-orange)"></i> support@ironpulse.com</p>
+      </div>
+    </div>
+
+    <div class="copyright">
+      &copy; 2026 IronPulse Gym Management System. All Rights Reserved.
+    </div>
+  </footer>
+
+  <script>
+    function openVideoModal(title, videoSrc) {
+      document.getElementById('videoModalTitle').innerText = title;
+      const player = document.getElementById('videoPlayer');
+      player.src = videoSrc;
+      document.getElementById('videoModal').style.display = 'flex';
+      player.play().catch(e => console.log('Autoplay prevented:', e));
+    }
+
+    function closeVideoModal() {
+      const player = document.getElementById('videoPlayer');
+      player.pause();
+      player.src = '';
+      document.getElementById('videoModal').style.display = 'none';
+    }
+
+    // Close modal on click outside box
+    window.onclick = function(event) {
+      const modal = document.getElementById('videoModal');
+      if (event.target === modal) {
+        closeVideoModal();
+      }
+    }
+  </script>
+
+  <script>
+    function toggleMobileDrawer() {
+      document.getElementById('mobileDrawer').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
