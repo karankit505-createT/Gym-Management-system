@@ -34,6 +34,11 @@ const ChoosePlan = () => {
 
   const handleSelectPlan = async (planId) => {
     setError('');
+    const token = localStorage.getItem('gym_token');
+    if (!token) {
+      navigate('/login', { state: { message: 'Please sign in to select a membership plan.' } });
+      return;
+    }
     setPurchasingPlanId(planId);
 
     try {
@@ -43,7 +48,11 @@ const ChoosePlan = () => {
         setIsModalOpen(true);
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to initialize payment gateway.');
+      if (err.response?.status === 401) {
+        navigate('/login', { state: { message: 'Session expired. Please sign in again.' } });
+      } else {
+        setError(err.response?.data?.message || 'Failed to initialize payment gateway.');
+      }
     } finally {
       setPurchasingPlanId(null);
     }
