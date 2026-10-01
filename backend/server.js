@@ -4,6 +4,7 @@ const path = require('path');
 require('dotenv').config();
 
 const { connectDB, sequelize } = require('./config/db');
+const { autoSeed } = require('./utils/autoSeed');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -68,6 +69,8 @@ const startServer = async () => {
     await connectDB();
     await sequelize.sync(); // Auto-create tables if missing
     console.log('[Database] Models synchronized with DB schema.');
+
+    await autoSeed(); // Seed initial demo credentials if database is empty
 
     app.listen(PORT, () => {
       console.log(`==================================================`);
