@@ -42,3 +42,5 @@ services:
         sync: false
       - key: FRONTEND_URL
         value: https://gym-management-system-ankit-kar.vercel.app
+      - key: MONGO_URI
+        value: mongodb+srv://karankit505_db_user:MqvuaCzOYgrvei6R@cluster0.wzwpuel.mongodb.net/gym_management?retryWrites=true&w=majority&appName=Cluster0
