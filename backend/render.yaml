@@ -15,7 +15,7 @@ services:
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: DB_DIALECT
-        value: mysql
+        value: sqlite
       - key: DB_HOST
         sync: false
       - key: DB_PORT

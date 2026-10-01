@@ -3,12 +3,19 @@ const mysql = require('mysql2/promise');
 const path = require('path');
 require('dotenv').config();
 
-const dbHost = process.env.DB_HOST || 'localhost';
+const dbHost = process.env.DB_HOST;
 const dbPort = process.env.DB_PORT || 3306;
 const dbUser = process.env.DB_USER || 'root';
 const dbPassword = process.env.DB_PASSWORD || '';
 const dbName = process.env.DB_NAME || 'gym_management';
-const dbDialect = process.env.DB_DIALECT || 'mysql';
+const isProduction = process.env.NODE_ENV === 'production';
+
+// Determine dialect cleanly before instantiating Sequelize:
+// If DB_DIALECT is 'sqlite', OR if in production without a remote DB_HOST, default to sqlite.
+let dbDialect = process.env.DB_DIALECT;
+if (!dbDialect || dbDialect === 'sqlite' || (!dbHost && isProduction) || (dbHost === 'localhost' && isProduction)) {
+  dbDialect = 'sqlite';
+}
 
 let sequelize;
 
@@ -20,7 +27,7 @@ if (dbDialect === 'sqlite') {
   });
 } else {
   sequelize = new Sequelize(dbName, dbUser, dbPassword, {
-    host: dbHost,
+    host: dbHost || 'localhost',
     port: dbPort,
     dialect: 'mysql',
     logging: false,
@@ -43,7 +50,7 @@ const connectDB = async () => {
   try {
     // First, ensure MySQL database exists
     const connection = await mysql.createConnection({
-      host: dbHost,
+      host: dbHost || 'localhost',
       port: dbPort,
       user: dbUser,
       password: dbPassword
@@ -54,14 +61,8 @@ const connectDB = async () => {
     await sequelize.authenticate();
     console.log(`[Database] Connected successfully to MySQL database "${dbName}".`);
   } catch (err) {
-    console.warn(`[Database] MySQL Connection Notice (${err.message}). Switching to SQLite fallback.`);
-    sequelize = new Sequelize({
-      dialect: 'sqlite',
-      storage: path.join(__dirname, '../gym_management.sqlite'),
-      logging: false
-    });
-    await sequelize.authenticate();
-    console.log('[Database] Connected successfully via SQLite fallback.');
+    console.error(`[Database] MySQL Connection Error (${err.message}).`);
+    throw err;
   }
 };
 
