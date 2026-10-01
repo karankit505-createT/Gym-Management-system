@@ -35,6 +35,21 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static uploaded files (profile / staff images)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Root Landing Route
+app.get('/', (req, res) => {
+  res.status(200).send(`
+    <div style="font-family: system-ui, sans-serif; text-align: center; padding: 60px 20px; background: #0f172a; color: #f8fafc; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+      <h1 style="color: #f97316; font-size: 2.5rem; margin-bottom: 10px;">🏋️ IronPulse Gym API Server</h1>
+      <p style="font-size: 1.1rem; color: #94a3b8; max-width: 500px; margin-bottom: 25px;">
+        Backend API is live and running successfully on Render.
+      </p>
+      <a href="/api/health" style="background: #f97316; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+        Check API Health Status
+      </a>
+    </div>
+  `);
+});
+
 // Health Check API
 app.get('/api/health', (req, res) => {
   res.status(200).json({
