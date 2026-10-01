@@ -151,8 +151,10 @@ exports.verifyOtp = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { identifier, password } = req.body;
+    console.log(`[Auth Login Attempt]: identifier="${identifier}"`);
 
     if (!identifier || !password) {
+      console.warn('[Auth Login Failed]: Missing identifier or password');
       return res.status(400).json({ success: false, message: 'Please provide email/phone and password' });
     }
 
@@ -163,15 +165,18 @@ exports.login = async (req, res) => {
     });
 
     if (!user) {
+      console.warn(`[Auth Login Failed]: User not found for identifier "${identifier}"`);
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password_hash);
     if (!isMatch) {
+      console.warn(`[Auth Login Failed]: Password mismatch for user "${user.email}"`);
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
     const token = generateToken(user);
+    console.log(`[Auth Login Success]: User "${user.email}" (role: ${user.role}) logged in successfully.`);
 
     return res.status(200).json({
       success: true,
@@ -189,7 +194,7 @@ exports.login = async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Login Error:', error);
+    console.error('[Auth Login Error]:', error);
     return res.status(500).json({ success: false, message: error.message });
   }
 };

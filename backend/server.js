@@ -32,6 +32,16 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Live Request Logger for Render Logs
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    console.log(`[API Request] ${req.method} ${req.originalUrl} - Status: ${res.statusCode} (${duration}ms)`);
+  });
+  next();
+});
+
 // Serve static uploaded files (profile / staff images)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
