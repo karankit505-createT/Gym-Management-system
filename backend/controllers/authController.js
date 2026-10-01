@@ -56,7 +56,7 @@ exports.register = async (req, res) => {
       is_verified: true // Direct activation
     });
 
-    // Send Welcome email
+    // Send Welcome email (non-blocking)
     sendEmail({
       to: newUser.email,
       subject: 'Welcome to IronPulse Gym!',
@@ -67,7 +67,7 @@ exports.register = async (req, res) => {
         </div>
       `,
       text: `Welcome to IronPulse Gym, ${newUser.name}!`
-    });
+    }).catch(err => console.error('[Background Welcome Email Error]:', err.message));
 
     const token = generateToken(newUser);
 

@@ -33,13 +33,14 @@ const RazorpayCheckoutModal = ({ isOpen, onClose, orderData, onSuccess }) => {
       };
 
       const res = await paymentAPI.verifyPayment(payload);
-      if (res.data.success) {
+      if (res && res.data && res.data.success) {
         onSuccess(res.data);
       } else {
-        setError(res.data.message || 'Payment verification failed');
+        setError(res.data?.message || 'Payment verification failed');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Payment processing failed. Please try again.');
+      console.error('Payment Error:', err);
+      setError(err.response?.data?.message || err.message || 'Payment processing failed. Please try again.');
     } finally {
       setLoading(false);
     }

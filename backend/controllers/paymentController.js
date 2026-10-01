@@ -143,9 +143,9 @@ exports.verifyPayment = async (req, res) => {
       payment_method: payment_method || 'razorpay'
     });
 
-    // Send confirmation email
+    // Send confirmation email in background (non-blocking)
     const user = req.user;
-    await sendEmail({
+    sendEmail({
       to: user.email,
       subject: `IronPulse Gym - Membership Confirmed (${plan.name})`,
       html: `
@@ -155,7 +155,7 @@ exports.verifyPayment = async (req, res) => {
           <p>Thank you for choosing IronPulse Gym! Your <b>${plan.name}</b> membership is now active.</p>
           <ul>
             <li><b>Transaction ID:</b> ${payment.transaction_id}</li>
-            <li><b>Amount Paid:</b> $${plan.price}</li>
+            <li><b>Amount Paid:</b> ₹${plan.price}</li>
             <li><b>Start Date:</b> ${startDateStr}</li>
             <li><b>End Date:</b> ${endDateStr}</li>
           </ul>
@@ -163,7 +163,7 @@ exports.verifyPayment = async (req, res) => {
         </div>
       `,
       text: `Your ${plan.name} membership is active! Transaction ID: ${payment.transaction_id}`
-    });
+    }).catch(err => console.error('[Background Payment Email Error]:', err.message));
 
     return res.status(200).json({
       success: true,
