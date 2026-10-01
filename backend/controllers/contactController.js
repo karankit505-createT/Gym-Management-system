@@ -1,4 +1,5 @@
 const { ContactInquiry } = require('../models');
+const { syncToMongo } = require('../utils/mongoSync');
 
 // @desc    Submit a new contact inquiry (Public)
 // @route   POST /api/contact/submit
@@ -20,6 +21,24 @@ const submitInquiry = async (req, res) => {
       email: email.trim().toLowerCase(),
       message: message.trim(),
       status: 'Pending'
+    });
+
+    // Auto sync lead to MongoDB Atlas 'leads' and 'contact_inquiries' collections
+    syncToMongo('leads', {
+      mysql_id: inquiry.id,
+      name: inquiry.name,
+      phone: inquiry.phone,
+      email: inquiry.email,
+      message: inquiry.message,
+      status: inquiry.status
+    });
+    syncToMongo('contact_inquiries', {
+      mysql_id: inquiry.id,
+      name: inquiry.name,
+      phone: inquiry.phone,
+      email: inquiry.email,
+      message: inquiry.message,
+      status: inquiry.status
     });
 
     return res.status(201).json({
