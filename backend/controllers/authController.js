@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 const { Op } = require('sequelize');
 const { User, OtpVerification } = require('../models');
 const sendEmail = require('../utils/sendEmail');
@@ -55,6 +56,23 @@ exports.register = async (req, res) => {
       role: 'user',
       is_verified: true // Direct activation
     });
+
+    // Dual Sync to MongoDB Atlas (if connected)
+    if (mongoose.connection && mongoose.connection.readyState === 1) {
+      mongoose.connection.db.collection('users').insertOne({
+        mysql_id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        phone: newUser.phone,
+        role: newUser.role,
+        gender: newUser.gender,
+        address: newUser.address,
+        is_verified: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }).then(r => console.log(`[MongoDB Sync Success] User "${newUser.email}" synced to MongoDB Atlas collection "users".`))
+        .catch(err => console.error('[MongoDB Sync Error]:', err.message));
+    }
 
     // Send Welcome email (non-blocking)
     sendEmail({

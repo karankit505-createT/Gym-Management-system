@@ -3,6 +3,7 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 
+const mongoose = require('mongoose');
 const { connectDB, sequelize } = require('./config/db');
 const { autoSeed } = require('./utils/autoSeed');
 
@@ -96,6 +97,16 @@ const startServer = async () => {
     console.log('[Database] Models synchronized with DB schema.');
 
     await autoSeed(); // Seed initial demo credentials if database is empty
+
+    // Connect to MongoDB Atlas if MONGO_URI is configured
+    if (process.env.MONGO_URI) {
+      try {
+        await mongoose.connect(process.env.MONGO_URI, { serverSelectionTimeoutMS: 8000 });
+        console.log('[Database] Connected successfully to MongoDB Atlas!');
+      } catch (mongoErr) {
+        console.warn('[Database Notice] MongoDB Atlas Connection Notice:', mongoErr.message);
+      }
+    }
 
     app.listen(PORT, () => {
       console.log(`==================================================`);
