@@ -4,31 +4,30 @@ const adminController = require('../controllers/adminController');
 const { protect, authorize } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 
-// All admin routes require admin role
+// All admin/staff management routes require authentication
 router.use(protect);
-router.use(authorize('admin'));
 
-// Dashboard Stats
-router.get('/dashboard-stats', adminController.getDashboardStats);
+// Dashboard Stats (Admin & Staff)
+router.get('/dashboard-stats', authorize('admin', 'staff'), adminController.getDashboardStats);
 
-// Member Management
-router.get('/members', adminController.getMembers);
-router.get('/members/:id', adminController.getMemberById);
-router.put('/members/:id', adminController.updateMember);
-router.put('/members/:id/membership', adminController.updateMemberMembership);
-router.delete('/members/:id', adminController.deleteMember);
+// Member Management (Admin & Staff)
+router.get('/members', authorize('admin', 'staff'), adminController.getMembers);
+router.get('/members/:id', authorize('admin', 'staff'), adminController.getMemberById);
+router.put('/members/:id', authorize('admin', 'staff'), adminController.updateMember);
+router.put('/members/:id/membership', authorize('admin', 'staff'), adminController.updateMemberMembership);
+router.delete('/members/:id', authorize('admin'), adminController.deleteMember);
 
 // Staff Management
-router.get('/staff', adminController.getStaffList);
-router.post('/staff', upload.single('photo'), adminController.addStaff);
-router.put('/staff/:id', adminController.updateStaff);
-router.delete('/staff/:id', adminController.deleteStaff);
+router.get('/staff', authorize('admin', 'staff'), adminController.getStaffList);
+router.post('/staff', authorize('admin'), upload.single('photo'), adminController.addStaff);
+router.put('/staff/:id', authorize('admin'), adminController.updateStaff);
+router.delete('/staff/:id', authorize('admin'), adminController.deleteStaff);
 
 // Payment Records / Reports
-router.get('/payments', adminController.getPaymentReports);
+router.get('/payments', authorize('admin', 'staff'), adminController.getPaymentReports);
 
-// Announcement
-router.post('/announcements', adminController.createAnnouncement);
-router.delete('/announcements/:id', adminController.deleteAnnouncement);
+// Announcements
+router.post('/announcements', authorize('admin', 'staff'), adminController.createAnnouncement);
+router.delete('/announcements/:id', authorize('admin'), adminController.deleteAnnouncement);
 
 module.exports = router;
