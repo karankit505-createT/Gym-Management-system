@@ -40,3 +40,5 @@ services:
         sync: false
       - key: EMAIL_FROM
         sync: false
+      - key: FRONTEND_URL
+        value: https://gym-management-system-ankit-kar.vercel.app
