@@ -8,7 +8,8 @@ const authLimiter = rateLimit({
     message: 'Too many login or OTP requests from this IP, please try again after 15 minutes'
   },
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
+  validate: { xForwardedForHeader: false }
 });
 
 module.exports = { authLimiter };

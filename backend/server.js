@@ -18,6 +18,9 @@ const contactRoutes = require('./routes/contactRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Trust proxy for reverse proxies like Render / Vercel / Cloudflare
+app.set('trust proxy', 1);
+
 // Enable CORS
 app.use(cors({
   origin: '*',
