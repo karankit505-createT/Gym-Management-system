@@ -235,11 +235,11 @@ const ManageStaff = () => {
 
       {/* ADD STAFF MODAL */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#161626] border border-gym-orange/50 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-[#161626] border border-gym-orange/50 rounded-2xl max-w-md w-[95%] sm:w-full p-5 sm:p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center border-b border-gym-border pb-3">
-              <h3 className="font-bold text-white text-lg">Add New Staff Account</h3>
-              <button onClick={() => setShowAddModal(false)} className="text-gym-muted hover:text-white">
+              <h3 className="font-bold text-white text-base sm:text-lg">Add New Staff Account</h3>
+              <button onClick={() => setShowAddModal(false)} className="text-gym-muted hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -333,11 +333,11 @@ const ManageStaff = () => {
 
       {/* EDIT STAFF MODAL */}
       {showEditModal && editingStaff && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#161626] border border-gym-orange/50 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-[#161626] border border-gym-orange/50 rounded-2xl max-w-md w-[95%] sm:w-full p-5 sm:p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center border-b border-gym-border pb-3">
-              <h3 className="font-bold text-white text-lg">Edit Staff Account</h3>
-              <button onClick={() => setShowEditModal(false)} className="text-gym-muted hover:text-white">
+              <h3 className="font-bold text-white text-base sm:text-lg">Edit Staff Account</h3>
+              <button onClick={() => setShowEditModal(false)} className="text-gym-muted hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
                 <X className="w-5 h-5" />
               </button>
             </div>

@@ -67,19 +67,19 @@ const ChoosePlan = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6">
       
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-gym-border pb-6">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-gym-border pb-6">
         <div>
           <button
             onClick={() => navigate(-1)}
-            className="text-xs text-gym-muted hover:text-white flex items-center space-x-1 mb-2"
+            className="text-xs text-gym-muted hover:text-white flex items-center space-x-1 mb-2 min-h-[44px]"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back</span>
           </button>
-          <h1 className="text-3xl font-black text-white uppercase tracking-tight">CHOOSE YOUR MEMBERSHIP PLAN</h1>
+          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">CHOOSE YOUR MEMBERSHIP PLAN</h1>
           <p className="text-xs text-gym-muted">Select a plan duration to proceed to instant checkout with Razorpay</p>
         </div>
       </div>
@@ -100,7 +100,7 @@ const ChoosePlan = () => {
       {loading ? (
         <div className="text-center py-20 text-gym-muted">Loading available plans...</div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {plans.map((plan, index) => {
             const isHighlighted = index === 1;
             const isProcessing = purchasingPlanId === plan.id;
@@ -108,16 +108,16 @@ const ChoosePlan = () => {
             return (
               <div
                 key={plan.id}
-                className={`bg-gym-card border rounded-3xl p-6 relative flex flex-col justify-between transition-all duration-300 ${
+                className={`bg-gym-card border rounded-2xl sm:rounded-3xl p-5 sm:p-6 relative flex flex-col justify-between transition-all duration-300 ${
                   isHighlighted ? 'border-gym-orange shadow-2xl glow-orange' : 'border-gym-border hover:border-gym-border/80'
                 }`}
               >
                 <div>
-                  <h3 className="text-xl font-extrabold text-white mb-1">{plan.name}</h3>
+                  <h3 className="text-lg sm:text-xl font-extrabold text-white mb-1">{plan.name}</h3>
                   <p className="text-xs text-gym-muted mb-4">{plan.duration_days} Days Unlimited Gym Access</p>
 
                   <div className="my-4">
-                    <span className="text-4xl font-black text-white font-sans">₹{parseFloat(plan.price).toFixed(2)}</span>
+                    <span className="text-3xl sm:text-4xl font-black text-white font-sans">₹{parseFloat(plan.price).toFixed(2)}</span>
                     <span className="text-xs text-gym-muted ml-1">/ total</span>
                   </div>
 
@@ -145,7 +145,7 @@ const ChoosePlan = () => {
                   type="button"
                   disabled={isProcessing}
                   onClick={() => handleSelectPlan(plan.id)}
-                  className={`w-full py-3.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
+                  className={`w-full py-3.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 min-h-[44px] ${
                     isHighlighted
                       ? 'bg-gym-orange hover:bg-gym-orangeHover text-white shadow-lg shadow-gym-orange/30'
                       : 'bg-gym-dark hover:bg-gym-orange hover:text-white border border-gym-border text-slate-200'

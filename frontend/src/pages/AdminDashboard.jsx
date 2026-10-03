@@ -54,24 +54,24 @@ const AdminDashboard = () => {
   } = stats || {};
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
       
       {/* Header */}
       <div className="border-b border-gym-border pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <span className="text-gym-orange text-xs font-bold uppercase tracking-widest">Gym Control Center</span>
-          <h1 className="text-3xl font-black text-white uppercase tracking-tight">ADMIN DASHBOARD</h1>
+          <span className="text-gym-orange text-[10px] sm:text-xs font-bold uppercase tracking-widest">Gym Control Center</span>
+          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">ADMIN DASHBOARD</h1>
         </div>
-        <div className="flex space-x-3">
+        <div className="flex flex-wrap gap-2.5 sm:gap-3 w-full sm:w-auto">
           <Link
             to="/admin/members"
-            className="px-4 py-2 bg-gym-orange hover:bg-gym-orangeHover text-white text-xs font-bold rounded-xl transition-all shadow-md"
+            className="flex-1 sm:flex-none text-center px-4 py-2.5 bg-gym-orange hover:bg-gym-orangeHover text-white text-xs font-bold rounded-xl transition-all shadow-md min-h-[44px] flex items-center justify-center"
           >
             Manage Members
           </Link>
           <Link
             to="/admin/plans"
-            className="px-4 py-2 bg-gym-card hover:bg-gym-cardHover border border-gym-border text-slate-200 text-xs font-bold rounded-xl transition-all"
+            className="flex-1 sm:flex-none text-center px-4 py-2.5 bg-gym-card hover:bg-gym-cardHover border border-gym-border text-slate-200 text-xs font-bold rounded-xl transition-all min-h-[44px] flex items-center justify-center"
           >
             Manage Plans
           </Link>
@@ -85,7 +85,7 @@ const AdminDashboard = () => {
       )}
 
       {/* METRIC STAT CARDS GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <StatCard
           title="Total Registered Users"
           value={totalUsers ?? 0}
@@ -123,23 +123,23 @@ const AdminDashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Monthly Revenue Trend Chart (2 cols) */}
-        <div className="lg:col-span-2 bg-gym-card border border-gym-border/80 rounded-3xl p-6 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-extrabold text-white flex items-center space-x-2">
-              <TrendingUp className="w-5 h-5 text-gym-orange" />
+        <div className="lg:col-span-2 bg-gym-card border border-gym-border/80 rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 min-w-0 overflow-hidden">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+            <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center space-x-2">
+              <TrendingUp className="w-5 h-5 text-gym-orange shrink-0" />
               <span>Monthly Revenue Trend (₹)</span>
             </h3>
             <span className="text-xs text-gym-muted">Last 6 Months</span>
           </div>
 
-          <div className="h-64 w-full pt-4">
+          <div className="h-56 sm:h-64 w-full pt-2 sm:pt-4 min-w-0">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={monthlyTrend || []}>
+              <BarChart data={monthlyTrend || []} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#2E2E48" />
-                <XAxis dataKey="month" stroke="#94A3B8" fontSize={12} />
-                <YAxis stroke="#94A3B8" fontSize={12} />
+                <XAxis dataKey="month" stroke="#94A3B8" fontSize={10} interval={0} />
+                <YAxis stroke="#94A3B8" fontSize={10} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#161626', borderColor: '#FF4500', borderRadius: '12px' }}
+                  contentStyle={{ backgroundColor: '#161626', borderColor: '#FF4500', borderRadius: '12px', fontSize: '12px' }}
                   itemStyle={{ color: '#FF4500' }}
                 />
                 <Bar dataKey="revenue" fill="#FF4500" radius={[6, 6, 0, 0]} />
@@ -149,14 +149,14 @@ const AdminDashboard = () => {
         </div>
 
         {/* Members Expiring in 7 Days (1 col) */}
-        <div className="bg-gym-card border border-gym-border/80 rounded-3xl p-6 space-y-4 flex flex-col justify-between">
+        <div className="bg-gym-card border border-gym-border/80 rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between border-b border-gym-border/60 pb-3 mb-4">
-              <h3 className="text-base font-extrabold text-white flex items-center space-x-2">
-                <AlertTriangle className="w-5 h-5 text-amber-400" />
+              <h3 className="text-sm sm:text-base font-extrabold text-white flex items-center space-x-2">
+                <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0" />
                 <span>Expiring in 7 Days ({expiringSoonCount ?? 0})</span>
               </h3>
-              <Link to="/admin/members?status=expiring_soon" className="text-xs text-gym-orange hover:underline font-semibold">
+              <Link to="/admin/members?status=expiring_soon" className="text-xs text-gym-orange hover:underline font-semibold whitespace-nowrap">
                 View All
               </Link>
             </div>
@@ -164,26 +164,26 @@ const AdminDashboard = () => {
             {expiringSoonMemberships && expiringSoonMemberships.length > 0 ? (
               <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
                 {expiringSoonMemberships.map((m) => (
-                  <div key={m.id} className="p-3 bg-gym-dark/60 rounded-xl border border-gym-border/50 flex items-center justify-between text-xs">
-                    <div>
-                      <h4 className="font-bold text-white">{m.User?.name}</h4>
-                      <p className="text-[11px] text-gym-muted">{m.Plan?.name}</p>
+                  <div key={m.id} className="p-3 bg-gym-dark/60 rounded-xl border border-gym-border/50 flex items-center justify-between text-xs gap-2">
+                    <div className="min-w-0">
+                      <h4 className="font-bold text-white truncate">{m.User?.name}</h4>
+                      <p className="text-[11px] text-gym-muted truncate">{m.Plan?.name}</p>
                     </div>
-                    <div className="text-right">
-                      <span className="text-amber-400 font-bold block">{m.end_date}</span>
+                    <div className="text-right shrink-0">
+                      <span className="text-amber-400 font-bold block text-[11px]">{m.end_date}</span>
                       <span className="text-[10px] text-gym-muted">Expires Soon</span>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-gym-muted py-10 text-center">No member plans expiring in the next 7 days.</p>
+              <p className="text-xs text-gym-muted py-8 text-center">No member plans expiring in the next 7 days.</p>
             )}
           </div>
 
           <Link
             to="/admin/members"
-            className="w-full py-2.5 bg-gym-dark hover:bg-gym-cardHover text-slate-200 border border-gym-border rounded-xl text-xs font-bold text-center transition-colors block"
+            className="w-full py-3 bg-gym-dark hover:bg-gym-cardHover text-slate-200 border border-gym-border rounded-xl text-xs font-bold text-center transition-colors block min-h-[44px] flex items-center justify-center"
           >
             Manage All Members
           </Link>

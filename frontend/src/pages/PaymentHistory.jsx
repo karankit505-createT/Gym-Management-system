@@ -44,10 +44,10 @@ const PaymentHistory = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6">
       
       <div className="border-b border-gym-border pb-4">
-        <h1 className="text-3xl font-black text-white uppercase tracking-tight">PAYMENT HISTORY & INVOICES</h1>
+        <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">PAYMENT HISTORY & INVOICES</h1>
         <p className="text-xs text-gym-muted">View past subscription payments and download official PDF tax invoices</p>
       </div>
 

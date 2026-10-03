@@ -47,42 +47,40 @@ const RazorpayCheckoutModal = ({ isOpen, onClose, orderData, onSuccess }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-[#161626] border border-gym-orange/40 rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl glow-orange">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+      <div className="bg-[#161626] border border-gym-orange/40 rounded-2xl max-w-lg w-[95%] sm:w-full overflow-hidden shadow-2xl glow-orange max-h-[90vh] flex flex-col">
         
         {/* Modal Header */}
-        <div className="bg-[#1A1A2E] px-6 py-4 border-b border-gym-border flex items-center justify-between">
+        <div className="bg-[#1A1A2E] px-4 sm:px-6 py-3.5 sm:py-4 border-b border-gym-border flex items-center justify-between shrink-0">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-lg bg-gym-orange/20 border border-gym-orange flex items-center justify-center text-gym-orange font-bold text-xs">
               RZP
             </div>
             <div>
-              <h3 className="text-white font-bold text-base flex items-center space-x-1.5">
+              <h3 className="text-white font-bold text-sm sm:text-base flex items-center space-x-1.5">
                 <span>Razorpay Gateway</span>
-                <span className="text-[10px] bg-gym-orange/20 text-gym-orange px-2 py-0.5 rounded-full font-semibold">TEST MODE</span>
+                <span className="text-[9px] sm:text-[10px] bg-gym-orange/20 text-gym-orange px-2 py-0.5 rounded-full font-semibold">TEST MODE</span>
               </h3>
-              <p className="text-xs text-gym-muted">Secure 256-bit Encrypted Checkout</p>
+              <p className="text-[11px] sm:text-xs text-gym-muted">Secure 256-bit Encrypted Checkout</p>
             </div>
           </div>
-          <button onClick={onClose} className="text-gym-muted hover:text-white p-1 rounded-lg hover:bg-gym-border/50">
+          <button onClick={onClose} className="text-gym-muted hover:text-white p-2 rounded-lg hover:bg-gym-border/50 min-w-[44px] min-h-[44px] flex items-center justify-center">
             <X className="w-5 h-5" />
           </button>
         </div>
 
+        <div className="overflow-y-auto flex-1 p-4 sm:p-6 space-y-4 sm:space-y-5">
         {/* Order Summary Strip */}
-        <div className="bg-gym-orange/10 px-6 py-3 border-b border-gym-orange/20 flex items-center justify-between">
+        <div className="bg-gym-orange/10 p-3.5 rounded-xl border border-gym-orange/20 flex items-center justify-between">
           <div>
-            <p className="text-xs text-gym-muted">Subscription Plan</p>
-            <p className="text-sm font-bold text-white">{plan.name} ({plan.duration_days} Days)</p>
+            <p className="text-[11px] text-gym-muted">Subscription Plan</p>
+            <p className="text-xs sm:text-sm font-bold text-white">{plan.name} ({plan.duration_days} Days)</p>
           </div>
           <div className="text-right">
-            <p className="text-xs text-gym-muted">Total Payable</p>
-            <p className="text-lg font-extrabold text-gym-orange">₹{parseFloat(plan.price).toFixed(2)}</p>
+            <p className="text-[11px] text-gym-muted">Total Payable</p>
+            <p className="text-base sm:text-lg font-extrabold text-gym-orange">₹{parseFloat(plan.price).toFixed(2)}</p>
           </div>
         </div>
-
-        {/* Payment Tabs */}
-        <div className="p-6 space-y-5">
           {error && (
             <div className="bg-red-500/10 border border-red-500/50 text-red-300 text-xs p-3 rounded-lg flex items-center space-x-2">
               <ShieldCheck className="w-4 h-4 shrink-0 text-red-400" />

@@ -148,15 +148,15 @@ const ManageInquiries = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
       
       {/* HEADER */}
       <div className="border-b border-gym-border pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <span className="text-gym-orange text-xs font-bold uppercase tracking-widest">Admin Control</span>
-          <h1 className="text-3xl font-black text-white uppercase tracking-tight flex items-center gap-2">
-            <MessageSquare className="w-7 h-7 text-gym-orange" />
-            CONTACT INQUIRIES & MESSAGES
+          <span className="text-gym-orange text-[10px] sm:text-xs font-bold uppercase tracking-widest">Admin Control</span>
+          <h1 className="text-xl sm:text-3xl font-black text-white uppercase tracking-tight flex items-center gap-2">
+            <MessageSquare className="w-6 h-6 sm:w-7 sm:h-7 text-gym-orange shrink-0" />
+            <span>CONTACT INQUIRIES & MESSAGES</span>
           </h1>
         </div>
         <div className="text-xs text-gym-muted bg-gym-card px-4 py-2 rounded-xl border border-gym-border">

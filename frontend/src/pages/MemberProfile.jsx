@@ -92,10 +92,10 @@ const MemberProfile = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
       
       <div className="border-b border-gym-border pb-4">
-        <h1 className="text-3xl font-black text-white uppercase tracking-tight">MY PROFILE</h1>
+        <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">MY PROFILE</h1>
         <p className="text-xs text-gym-muted">Update your contact details, profile picture, or security password</p>
       </div>
 
@@ -107,8 +107,8 @@ const MemberProfile = () => {
       )}
 
       {/* EDIT PROFILE DETAILS */}
-      <div className="bg-gym-card border border-gym-border/80 rounded-3xl p-6 lg:p-8">
-        <h3 className="text-lg font-extrabold text-white mb-6 border-b border-gym-border/50 pb-3">Personal Information</h3>
+      <div className="bg-gym-card border border-gym-border/80 rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+        <h3 className="text-base sm:text-lg font-extrabold text-white mb-6 border-b border-gym-border/50 pb-3">Personal Information</h3>
 
         {profileMsg && (
           <div className="mb-4 bg-emerald-500/10 border border-emerald-500/40 text-emerald-300 text-xs p-3 rounded-xl flex items-center space-x-2">
@@ -120,8 +120,8 @@ const MemberProfile = () => {
         <form onSubmit={handleProfileSubmit} className="space-y-4">
           
           {/* Avatar upload */}
-          <div className="flex items-center space-x-4 mb-6">
-            <div className="w-20 h-20 rounded-full bg-gym-orange/20 border-2 border-gym-orange overflow-hidden flex items-center justify-center text-gym-orange font-bold text-xl uppercase">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 mb-6">
+            <div className="w-20 h-20 rounded-full bg-gym-orange/20 border-2 border-gym-orange overflow-hidden flex items-center justify-center text-gym-orange font-bold text-xl uppercase shrink-0">
               {photoPreview ? (
                 <img src={photoPreview} alt={user?.name} className="w-full h-full object-cover" />
               ) : (
@@ -129,7 +129,7 @@ const MemberProfile = () => {
               )}
             </div>
             <div>
-              <label className="cursor-pointer bg-gym-dark hover:bg-gym-cardHover text-slate-200 px-4 py-2 rounded-xl text-xs font-semibold border border-gym-border inline-flex items-center space-x-2">
+              <label className="cursor-pointer bg-gym-dark hover:bg-gym-cardHover text-slate-200 px-4 py-3 rounded-xl text-xs font-semibold border border-gym-border inline-flex items-center justify-center space-x-2 min-h-[44px]">
                 <Upload className="w-4 h-4 text-gym-orange" />
                 <span>Upload New Photo</span>
                 <input

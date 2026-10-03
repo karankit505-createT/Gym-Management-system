@@ -34,17 +34,17 @@ const PaymentReports = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6">
       
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gym-border pb-4">
         <div>
-          <span className="text-gym-orange text-xs font-bold uppercase tracking-widest">Admin Control</span>
-          <h1 className="text-3xl font-black text-white uppercase tracking-tight">PAYMENT AUDIT & REPORTS</h1>
+          <span className="text-gym-orange text-[10px] sm:text-xs font-bold uppercase tracking-widest">Admin Control</span>
+          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">PAYMENT AUDIT & REPORTS</h1>
         </div>
 
         <button
           onClick={handleExportCsv}
-          className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center space-x-2"
+          className="w-full sm:w-auto px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 min-h-[44px]"
         >
           <Download className="w-4 h-4" />
           <span>Export CSV Report</span>
@@ -58,13 +58,13 @@ const PaymentReports = () => {
       )}
 
       {/* FILTER STRIP */}
-      <div className="bg-gym-card border border-gym-border/80 rounded-3xl p-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="bg-gym-card border border-gym-border/80 rounded-2xl sm:rounded-3xl p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <label className="block text-xs font-medium text-gym-muted mb-1">Filter Payment Status</label>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-xs text-white focus:outline-none"
+            className="w-full bg-gym-dark border border-gym-border rounded-xl p-3 text-xs text-white focus:outline-none min-h-[44px]"
           >
             <option value="">All Statuses</option>
             <option value="success">Success</option>
@@ -79,7 +79,7 @@ const PaymentReports = () => {
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-xs text-white focus:outline-none"
+            className="w-full bg-gym-dark border border-gym-border rounded-xl p-3 text-xs text-white focus:outline-none min-h-[44px]"
           />
         </div>
 
@@ -89,7 +89,7 @@ const PaymentReports = () => {
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-xs text-white focus:outline-none"
+            className="w-full bg-gym-dark border border-gym-border rounded-xl p-3 text-xs text-white focus:outline-none min-h-[44px]"
           />
         </div>
       </div>

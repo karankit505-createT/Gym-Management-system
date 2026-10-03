@@ -43,25 +43,25 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 glass-panel border-b border-gym-border/60 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-24 flex-nowrap">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20 lg:h-24 flex-nowrap">
           
           {/* Logo */}
-          <Link to={getBrandRedirect()} className="flex items-center space-x-3.5 group whitespace-nowrap flex-shrink-0">
-            <div className="bg-gym-orange/20 p-2.5 sm:p-3 rounded-2xl border border-gym-orange/40 group-hover:bg-gym-orange transition-colors duration-300">
-              <Dumbbell className="h-7 w-7 sm:h-8 sm:w-8 text-gym-orange group-hover:text-white transition-colors" />
+          <Link to={getBrandRedirect()} className="flex items-center space-x-2.5 sm:space-x-3.5 group whitespace-nowrap flex-shrink-0">
+            <div className="bg-gym-orange/20 p-2 sm:p-3 rounded-xl sm:rounded-2xl border border-gym-orange/40 group-hover:bg-gym-orange transition-colors duration-300">
+              <Dumbbell className="h-5 w-5 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-gym-orange group-hover:text-white transition-colors" />
             </div>
             <div>
-              <span className="text-2xl sm:text-3xl font-black tracking-tight text-white uppercase font-sans whitespace-nowrap">
+              <span className="text-lg sm:text-2xl lg:text-3xl font-black tracking-tight text-white uppercase font-sans whitespace-nowrap">
                 IRON<span className="text-gym-orange">PULSE</span>
               </span>
-              <span className="block text-[10px] sm:text-xs font-bold tracking-widest text-gym-muted uppercase whitespace-nowrap">
+              <span className="block text-[9px] sm:text-[10px] lg:text-xs font-bold tracking-widest text-gym-muted uppercase whitespace-nowrap">
                 {isAuthenticated ? `${role.toUpperCase()} PORTAL` : 'FITNESS & GYM CLUB'}
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation Links (Switches to Mobile Hamburger below 1024px) */}
+          {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center space-x-1 xl:space-x-2 flex-nowrap">
             
             {/* VISITOR (NOT LOGGED IN) */}
@@ -251,7 +251,7 @@ const Navbar = () => {
                 <button
                   onClick={handleLogout}
                   title="Logout"
-                  className="p-1.5 text-gym-muted hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                  className="p-2 text-gym-muted hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>
@@ -278,69 +278,87 @@ const Navbar = () => {
           <div className="flex lg:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-300 hover:text-white focus:outline-none"
+              className="p-2.5 text-slate-300 hover:text-white focus:outline-none min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-gym-card/80 border border-gym-border/80"
+              aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-7 h-7 text-gym-orange" /> : <Menu className="w-7 h-7 text-gym-orange" />}
+              {mobileMenuOpen ? <X className="w-6 h-6 text-gym-orange" /> : <Menu className="w-6 h-6 text-gym-orange" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation (visible on screens < 1024px) */}
+      {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden glass-panel border-b border-gym-border px-4 pt-3 pb-6 space-y-2">
+        <div className="lg:hidden bg-[#13132B]/98 backdrop-blur-2xl border-b border-gym-border/80 px-4 pt-3 pb-6 space-y-2 shadow-2xl animate-in slide-in-from-top duration-200">
           {!isAuthenticated && (
-            <>
-              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Home</Link>
-              <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">About Us</Link>
-              <Link to="/membership" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Membership</Link>
-              <Link to="/facilities" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Facilities</Link>
-              <Link to="/testimonials" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Testimonials</Link>
-              <div className="pt-2 flex flex-col space-y-2">
-                <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="block text-center py-2 text-slate-200 bg-gym-card rounded-md">Login</Link>
-                <Link to="/register" onClick={() => setMobileMenuOpen(false)} className="block text-center py-2 text-white bg-gym-orange rounded-md">Register Now</Link>
+            <div className="space-y-1.5">
+              <Link to="/" onClick={() => setMobileMenuOpen(false)} className={`flex items-center min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}>Home</Link>
+              <Link to="/about" onClick={() => setMobileMenuOpen(false)} className={`flex items-center min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/about') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}>About Us</Link>
+              <Link to="/membership" onClick={() => setMobileMenuOpen(false)} className={`flex items-center min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/membership') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}>Membership</Link>
+              <Link to="/facilities" onClick={() => setMobileMenuOpen(false)} className={`flex items-center min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/facilities') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}>Facilities</Link>
+              <Link to="/testimonials" onClick={() => setMobileMenuOpen(false)} className={`flex items-center min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/testimonials') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}>Testimonials</Link>
+              
+              <div className="pt-3 border-t border-gym-border/60 flex flex-col space-y-2">
+                <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-center min-h-[44px] text-center font-bold text-slate-200 bg-gym-card hover:bg-gym-cardHover border border-gym-border/80 rounded-xl">Login</Link>
+                <Link to="/register" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-center min-h-[44px] text-center font-extrabold text-white bg-gym-orange hover:bg-gym-orangeHover rounded-xl shadow-lg shadow-gym-orange/20">Join Now</Link>
               </div>
-            </>
+            </div>
           )}
 
           {isAuthenticated && (
-            <>
+            <div className="space-y-1.5">
+              {/* Profile Card Header in Mobile Menu */}
+              <div className="p-3 mb-2 bg-gym-card rounded-2xl border border-gym-border flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-gym-orange/20 border border-gym-orange text-gym-orange font-bold flex items-center justify-center text-sm uppercase overflow-hidden">
+                    {user?.photo ? (
+                      <img src={`http://localhost:5000/uploads/${user.photo}`} alt={user.name} className="w-full h-full object-cover" />
+                    ) : (
+                      user?.name?.charAt(0) || 'U'
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-sm font-extrabold text-white leading-tight">{user?.name}</p>
+                    <span className="text-xs text-gym-orange font-semibold uppercase tracking-wider">{role}</span>
+                  </div>
+                </div>
+                <Link to="/member/profile" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 bg-gym-dark text-xs font-bold text-slate-300 border border-gym-border rounded-xl">Profile</Link>
+              </div>
+
               {role === 'user' && (
                 <>
-                  <Link to="/member/dashboard" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">My Dashboard</Link>
-                  <Link to="/member/choose-plan" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Choose Plan</Link>
-                  <Link to="/member/payments" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Payment History</Link>
-                  <Link to="/member/profile" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">My Profile</Link>
+                  <Link to="/member/dashboard" onClick={() => setMobileMenuOpen(false)} className={`flex items-center space-x-2.5 min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/member/dashboard') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}><LayoutDashboard className="w-4 h-4" /><span>My Dashboard</span></Link>
+                  <Link to="/member/choose-plan" onClick={() => setMobileMenuOpen(false)} className={`flex items-center space-x-2.5 min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/member/choose-plan') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}><Award className="w-4 h-4" /><span>Choose Plan</span></Link>
+                  <Link to="/member/payments" onClick={() => setMobileMenuOpen(false)} className={`flex items-center space-x-2.5 min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/member/payments') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}><CreditCard className="w-4 h-4" /><span>Payment History</span></Link>
                 </>
               )}
 
               {role === 'staff' && (
                 <>
-                  <Link to="/staff/dashboard" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Attendance & Check-In</Link>
-                  <Link to="/member/profile" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">My Profile</Link>
+                  <Link to="/staff/dashboard" onClick={() => setMobileMenuOpen(false)} className={`flex items-center space-x-2.5 min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/staff/dashboard') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}><Calendar className="w-4 h-4" /><span>Attendance & Member Check-In</span></Link>
                 </>
               )}
 
               {role === 'admin' && (
                 <>
-                  <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Admin Dashboard</Link>
-                  <Link to="/admin/members" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Manage Members</Link>
-                  <Link to="/admin/staff" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Manage Staff</Link>
-                  <Link to="/admin/plans" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Manage Plans</Link>
-                  <Link to="/admin/payments" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Payment Reports</Link>
-                  <Link to="/admin/announcements" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Manage Notices</Link>
-                  <Link to="/admin/inquiries" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">Contact Inquiries</Link>
-                  <Link to="/member/profile" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-slate-200 hover:bg-gym-card">My Profile</Link>
+                  <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)} className={`flex items-center space-x-2.5 min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/admin/dashboard') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}><LayoutDashboard className="w-4 h-4" /><span>Dashboard</span></Link>
+                  <Link to="/admin/members" onClick={() => setMobileMenuOpen(false)} className={`flex items-center space-x-2.5 min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/admin/members') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}><Users className="w-4 h-4" /><span>Members</span></Link>
+                  <Link to="/admin/staff" onClick={() => setMobileMenuOpen(false)} className={`flex items-center space-x-2.5 min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/admin/staff') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}><ShieldAlert className="w-4 h-4" /><span>Staff</span></Link>
+                  <Link to="/admin/plans" onClick={() => setMobileMenuOpen(false)} className={`flex items-center space-x-2.5 min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/admin/plans') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}><Award className="w-4 h-4" /><span>Plans</span></Link>
+                  <Link to="/admin/payments" onClick={() => setMobileMenuOpen(false)} className={`flex items-center space-x-2.5 min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/admin/payments') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}><CreditCard className="w-4 h-4" /><span>Reports</span></Link>
+                  <Link to="/admin/announcements" onClick={() => setMobileMenuOpen(false)} className={`flex items-center space-x-2.5 min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/admin/announcements') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}><Megaphone className="w-4 h-4" /><span>Notices</span></Link>
+                  <Link to="/admin/inquiries" onClick={() => setMobileMenuOpen(false)} className={`flex items-center space-x-2.5 min-h-[44px] px-3.5 py-2.5 rounded-xl text-sm font-bold ${isActive('/admin/inquiries') ? 'text-gym-orange bg-gym-orange/10 border border-gym-orange/30' : 'text-slate-200 hover:bg-gym-card'}`}><MessageSquare className="w-4 h-4" /><span>Inquiries</span></Link>
                 </>
               )}
 
               <button
                 onClick={() => { setMobileMenuOpen(false); handleLogout(); }}
-                className="w-full text-left px-3 py-2 text-red-400 font-semibold hover:bg-red-500/10 rounded-md mt-2"
+                className="w-full flex items-center justify-between min-h-[44px] px-3.5 py-2.5 text-red-400 font-bold hover:bg-red-500/10 rounded-xl mt-3 border border-red-500/20"
               >
-                Logout ({user?.name})
+                <span>Logout Account</span>
+                <LogOut className="w-4 h-4" />
               </button>
-            </>
+            </div>
           )}
         </div>
       )}

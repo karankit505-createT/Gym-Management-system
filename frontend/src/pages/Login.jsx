@@ -83,15 +83,15 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md bg-gym-card border border-gym-border/80 rounded-3xl p-8 shadow-2xl glow-orange">
+    <div className="min-h-[80vh] flex items-center justify-center px-3 sm:px-4 py-8 sm:py-12">
+      <div className="w-full max-w-md bg-gym-card border border-gym-border/80 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl glow-orange">
         
         {/* Header */}
         <div className="text-center space-y-2 mb-6">
-          <div className="inline-flex p-3 bg-gym-orange/20 rounded-2xl border border-gym-orange/40 mb-2">
-            <Dumbbell className="w-8 h-8 text-gym-orange" />
+          <div className="inline-flex p-2.5 sm:p-3 bg-gym-orange/20 rounded-2xl border border-gym-orange/40 mb-1">
+            <Dumbbell className="w-7 h-7 sm:w-8 sm:h-8 text-gym-orange" />
           </div>
-          <h2 className="text-2xl font-black text-white uppercase tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
             {otpRequired ? 'Verify Your OTP' : 'Welcome Back'}
           </h2>
           <p className="text-xs text-gym-muted">
@@ -203,25 +203,25 @@ const Login = () => {
         {/* Demo Account Quick Fill Helper */}
         <div className="mt-6 pt-4 border-t border-gym-border/50 text-center space-y-2">
           <p className="text-[11px] text-gym-muted uppercase tracking-wider font-semibold">Quick Demo Login Accounts</p>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             <button
               type="button"
               onClick={() => fillDemoAccount('member')}
-              className="py-1.5 px-2 bg-gym-dark hover:bg-gym-orange/20 text-slate-300 hover:text-gym-orange border border-gym-border text-[11px] font-semibold rounded-lg transition-colors"
+              className="py-2.5 px-2 bg-gym-dark hover:bg-gym-orange/20 text-slate-300 hover:text-gym-orange border border-gym-border text-xs font-semibold rounded-xl transition-colors min-h-[44px] flex items-center justify-center"
             >
               Member Demo
             </button>
             <button
               type="button"
               onClick={() => fillDemoAccount('staff')}
-              className="py-1.5 px-2 bg-gym-dark hover:bg-gym-orange/20 text-slate-300 hover:text-gym-orange border border-gym-border text-[11px] font-semibold rounded-lg transition-colors"
+              className="py-2.5 px-2 bg-gym-dark hover:bg-gym-orange/20 text-slate-300 hover:text-gym-orange border border-gym-border text-xs font-semibold rounded-xl transition-colors min-h-[44px] flex items-center justify-center"
             >
               Staff Demo
             </button>
             <button
               type="button"
               onClick={() => fillDemoAccount('admin')}
-              className="py-1.5 px-2 bg-gym-dark hover:bg-gym-orange/20 text-slate-300 hover:text-gym-orange border border-gym-border text-[11px] font-semibold rounded-lg transition-colors"
+              className="py-2.5 px-2 bg-gym-dark hover:bg-gym-orange/20 text-slate-300 hover:text-gym-orange border border-gym-border text-xs font-semibold rounded-xl transition-colors min-h-[44px] flex items-center justify-center"
             >
               Admin Demo
             </button>

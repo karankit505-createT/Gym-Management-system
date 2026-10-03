@@ -79,10 +79,10 @@ const ManageAnnouncements = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+    <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6">
       
       <div className="border-b border-gym-border pb-4">
-        <h1 className="text-3xl font-black text-white uppercase tracking-tight">GYM ANNOUNCEMENTS</h1>
+        <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">GYM ANNOUNCEMENTS</h1>
         <p className="text-xs text-gym-muted">Post important notices, holiday hours, or new class schedules for members</p>
       </div>
 

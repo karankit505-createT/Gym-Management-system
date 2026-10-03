@@ -55,14 +55,14 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md bg-gym-card border border-gym-border/80 rounded-3xl p-8 shadow-2xl">
+    <div className="min-h-[80vh] flex items-center justify-center px-3 sm:px-4 py-8 sm:py-12">
+      <div className="w-full max-w-md bg-gym-card border border-gym-border/80 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl">
         
         <div className="text-center space-y-2 mb-6">
-          <div className="inline-flex p-3 bg-gym-orange/20 rounded-2xl border border-gym-orange/40 mb-2">
-            <KeyRound className="w-8 h-8 text-gym-orange" />
+          <div className="inline-flex p-2.5 sm:p-3 bg-gym-orange/20 rounded-2xl border border-gym-orange/40 mb-1">
+            <KeyRound className="w-7 h-7 sm:w-8 sm:h-8 text-gym-orange" />
           </div>
-          <h2 className="text-2xl font-black text-white uppercase">Reset Password</h2>
+          <h2 className="text-xl sm:text-2xl font-black text-white uppercase">Reset Password</h2>
           <p className="text-xs text-gym-muted">
             {step === 1 ? 'Enter your registered email to receive a password reset OTP' : 'Enter the OTP and your new password'}
           </p>

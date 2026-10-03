@@ -45,27 +45,27 @@ const MemberDashboard = () => {
   const { status, membership, daysRemaining, expiringSoon, announcements } = data || {};
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
       
       {/* Top Banner Greeting */}
-      <div className="bg-gym-card border border-gym-border/80 rounded-3xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+      <div className="bg-gym-card border border-gym-border/80 rounded-2xl sm:rounded-3xl p-5 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-5 relative overflow-hidden">
         <div className="space-y-2 text-center md:text-left">
           <div className="inline-flex items-center space-x-2 bg-gym-orange/15 px-3 py-1 rounded-full text-gym-orange text-xs font-semibold">
             <Flame className="w-4 h-4" />
             <span>Member Portal</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white">Welcome Back, {user?.name}!</h1>
+          <h1 className="text-xl sm:text-3xl font-black text-white">Welcome Back, {user?.name}!</h1>
           <p className="text-xs sm:text-sm text-gym-muted">
             Track your active plan, membership validity, announcements, and payment receipts.
           </p>
         </div>
 
         {/* Action Button */}
-        <div>
+        <div className="w-full sm:w-auto">
           {status === 'active' ? (
             <Link
               to="/member/choose-plan"
-              className="px-6 py-3 bg-gym-orange/20 border border-gym-orange text-gym-orange hover:bg-gym-orange hover:text-white font-bold text-xs rounded-xl transition-all inline-flex items-center space-x-2"
+              className="w-full sm:w-auto px-6 py-3.5 bg-gym-orange/20 border border-gym-orange text-gym-orange hover:bg-gym-orange hover:text-white font-bold text-xs rounded-xl transition-all inline-flex items-center justify-center space-x-2 min-h-[44px]"
             >
               <Award className="w-4 h-4" />
               <span>Renew / Upgrade Plan</span>
@@ -73,7 +73,7 @@ const MemberDashboard = () => {
           ) : (
             <Link
               to="/member/choose-plan"
-              className="px-6 py-3.5 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold text-xs rounded-xl shadow-lg shadow-gym-orange/30 transition-all inline-flex items-center space-x-2"
+              className="w-full sm:w-auto px-6 py-3.5 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold text-xs rounded-xl shadow-lg shadow-gym-orange/30 transition-all inline-flex items-center justify-center space-x-2 min-h-[44px]"
             >
               <span>Get Gym Membership</span>
               <ArrowRight className="w-4 h-4" />
@@ -84,8 +84,8 @@ const MemberDashboard = () => {
 
       {/* 7-DAY EXPIRY ALERT BANNER */}
       {expiringSoon && (
-        <div className="bg-amber-500/15 border-2 border-amber-500/60 p-4 rounded-2xl flex items-center justify-between space-x-4 animate-pulse">
-          <div className="flex items-center space-x-3 text-amber-300">
+        <div className="bg-amber-500/15 border-2 border-amber-500/60 p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 animate-pulse text-center sm:text-left">
+          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-3 text-amber-300">
             <AlertTriangle className="w-6 h-6 shrink-0 text-amber-400" />
             <div>
               <h4 className="font-bold text-sm">Membership Expiring Soon!</h4>
@@ -94,7 +94,7 @@ const MemberDashboard = () => {
           </div>
           <Link
             to="/member/choose-plan"
-            className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-xs rounded-xl shrink-0 transition-colors"
+            className="w-full sm:w-auto px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-xs rounded-xl shrink-0 transition-colors text-center min-h-[44px] flex items-center justify-center"
           >
             Renew Now
           </Link>

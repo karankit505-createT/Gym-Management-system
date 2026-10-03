@@ -108,17 +108,17 @@ const ManagePlans = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6">
       
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gym-border pb-4">
         <div>
-          <span className="text-gym-orange text-xs font-bold uppercase tracking-widest">Admin Control</span>
-          <h1 className="text-3xl font-black text-white uppercase tracking-tight">MEMBERSHIP PLAN CRUD</h1>
+          <span className="text-gym-orange text-[10px] sm:text-xs font-bold uppercase tracking-widest">Admin Control</span>
+          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">MEMBERSHIP PLAN CRUD</h1>
         </div>
 
         <button
           onClick={handleOpenCreateModal}
-          className="px-5 py-2.5 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center space-x-2"
+          className="w-full sm:w-auto px-5 py-3 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 min-h-[44px]"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Plan</span>
@@ -141,12 +141,12 @@ const ManagePlans = () => {
       {loading ? (
         <div className="text-center py-20 text-gym-muted">Loading plans...</div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {plans.map((p) => (
-            <div key={p.id} className="bg-gym-card border border-gym-border/80 rounded-3xl p-6 flex flex-col justify-between space-y-4">
+            <div key={p.id} className="bg-gym-card border border-gym-border/80 rounded-2xl sm:rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-4">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-extrabold text-white text-lg">{p.name}</h3>
+                  <h3 className="font-extrabold text-white text-base sm:text-lg">{p.name}</h3>
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                     p.is_active ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'
                   }`}>
@@ -155,7 +155,7 @@ const ManagePlans = () => {
                 </div>
 
                 <div className="my-3">
-                  <span className="text-3xl font-black text-white">₹{parseFloat(p.price).toFixed(2)}</span>
+                  <span className="text-2xl sm:text-3xl font-black text-white">₹{parseFloat(p.price).toFixed(2)}</span>
                   <span className="text-xs text-gym-muted ml-1">/ {p.duration_days} Days</span>
                 </div>
 
@@ -167,7 +167,7 @@ const ManagePlans = () => {
               <div className="flex space-x-2 pt-2 border-t border-gym-border/40">
                 <button
                   onClick={() => handleOpenEditModal(p)}
-                  className="flex-1 py-2 bg-gym-dark hover:bg-gym-cardHover text-slate-200 border border-gym-border rounded-xl text-xs font-bold transition-colors flex items-center justify-center space-x-1"
+                  className="flex-1 py-2.5 bg-gym-dark hover:bg-gym-cardHover text-slate-200 border border-gym-border rounded-xl text-xs font-bold transition-colors flex items-center justify-center space-x-1 min-h-[44px]"
                 >
                   <Edit3 className="w-3.5 h-3.5 text-gym-orange" />
                   <span>Edit</span>
@@ -175,7 +175,7 @@ const ManagePlans = () => {
 
                 <button
                   onClick={() => handleOpenDeleteModal(p)}
-                  className="p-2 text-gym-muted hover:text-red-400 hover:bg-red-500/10 rounded-xl border border-gym-border transition-colors"
+                  className="p-2.5 text-gym-muted hover:text-red-400 hover:bg-red-500/10 rounded-xl border border-gym-border transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>

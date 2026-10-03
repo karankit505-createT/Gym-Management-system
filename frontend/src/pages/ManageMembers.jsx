@@ -352,11 +352,11 @@ const ManageMembers = () => {
 
       {/* MANUAL MEMBERSHIP MODAL */}
       {showMembershipModal && selectedMember && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#161626] border border-gym-orange/50 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-[#161626] border border-gym-orange/50 rounded-2xl max-w-md w-[95%] sm:w-full p-5 sm:p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center border-b border-gym-border pb-3">
-              <h3 className="font-bold text-white text-base">Membership Control: {selectedMember.name}</h3>
-              <button onClick={() => setShowMembershipModal(false)} className="text-gym-muted hover:text-white">
+              <h3 className="font-bold text-white text-sm sm:text-base">Membership Control: {selectedMember.name}</h3>
+              <button onClick={() => setShowMembershipModal(false)} className="text-gym-muted hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -367,7 +367,7 @@ const ManageMembers = () => {
                 <select
                   value={modalAction}
                   onChange={(e) => setModalAction(e.target.value)}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-3 text-sm text-white focus:outline-none min-h-[44px]"
                 >
                   <option value="activate">Activate / Assign Plan</option>
                   <option value="extend">Extend Existing Plan (Days)</option>
@@ -381,7 +381,7 @@ const ManageMembers = () => {
                   <select
                     value={selectedPlanId}
                     onChange={(e) => setSelectedPlanId(e.target.value)}
-                    className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                    className="w-full bg-gym-dark border border-gym-border rounded-xl p-3 text-sm text-white focus:outline-none min-h-[44px]"
                   >
                     {plans.map((p) => (
                       <option key={p.id} value={p.id}>
@@ -399,14 +399,14 @@ const ManageMembers = () => {
                     type="number"
                     value={extensionDays}
                     onChange={(e) => setExtensionDays(e.target.value)}
-                    className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                    className="w-full bg-gym-dark border border-gym-border rounded-xl p-3 text-sm text-white focus:outline-none min-h-[44px]"
                   />
                 </div>
               )}
 
               <button
                 type="submit"
-                className="w-full py-3 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold rounded-xl shadow-lg transition-all"
+                className="w-full py-3 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold rounded-xl shadow-lg transition-all min-h-[44px]"
               >
                 Apply Membership Update
               </button>
@@ -417,11 +417,11 @@ const ManageMembers = () => {
 
       {/* EDIT MEMBER PROFILE MODAL */}
       {showEditMemberModal && selectedMember && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#161626] border border-gym-orange/50 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-[#161626] border border-gym-orange/50 rounded-2xl max-w-md w-[95%] sm:w-full p-5 sm:p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center border-b border-gym-border pb-3">
-              <h3 className="font-bold text-white text-base">Edit Member Profile</h3>
-              <button onClick={() => setShowEditMemberModal(false)} className="text-gym-muted hover:text-white">
+              <h3 className="font-bold text-white text-sm sm:text-base">Edit Member Profile</h3>
+              <button onClick={() => setShowEditMemberModal(false)} className="text-gym-muted hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
                 <X className="w-5 h-5" />
               </button>
             </div>

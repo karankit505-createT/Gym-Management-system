@@ -83,15 +83,15 @@ const Register = () => {
   const todayStr = new Date().toISOString().split('T')[0];
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-2xl bg-gym-card border border-gym-border/80 rounded-3xl p-8 shadow-2xl">
+    <div className="min-h-[85vh] flex items-center justify-center px-3 sm:px-4 py-8 sm:py-12">
+      <div className="w-full max-w-2xl bg-gym-card border border-gym-border/80 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl">
         
         {/* Header */}
-        <div className="text-center space-y-2 mb-8">
-          <div className="inline-flex p-3 bg-gym-orange/20 rounded-2xl border border-gym-orange/40 mb-2">
-            <Dumbbell className="w-8 h-8 text-gym-orange" />
+        <div className="text-center space-y-2 mb-6 sm:mb-8">
+          <div className="inline-flex p-2.5 sm:p-3 bg-gym-orange/20 rounded-2xl border border-gym-orange/40 mb-1">
+            <Dumbbell className="w-7 h-7 sm:w-8 sm:h-8 text-gym-orange" />
           </div>
-          <h2 className="text-3xl font-black text-white uppercase tracking-tight">CREATE MEMBER ACCOUNT</h2>
+          <h2 className="text-xl sm:text-3xl font-black text-white uppercase tracking-tight">CREATE MEMBER ACCOUNT</h2>
           <p className="text-xs text-gym-muted">Join IronPulse Gym today and transform your fitness journey</p>
         </div>
 

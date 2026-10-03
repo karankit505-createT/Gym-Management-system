@@ -192,21 +192,21 @@ const StaffDashboard = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
       
       {/* HEADER PORTAL BANNER */}
-      <div className="bg-gym-card border border-gym-border/80 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
+      <div className="bg-gym-card border border-gym-border/80 rounded-2xl sm:rounded-3xl p-5 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
         <div>
-          <span className="text-gym-orange text-xs font-bold uppercase tracking-widest flex items-center space-x-2">
+          <span className="text-gym-orange text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center space-x-2">
             <Sparkles className="w-4 h-4 text-gym-orange inline" />
             <span>IronPulse Staff Operations Portal</span>
           </span>
-          <h1 className="text-2xl sm:text-3xl font-black text-white mt-1">STAFF DASHBOARD & CHECK-IN</h1>
+          <h1 className="text-xl sm:text-3xl font-black text-white mt-1">STAFF DASHBOARD & CHECK-IN</h1>
           <p className="text-xs text-gym-muted mt-1">Today's Date: {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
         </div>
 
-        <div className="flex items-center space-x-3 bg-gym-dark/60 border border-gym-border px-4 py-2.5 rounded-2xl">
-          <Clock className="w-5 h-5 text-gym-orange" />
+        <div className="flex items-center space-x-3 bg-gym-dark/60 border border-gym-border px-4 py-2.5 rounded-2xl w-full sm:w-auto">
+          <Clock className="w-5 h-5 text-gym-orange shrink-0" />
           <div>
             <p className="text-[10px] text-gym-muted font-bold uppercase">System Status</p>
             <p className="text-xs font-extrabold text-emerald-400">Live Attendance Sync Active</p>
