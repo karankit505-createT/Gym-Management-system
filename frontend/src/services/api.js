@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { downloadCsvReport } from '../utils/exportCsv';
 
 let rawUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 rawUrl = rawUrl.replace(/\/+$/, '');
@@ -84,6 +85,7 @@ export const adminAPI = {
   updateMember: (id, data) => api.put(`/admin/members/${id}`, data),
   updateMemberMembership: (id, data) => api.put(`/admin/members/${id}/membership`, data),
   deleteMember: (id) => api.delete(`/admin/members/${id}`),
+  exportMembersCsv: (params) => downloadCsvReport('/admin/members/export', params, 'members_report.csv'),
   getStaffList: () => api.get('/admin/staff'),
   addStaff: (data) => {
     if (data instanceof FormData) {
@@ -93,8 +95,9 @@ export const adminAPI = {
   },
   updateStaff: (id, data) => api.put(`/admin/staff/${id}`, data),
   deleteStaff: (id) => api.delete(`/admin/staff/${id}`),
+  exportStaffCsv: (params) => downloadCsvReport('/admin/staff/export', params, 'staff_report.csv'),
   getPayments: (params) => api.get('/admin/payments', { params }),
-  exportPaymentsCsv: (params) => `${API_BASE_URL}/admin/payments?exportCsv=true&${new URLSearchParams(params).toString()}`,
+  exportPaymentsCsv: (params) => downloadCsvReport('/admin/payments/export', params, 'payments_report.csv'),
   createAnnouncement: (data) => api.post('/admin/announcements', data),
   deleteAnnouncement: (id) => api.delete(`/admin/announcements/${id}`),
 };
@@ -103,6 +106,7 @@ export const adminAPI = {
 export const attendanceAPI = {
   markAttendance: (data) => api.post('/attendance/mark', data),
   getLogs: (params) => api.get('/attendance/logs', { params }),
+  exportAttendanceCsv: (params) => downloadCsvReport('/attendance/export', params, 'attendance_report.csv'),
 };
 
 // Contact Inquiry Services

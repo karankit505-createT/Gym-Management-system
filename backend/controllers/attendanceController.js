@@ -67,3 +67,49 @@ exports.getAttendanceLogs = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+// Export Attendance CSV
+exports.exportAttendanceCsv = async (req, res) => {
+  try {
+    const { date, user_id, search } = req.query;
+    const whereClause = {};
+
+    if (date) whereClause.date = date;
+    if (user_id) whereClause.user_id = user_id;
+
+    const logs = await Attendance.findAll({
+      where: whereClause,
+      include: [{ model: User, attributes: ['id', 'name', 'email', 'phone'] }],
+      order: [['date', 'DESC'], ['createdAt', 'DESC']]
+    });
+
+    let filtered = logs;
+    if (search) {
+      const q = search.toLowerCase();
+      filtered = logs.filter(l => l.User && (l.User.name.toLowerCase().includes(q) || l.User.email.toLowerCase().includes(q) || l.User.phone.includes(q)));
+    }
+
+    const { Parser } = require('json2csv');
+    const fields = ['LogID', 'MemberName', 'MemberEmail', 'MemberPhone', 'Date', 'CheckInTime', 'CheckOutTime'];
+    const data = filtered.map(l => ({
+      LogID: l.id,
+      MemberName: l.User ? l.User.name : 'N/A',
+      MemberEmail: l.User ? l.User.email : 'N/A',
+      MemberPhone: l.User ? l.User.phone : 'N/A',
+      Date: l.date,
+      CheckInTime: l.check_in || 'N/A',
+      CheckOutTime: l.check_out || 'N/A'
+    }));
+
+    const json2csvParser = new Parser({ fields });
+    const csv = json2csvParser.parse(data);
+
+    const dateStr = new Date().toISOString().split('T')[0];
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', `attachment; filename=attendance_report_${dateStr}.csv`);
+    return res.status(200).send(csv);
+  } catch (error) {
+    console.error('Export Attendance CSV Error:', error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};

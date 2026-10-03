@@ -6,5 +6,6 @@ const { protect, authorize } = require('../middleware/authMiddleware');
 // Staff and Admin can mark attendance & view logs
 router.post('/mark', protect, authorize('staff', 'admin'), attendanceController.markAttendance);
 router.get('/logs', protect, authorize('staff', 'admin'), attendanceController.getAttendanceLogs);
+router.get('/export', protect, authorize('staff', 'admin'), attendanceController.exportAttendanceCsv);
 
 module.exports = router;

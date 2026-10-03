@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { adminAPI, planAPI } from '../services/api';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
-import { Search, ShieldAlert, Trash2, Edit3, CheckCircle, X } from 'lucide-react';
+import { Search, ShieldAlert, Trash2, Edit3, CheckCircle, X, Download } from 'lucide-react';
 
 const ManageMembers = () => {
   const [members, setMembers] = useState([]);
@@ -9,6 +9,7 @@ const ManageMembers = () => {
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [loading, setLoading] = useState(true);
+  const [exporting, setExporting] = useState(false);
 
   // General Alerts
   const [error, setError] = useState('');
@@ -158,14 +159,34 @@ const ManageMembers = () => {
     }
   };
 
+  const handleExportCsv = async () => {
+    try {
+      setExporting(true);
+      await adminAPI.exportMembersCsv({ search, status: statusFilter });
+    } catch (err) {
+      setError('Failed to export members CSV report.');
+    } finally {
+      setExporting(false);
+    }
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6">
       
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gym-border pb-4">
         <div>
-          <span className="text-gym-orange text-xs font-bold uppercase tracking-widest">Admin Control</span>
-          <h1 className="text-3xl font-black text-white uppercase tracking-tight">MEMBER MANAGEMENT</h1>
+          <span className="text-gym-orange text-[10px] sm:text-xs font-bold uppercase tracking-widest">Admin Control</span>
+          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">MEMBER MANAGEMENT</h1>
         </div>
+
+        <button
+          onClick={handleExportCsv}
+          disabled={exporting}
+          className="w-full sm:w-auto px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 min-h-[44px] disabled:opacity-50"
+        >
+          <Download className="w-4 h-4" />
+          <span>{exporting ? 'Exporting CSV...' : 'Export Members CSV'}</span>
+        </button>
       </div>
 
       {msg && (

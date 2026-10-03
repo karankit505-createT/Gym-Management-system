@@ -16,7 +16,8 @@ import {
   Filter,
   UserX,
   Sparkles,
-  BookOpen
+  BookOpen,
+  Download
 } from 'lucide-react';
 
 const StaffDashboard = () => {
@@ -26,10 +27,22 @@ const StaffDashboard = () => {
   const [allMembers, setAllMembers] = useState([]);
   const [attendanceLogs, setAttendanceLogs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [msg, setMsg] = useState('');
   const [error, setError] = useState('');
 
   const todayStr = new Date().toISOString().split('T')[0];
+
+  const handleExportAttendanceCsv = async () => {
+    try {
+      setExporting(true);
+      await attendanceAPI.exportAttendanceCsv({ date: todayStr, search });
+    } catch (err) {
+      setError('Failed to export attendance CSV report.');
+    } finally {
+      setExporting(false);
+    }
+  };
 
   useEffect(() => {
     fetchLogs();
@@ -520,12 +533,19 @@ const StaffDashboard = () => {
 
       {/* TODAY'S ATTENDANCE LOG TABLE */}
       <div className="bg-gym-card border border-gym-border/80 rounded-3xl p-6 lg:p-8 space-y-4 shadow-xl">
-        <div className="flex items-center justify-between border-b border-gym-border/60 pb-3">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gym-border/60 pb-3">
           <h3 className="text-lg font-extrabold text-white flex items-center space-x-2">
             <Clock className="w-5 h-5 text-gym-orange" />
             <span>Today's Gym Check-ins Log ({attendanceLogs.length})</span>
           </h3>
-          <span className="text-xs text-gym-muted">Auto-refreshed live</span>
+          <button
+            onClick={handleExportAttendanceCsv}
+            disabled={exporting}
+            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center space-x-2 min-h-[40px] disabled:opacity-50"
+          >
+            <Download className="w-4 h-4" />
+            <span>{exporting ? 'Exporting...' : 'Export Attendance CSV'}</span>
+          </button>
         </div>
 
         {attendanceLogs.length === 0 ? (

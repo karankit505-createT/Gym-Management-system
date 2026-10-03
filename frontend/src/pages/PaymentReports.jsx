@@ -28,9 +28,17 @@ const PaymentReports = () => {
     }
   };
 
-  const handleExportCsv = () => {
-    const csvUrl = adminAPI.exportPaymentsCsv({ status, startDate, endDate });
-    window.open(csvUrl, '_blank');
+  const [exporting, setExporting] = useState(false);
+
+  const handleExportCsv = async () => {
+    try {
+      setExporting(true);
+      await adminAPI.exportPaymentsCsv({ status, startDate, endDate });
+    } catch (err) {
+      setError('Failed to export payments CSV report.');
+    } finally {
+      setExporting(false);
+    }
   };
 
   return (
@@ -44,10 +52,11 @@ const PaymentReports = () => {
 
         <button
           onClick={handleExportCsv}
-          className="w-full sm:w-auto px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 min-h-[44px]"
+          disabled={exporting}
+          className="w-full sm:w-auto px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 min-h-[44px] disabled:opacity-50"
         >
           <Download className="w-4 h-4" />
-          <span>Export CSV Report</span>
+          <span>{exporting ? 'Exporting...' : 'Export Payments CSV'}</span>
         </button>
       </div>
 

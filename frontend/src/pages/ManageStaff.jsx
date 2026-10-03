@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { adminAPI } from '../services/api';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
-import { Plus, Trash2, Edit3, CheckCircle, ShieldAlert, Eye, EyeOff, X } from 'lucide-react';
+import { Plus, Trash2, Edit3, CheckCircle, ShieldAlert, Eye, EyeOff, X, Download } from 'lucide-react';
 
 const ManageStaff = () => {
   const [staffList, setStaffList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [exporting, setExporting] = useState(false);
 
   // Add / Edit Modal States
   const [showAddModal, setShowAddModal] = useState(false);
@@ -145,22 +146,44 @@ const ManageStaff = () => {
     }
   };
 
+  const handleExportCsv = async () => {
+    try {
+      setExporting(true);
+      await adminAPI.exportStaffCsv({});
+    } catch (err) {
+      setError('Failed to export staff CSV report.');
+    } finally {
+      setExporting(false);
+    }
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6">
       
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gym-border pb-4">
         <div>
-          <span className="text-gym-orange text-xs font-bold uppercase tracking-widest">Admin Control</span>
-          <h1 className="text-3xl font-black text-white uppercase tracking-tight">STAFF MANAGEMENT</h1>
+          <span className="text-gym-orange text-[10px] sm:text-xs font-bold uppercase tracking-widest">Admin Control</span>
+          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">STAFF MANAGEMENT</h1>
         </div>
 
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="px-5 py-2.5 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center space-x-2"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Add New Staff</span>
-        </button>
+        <div className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
+          <button
+            onClick={handleExportCsv}
+            disabled={exporting}
+            className="w-full sm:w-auto px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 min-h-[44px] disabled:opacity-50"
+          >
+            <Download className="w-4 h-4" />
+            <span>{exporting ? 'Exporting...' : 'Export Staff CSV'}</span>
+          </button>
+
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="w-full sm:w-auto px-5 py-3 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 min-h-[44px]"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Add New Staff</span>
+          </button>
+        </div>
       </div>
 
       {msg && (

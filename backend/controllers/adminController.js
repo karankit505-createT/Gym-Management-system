@@ -502,7 +502,7 @@ exports.getPaymentReports = async (req, res) => {
       order: [['createdAt', 'DESC']]
     });
 
-    if (exportCsv === 'true') {
+    if (exportCsv === 'true' || req.path.endsWith('/export')) {
       const fields = ['id', 'TransactionID', 'MemberName', 'MemberEmail', 'Plan', 'Amount', 'Status', 'PaymentMethod', 'Date'];
       const data = payments.map(p => ({
         id: p.id,
@@ -519,13 +519,141 @@ exports.getPaymentReports = async (req, res) => {
       const json2csvParser = new Parser({ fields });
       const csv = json2csvParser.parse(data);
 
+      const dateStr = new Date().toISOString().split('T')[0];
       res.setHeader('Content-Type', 'text/csv');
-      res.setHeader('Content-Disposition', 'attachment; filename=payment_report.csv');
+      res.setHeader('Content-Disposition', `attachment; filename=payments_report_${dateStr}.csv`);
       return res.status(200).send(csv);
     }
 
     return res.status(200).json({ success: true, count: payments.length, payments });
   } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// 9b. Export Members CSV
+exports.exportMembersCsv = async (req, res) => {
+  try {
+    const { search, status } = req.query;
+
+    const whereUser = { role: 'user' };
+    if (search) {
+      whereUser[Op.or] = [
+        { name: { [Op.like]: `%${search}%` } },
+        { email: { [Op.like]: `%${search}%` } },
+        { phone: { [Op.like]: `%${search}%` } }
+      ];
+    }
+
+    const members = await User.findAll({
+      where: whereUser,
+      attributes: { exclude: ['password_hash'] },
+      include: [
+        {
+          model: Membership,
+          include: [{ model: Plan }],
+          order: [['end_date', 'DESC']]
+        }
+      ],
+      order: [['createdAt', 'DESC']]
+    });
+
+    let filtered = members;
+    if (status) {
+      const nowStr = new Date().toISOString().split('T')[0];
+      const in7DaysStr = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+      filtered = members.filter(m => {
+        const latestMem = m.Memberships && m.Memberships[0];
+        if (status === 'active') {
+          return latestMem && latestMem.status === 'active' && latestMem.end_date >= nowStr;
+        } else if (status === 'expired') {
+          return !latestMem || latestMem.status === 'expired' || latestMem.end_date < nowStr;
+        } else if (status === 'expiring_soon') {
+          return latestMem && latestMem.status === 'active' && latestMem.end_date >= nowStr && latestMem.end_date <= in7DaysStr;
+        }
+        return true;
+      });
+    }
+
+    const fields = ['MemberID', 'Name', 'Email', 'Phone', 'Gender', 'PlanName', 'StartDate', 'EndDate', 'Status', 'AmountPaid'];
+    const data = filtered.map(m => {
+      const latestMem = m.Memberships && m.Memberships[0];
+      const isActive = latestMem && latestMem.status === 'active';
+      return {
+        MemberID: m.id,
+        Name: m.name,
+        Email: m.email,
+        Phone: m.phone || 'N/A',
+        Gender: m.gender || 'N/A',
+        PlanName: latestMem && latestMem.Plan ? latestMem.Plan.name : 'No Plan',
+        StartDate: latestMem ? latestMem.start_date : 'N/A',
+        EndDate: latestMem ? latestMem.end_date : 'N/A',
+        Status: isActive ? 'Active' : 'Expired',
+        AmountPaid: latestMem ? latestMem.amount_paid : 0
+      };
+    });
+
+    const json2csvParser = new Parser({ fields });
+    const csv = json2csvParser.parse(data);
+
+    const dateStr = new Date().toISOString().split('T')[0];
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', `attachment; filename=members_report_${dateStr}.csv`);
+    return res.status(200).send(csv);
+  } catch (error) {
+    console.error('Export Members CSV Error:', error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// 9c. Export Staff CSV
+exports.exportStaffCsv = async (req, res) => {
+  try {
+    const { search } = req.query;
+
+    const staffMembers = await Staff.findAll({
+      include: [
+        { model: User, attributes: ['id', 'name', 'email', 'phone', 'photo', 'createdAt'] },
+        { model: User, as: 'Admin', attributes: ['id', 'name'] }
+      ],
+      order: [['createdAt', 'DESC']]
+    });
+
+    let filtered = staffMembers;
+    if (search) {
+      const q = search.toLowerCase();
+      filtered = staffMembers.filter(st => {
+        const u = st.User;
+        return (
+          (u && u.name && u.name.toLowerCase().includes(q)) ||
+          (u && u.email && u.email.toLowerCase().includes(q)) ||
+          (u && u.phone && u.phone.includes(q)) ||
+          (st.designation && st.designation.toLowerCase().includes(q))
+        );
+      });
+    }
+
+    const fields = ['StaffID', 'Name', 'Email', 'Phone', 'Designation', 'Permissions', 'DateAdded'];
+    const data = filtered.map(st => ({
+      StaffID: st.id,
+      Name: st.User ? st.User.name : 'N/A',
+      Email: st.User ? st.User.email : 'N/A',
+      Phone: st.User ? st.User.phone : 'N/A',
+      Designation: st.designation || 'N/A',
+      Permissions: st.permissions || 'N/A',
+      DateAdded: st.createdAt ? new Date(st.createdAt).toISOString().split('T')[0] : 'N/A'
+    }));
+
+    const json2csvParser = new Parser({ fields });
+    const csv = json2csvParser.parse(data);
+
+    const dateStr = new Date().toISOString().split('T')[0];
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', `attachment; filename=staff_report_${dateStr}.csv`);
+    return res.status(200).send(csv);
+  } catch (error) {
+    console.error('Export Staff CSV Error:', error);
     return res.status(500).json({ success: false, message: error.message });
   }
 };
