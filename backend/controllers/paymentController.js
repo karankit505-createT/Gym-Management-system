@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const { Payment, Membership, Plan, User } = require('../models');
 const sendEmail = require('../utils/sendEmail');
 const { generateInvoicePDF } = require('../utils/pdfGenerator');
+const { syncToMongo } = require('../utils/mongoSync');
 require('dotenv').config();
 
 const razorpayKeyId = process.env.RAZORPAY_KEY_ID || 'rzp_test_gym123456789';
@@ -142,6 +143,10 @@ exports.verifyPayment = async (req, res) => {
       payment_status: 'success',
       payment_method: payment_method || 'razorpay'
     });
+
+    // Sync Membership & Payment to MongoDB Atlas
+    syncToMongo('memberships', membership).catch(err => console.error('[MongoSync Membership Error]:', err.message));
+    syncToMongo('payments', payment).catch(err => console.error('[MongoSync Payment Error]:', err.message));
 
     // Send confirmation email in background (non-blocking)
     const user = req.user;

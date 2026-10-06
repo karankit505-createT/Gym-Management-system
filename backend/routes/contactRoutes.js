@@ -4,19 +4,33 @@ const {
   submitInquiry, 
   getInquiries, 
   updateInquiryStatus, 
-  deleteInquiry 
+  assignInquiry,
+  deleteInquiry,
+  getInquiryStats
 } = require('../controllers/contactController');
 const { protect, authorize } = require('../middleware/authMiddleware');
 
 // Public route: Submit contact form inquiry
 router.post('/submit', submitInquiry);
+router.post('/', submitInquiry);
 
-// Admin-protected routes
+// Protected routes (Admin & Staff)
 router.use(protect);
-router.use(authorize('admin'));
 
-router.get('/', getInquiries);
-router.patch('/:id', updateInquiryStatus);
-router.delete('/:id', deleteInquiry);
+// Stats - Admin Only
+router.get('/stats', authorize('admin'), getInquiryStats);
+
+// List inquiries - Admin & Staff
+router.get('/', authorize('admin', 'staff'), getInquiries);
+
+// Update status & notes - Admin & Staff
+router.put('/:id', authorize('admin', 'staff'), updateInquiryStatus);
+router.patch('/:id', authorize('admin', 'staff'), updateInquiryStatus);
+
+// Assign staff - Admin Only
+router.put('/:id/assign', authorize('admin'), assignInquiry);
+
+// Delete inquiry - Admin Only (Staff receives 403 Forbidden)
+router.delete('/:id', authorize('admin'), deleteInquiry);
 
 module.exports = router;

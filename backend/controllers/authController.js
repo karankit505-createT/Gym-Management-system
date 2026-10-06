@@ -59,7 +59,7 @@ exports.register = async (req, res) => {
     });
 
     // Robust Auto-Sync to MongoDB Atlas
-    syncToMongo('users', {
+    await syncToMongo('users', {
       mysql_id: newUser.id,
       name: newUser.name,
       email: newUser.email,

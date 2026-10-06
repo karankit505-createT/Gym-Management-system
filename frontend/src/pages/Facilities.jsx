@@ -3,18 +3,21 @@ import { Dumbbell, HeartPulse, Users, ShieldCheck, SquareParking, Smartphone, Sp
 
 const Facilities = () => {
   return (
-    <div className="space-y-20 pb-20 pt-6">
+    <div className="space-y-12 pb-16 pt-6 font-sans bg-slate-50">
       
       {/* HERO SECTION */}
-      <section className="relative overflow-hidden py-16 bg-gradient-to-b from-gym-orange/10 via-transparent to-transparent text-center">
+      <section className="bg-white border-b border-slate-200 py-10 text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight mb-4 font-sans">
-            FACILITIES & <span className="gradient-text">EQUIPMENT ZONES</span>
+          <span className="text-red-600 text-xs font-bold uppercase tracking-wider block mb-1">
+            Training Equipment & Amenities
+          </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-black text-slate-900 uppercase tracking-tight mb-2">
+            GYM FACILITIES & <span className="text-red-600">ZONES</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-gym-muted max-w-2xl mx-auto font-normal leading-relaxed">
-            2,000 sq ft of high-performance training ground engineered for champions. Discover our premium zones and luxury recovery suites.
+          <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
+            2,000 sq ft equipped with heavy-duty power racks, cardio units, steam room, and personal lockers.
           </p>
 
         </div>
@@ -22,101 +25,95 @@ const Facilities = () => {
 
       {/* FACILITIES GRID */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           
-          <div className="bg-gym-card border border-gym-border/80 p-8 rounded-3xl space-y-4 hover:border-gym-orange/50 transition-all">
-            <div className="w-12 h-12 rounded-2xl bg-gym-orange/20 border border-gym-orange/30 flex items-center justify-center text-gym-orange">
-              <Dumbbell className="w-6 h-6" />
+          <div className="bg-white border border-slate-200 p-6 rounded-md space-y-3">
+            <div className="w-10 h-10 rounded-md bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
+              <Dumbbell className="w-5 h-5" />
             </div>
-            <h3 className="text-2xl font-bold text-white">Free Weights & Power Racks</h3>
-            <p className="text-xs font-bold text-gym-orange uppercase tracking-wider">Heavy Strength Zone</p>
-            <p className="text-xs text-gym-muted leading-relaxed">
-              Eleiko Olympic barbells, Hammer Strength plate-loaded machines, power cages, and rubber-coated dumbbells ranging from 2.5kg to 60kg.
+            <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Free Weights & Power Racks</h3>
+            <p className="text-xs font-bold text-red-600 uppercase">Heavy Strength Section</p>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Olympic barbells, heavy dumbbells (2.5kg to 50kg), power cages, incline/decline benches, and cable crossover machines.
             </p>
-            <div className="flex flex-wrap gap-2 pt-2">
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Olympic Bars</span>
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Power Cages</span>
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Up to 60kg</span>
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold text-slate-700">Olympic Bars</span>
+              <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold text-slate-700">Power Cages</span>
             </div>
           </div>
 
-          <div className="bg-gym-card border border-gym-border/80 p-8 rounded-3xl space-y-4 hover:border-gym-orange/50 transition-all">
-            <div className="w-12 h-12 rounded-2xl bg-gym-orange/20 border border-gym-orange/30 flex items-center justify-center text-gym-orange">
-              <HeartPulse className="w-6 h-6" />
+          <div className="bg-white border border-slate-200 p-6 rounded-md space-y-3">
+            <div className="w-10 h-10 rounded-md bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
+              <HeartPulse className="w-5 h-5" />
             </div>
-            <h3 className="text-2xl font-bold text-white">Cardio Cinema & Endurance</h3>
-            <p className="text-xs font-bold text-gym-orange uppercase tracking-wider">Cardio & Stamina Zone</p>
-            <p className="text-xs text-gym-muted leading-relaxed">
-              Life Fitness treadmills, StairMasters, Concept2 rowers, SkiErgs, and assault bikes equipped with interactive screens and heart-rate monitoring.
+            <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Cardio & Stamina Zone</h3>
+            <p className="text-xs font-bold text-red-600 uppercase">Endurance Section</p>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Treadmills, elliptical trainers, spin bikes, rowers, and stair climbers for high-calorie cardio conditioning.
             </p>
-            <div className="flex flex-wrap gap-2 pt-2">
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Interactive Screens</span>
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">StairMasters</span>
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Concept2 Rowers</span>
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold text-slate-700">Treadmills</span>
+              <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold text-slate-700">Spin Bikes</span>
             </div>
           </div>
 
-          <div className="bg-gym-card border border-gym-border/80 p-8 rounded-3xl space-y-4 hover:border-gym-orange/50 transition-all">
-            <div className="w-12 h-12 rounded-2xl bg-gym-orange/20 border border-gym-orange/30 flex items-center justify-center text-gym-orange">
-              <Users className="w-6 h-6" />
+          <div className="bg-white border border-slate-200 p-6 rounded-md space-y-3">
+            <div className="w-10 h-10 rounded-md bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
+              <Users className="w-5 h-5" />
             </div>
-            <h3 className="text-2xl font-bold text-white">Group HIIT & Yoga Studio</h3>
-            <p className="text-xs font-bold text-gym-orange uppercase tracking-wider">Group Exercise Studio</p>
-            <p className="text-xs text-gym-muted leading-relaxed">
-              Sprung wooden flooring studio hosted by certified instructors for CrossFit, Zumba, Spin cycling, and Vinyasa Yoga.
+            <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Group Exercise Studio</h3>
+            <p className="text-xs font-bold text-red-600 uppercase">Aerobics & HIIT</p>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Dedicated studio area hosted by instructors for HIIT workshops, bodyweight conditioning, and stretching routines.
             </p>
-            <div className="flex flex-wrap gap-2 pt-2">
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Daily HIIT</span>
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Spin Bikes</span>
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Yoga Mats</span>
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold text-slate-700">Morning HIIT</span>
+              <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold text-slate-700">Yoga Mats</span>
             </div>
           </div>
 
-          <div className="bg-gym-card border border-gym-border/80 p-8 rounded-3xl space-y-4 hover:border-gym-orange/50 transition-all">
-            <div className="w-12 h-12 rounded-2xl bg-gym-orange/20 border border-gym-orange/30 flex items-center justify-center text-gym-orange">
-              <Sparkles className="w-6 h-6" />
+          <div className="bg-white border border-slate-200 p-6 rounded-md space-y-3">
+            <div className="w-10 h-10 rounded-md bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
+              <Sparkles className="w-5 h-5" />
             </div>
-            <h3 className="text-2xl font-bold text-white">Steam Room & Finnish Sauna</h3>
-            <p className="text-xs font-bold text-gym-orange uppercase tracking-wider">Post-Workout Recovery Spa</p>
-            <p className="text-xs text-gym-muted leading-relaxed">
-              Detoxify your body and soothe sore muscles in our temperature-controlled aromatic steam room and authentic cedarwood Finnish sauna.
+            <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Steam Room & Sauna</h3>
+            <p className="text-xs font-bold text-red-600 uppercase">Post-Workout Recovery</p>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Clean steam sauna room available for members to relax muscle soreness post training.
             </p>
-            <div className="flex flex-wrap gap-2 pt-2">
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Steam Room</span>
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Cedar Sauna</span>
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Muscle Rehab</span>
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold text-slate-700">Steam Room</span>
+              <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold text-slate-700">Clean Showers</span>
             </div>
           </div>
 
-          <div className="bg-gym-card border border-gym-border/80 p-8 rounded-3xl space-y-4 hover:border-gym-orange/50 transition-all">
-            <div className="w-12 h-12 rounded-2xl bg-gym-orange/20 border border-gym-orange/30 flex items-center justify-center text-gym-orange">
-              <SquareParking className="w-6 h-6" />
+          <div className="bg-white border border-slate-200 p-6 rounded-md space-y-3">
+            <div className="w-10 h-10 rounded-md bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
+              <SquareParking className="w-5 h-5" />
             </div>
-            <h3 className="text-2xl font-bold text-white">On-Site Covered Parking</h3>
-            <p className="text-xs font-bold text-gym-orange uppercase tracking-wider">Convenience & Security</p>
-            <p className="text-xs text-gym-muted leading-relaxed">
-              Dedicated multi-level covered parking garage for all gym members with 24/7 CCTV surveillance and valet assistance.
+            <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Member Parking & Security</h3>
+            <p className="text-xs font-bold text-red-600 uppercase">Convenience</p>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Spacious covered parking garage for cars and two-wheelers with CCTV camera monitoring.
             </p>
-            <div className="flex flex-wrap gap-2 pt-2">
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">24/7 CCTV</span>
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Covered Garage</span>
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Free for Members</span>
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold text-slate-700">CCTV Monitored</span>
+              <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold text-slate-700">Two-Wheeler Parking</span>
             </div>
           </div>
 
-          <div className="bg-gym-card border border-gym-border/80 p-8 rounded-3xl space-y-4 hover:border-gym-orange/50 transition-all">
-            <div className="w-12 h-12 rounded-2xl bg-gym-orange/20 border border-gym-orange/30 flex items-center justify-center text-gym-orange">
-              <Smartphone className="w-6 h-6" />
+          <div className="bg-white border border-slate-200 p-6 rounded-md space-y-3">
+            <div className="w-10 h-10 rounded-md bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
+              <Smartphone className="w-5 h-5" />
             </div>
-            <h3 className="text-2xl font-bold text-white">IronPulse App & Biometrics</h3>
-            <p className="text-xs font-bold text-gym-orange uppercase tracking-wider">Smart Digital Ecosystem</p>
-            <p className="text-xs text-gym-muted leading-relaxed">
-              Scan QR codes for keyless entry, view live gym crowd density meters, log workout logs, and download PDF payment invoices on the fly.
+            <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Digital Check-in Portal</h3>
+            <p className="text-xs font-bold text-red-600 uppercase">System</p>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Track attendance, active subscription status, and download Razorpay payment receipts anytime.
             </p>
-            <div className="flex flex-wrap gap-2 pt-2">
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">QR Keyless Entry</span>
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">Crowd Meter</span>
-              <span className="text-[11px] bg-gym-dark px-3 py-1 rounded-full border border-gym-border/60 text-slate-300">PDF Invoices</span>
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold text-slate-700">Digital Logs</span>
+              <span className="text-[10px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-semibold text-slate-700">PDF Invoices</span>
             </div>
           </div>
 

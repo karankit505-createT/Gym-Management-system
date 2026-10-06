@@ -184,4 +184,33 @@ const autoSeed = async () => {
   }
 };
 
-module.exports = { autoSeed };
+const syncExistingUsersToMongo = async () => {
+  try {
+    const { syncToMongo } = require('./mongoSync');
+    const users = await User.findAll();
+    for (const u of users) {
+      await syncToMongo('users', u);
+    }
+
+    const memberships = await Membership.findAll();
+    for (const m of memberships) {
+      await syncToMongo('memberships', m);
+    }
+
+    const payments = await Payment.findAll();
+    for (const p of payments) {
+      await syncToMongo('payments', p);
+    }
+
+    const plans = await Plan.findAll();
+    for (const pl of plans) {
+      await syncToMongo('plans', pl);
+    }
+
+    console.log('[MongoDB Sync] Initial sync completed for users, memberships, payments, and plans.');
+  } catch (err) {
+    console.error('[MongoDB Initial Sync Notice]:', err.message);
+  }
+};
+
+module.exports = { autoSeed, syncExistingUsersToMongo };

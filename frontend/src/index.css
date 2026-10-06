@@ -2,69 +2,108 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
-
 :root {
-  font-family: 'Outfit', sans-serif;
-  color-scheme: dark;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: light;
 }
 
 body {
-  background-color: #0F0F1A;
-  color: #E2E8F0;
+  background-color: #F8F9FA;
+  color: #1F2937;
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
-/* Custom scrollbar */
+/* Typography Defaults */
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+/* Clean Card Utility */
+.gym-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0F0F1A;
+  background: #F3F4F6;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2E2E48;
-  border-radius: 4px;
+  background: #D1D5DB;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF4500;
+  background: #9CA3AF;
 }
 
-/* Glassmorphism */
-.glass-panel {
-  background: rgba(26, 26, 46, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+/* Table Utilities */
+.table-clean {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, #FF4500 0%, #FF8C00 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.table-clean th {
+  background-color: #F8F9FA;
+  color: #4B5563;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 10px 16px;
 }
 
-.glow-orange {
-  box-shadow: 0 0 25px rgba(255, 69, 0, 0.35);
+.table-clean td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #F3F4F6;
+  font-size: 0.875rem;
+  color: #1F2937;
 }
 
-/* Continuous Marquee Animation for Testimonials */
-@keyframes marqueeScroll {
+.table-clean tr:hover {
+  background-color: #F9FAFB;
+}
+
+/* Running Marquee Animations for Testimonials */
+@keyframes marquee-left {
   0% {
-    transform: translateX(0);
+    transform: translateX(0%);
   }
   100% {
     transform: translateX(-50%);
   }
 }
 
-.animate-marquee {
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee-left {
   display: flex;
   width: max-content;
-  animation: marqueeScroll 30s linear infinite;
+  animation: marquee-left 28s linear infinite;
 }
 
-.animate-marquee:hover {
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-right 28s linear infinite;
+}
+
+.animate-marquee-left:hover,
+.animate-marquee-right:hover {
   animation-play-state: paused;
 }
-

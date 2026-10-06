@@ -111,10 +111,12 @@ export const attendanceAPI = {
 
 // Contact Inquiry Services
 export const contactAPI = {
-  submitInquiry: (data) => api.post('/contact/submit', data),
-  getInquiries: () => api.get('/contact'),
-  updateInquiry: (id, data) => api.patch(`/contact/${id}`, data),
-  deleteInquiry: (id) => api.delete(`/contact/${id}`),
+  submitInquiry: (data) => api.post('/inquiries/submit', data),
+  getInquiries: (params) => api.get('/inquiries', { params }),
+  getStats: () => api.get('/inquiries/stats'),
+  updateInquiry: (id, data) => api.put(`/inquiries/${id}`, data),
+  assignInquiry: (id, data) => api.put(`/inquiries/${id}/assign`, data),
+  deleteInquiry: (id) => api.delete(`/inquiries/${id}`),
 };
 
 export default api;

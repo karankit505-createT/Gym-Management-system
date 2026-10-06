@@ -44,72 +44,72 @@ const PaymentHistory = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       
-      <div className="border-b border-gym-border pb-4">
-        <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">PAYMENT HISTORY & INVOICES</h1>
-        <p className="text-xs text-gym-muted">View past subscription payments and download official PDF tax invoices</p>
+      <div className="border-b border-slate-200 pb-4">
+        <h1 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 uppercase">PAYMENT HISTORY & INVOICES</h1>
+        <p className="text-xs text-slate-500">View past subscription payments and download official PDF tax invoices</p>
       </div>
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500/50 text-red-300 text-xs p-3.5 rounded-xl flex items-center space-x-2">
-          <ShieldCheck className="w-4 h-4 shrink-0 text-red-400" />
+        <div className="bg-red-50 border border-red-200 text-red-700 text-xs p-3.5 rounded-md flex items-center space-x-2">
+          <ShieldCheck className="w-4 h-4 shrink-0 text-red-600" />
           <span>{error}</span>
         </div>
       )}
 
       {loading ? (
-        <div className="text-center py-20 text-gym-muted">Loading payment transactions...</div>
+        <div className="text-center py-20 text-slate-500">Loading payment transactions...</div>
       ) : payments.length === 0 ? (
-        <div className="bg-gym-card border border-gym-border/80 rounded-3xl p-12 text-center space-y-4">
-          <div className="w-16 h-16 rounded-full bg-gym-orange/15 text-gym-orange mx-auto flex items-center justify-center">
-            <CreditCard className="w-8 h-8" />
+        <div className="bg-white border border-slate-200 rounded-lg p-12 text-center space-y-4 shadow-sm">
+          <div className="w-14 h-14 rounded-full bg-red-50 text-red-600 mx-auto flex items-center justify-center border border-red-100">
+            <CreditCard className="w-7 h-7" />
           </div>
-          <h3 className="text-lg font-bold text-white">No Transactions Yet</h3>
-          <p className="text-xs text-gym-muted max-w-sm mx-auto">
+          <h3 className="text-base font-bold text-slate-900 font-heading uppercase">No Transactions Yet</h3>
+          <p className="text-xs text-slate-500 max-w-sm mx-auto">
             You haven't made any plan payments yet. Subscribe to a plan to start your membership!
           </p>
         </div>
       ) : (
-        <div className="bg-gym-card border border-gym-border/80 rounded-3xl overflow-hidden shadow-xl">
+        <div className="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-300">
-              <thead className="bg-gym-dark/80 text-xs text-gym-muted uppercase tracking-wider border-b border-gym-border">
+            <table className="w-full text-left text-xs text-slate-700 table-clean">
+              <thead className="bg-slate-50 text-slate-600 uppercase text-[11px] tracking-wider border-b border-slate-200 font-semibold">
                 <tr>
-                  <th className="py-4 px-6">Transaction ID</th>
-                  <th className="py-4 px-6">Plan Name</th>
-                  <th className="py-4 px-6">Amount</th>
-                  <th className="py-4 px-6">Date</th>
-                  <th className="py-4 px-6">Status</th>
-                  <th className="py-4 px-6 text-right">Invoice PDF</th>
+                  <th className="py-3.5 px-5">Transaction ID</th>
+                  <th className="py-3.5 px-5">Plan Name</th>
+                  <th className="py-3.5 px-5">Amount</th>
+                  <th className="py-3.5 px-5">Date</th>
+                  <th className="py-3.5 px-5">Status</th>
+                  <th className="py-3.5 px-5 text-right">Invoice PDF</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gym-border/50">
+              <tbody className="divide-y divide-slate-100">
                 {payments.map((p) => (
-                  <tr key={p.id} className="hover:bg-gym-cardHover transition-colors">
-                    <td className="py-4 px-6 font-mono text-xs font-semibold text-gym-orange">
+                  <tr key={p.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="py-3.5 px-5 font-mono text-xs font-semibold text-red-600">
                       {p.transaction_id}
                     </td>
-                    <td className="py-4 px-6 font-bold text-white">
+                    <td className="py-3.5 px-5 font-semibold text-slate-900">
                       {p.Plan?.name || 'Gym Plan'}
                     </td>
-                    <td className="py-4 px-6 font-black text-white">
+                    <td className="py-3.5 px-5 font-bold text-slate-900">
                       ₹{parseFloat(p.amount).toFixed(2)}
                     </td>
-                    <td className="py-4 px-6 text-xs text-gym-muted">
+                    <td className="py-3.5 px-5 text-slate-500">
                       {new Date(p.createdAt).toLocaleDateString()} {new Date(p.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </td>
-                    <td className="py-4 px-6">
-                      <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase inline-flex items-center space-x-1">
+                    <td className="py-3.5 px-5">
+                      <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2.5 py-0.5 rounded-md uppercase inline-flex items-center space-x-1">
                         <CheckCircle className="w-3 h-3" />
                         <span>SUCCESS</span>
                       </span>
                     </td>
-                    <td className="py-4 px-6 text-right">
+                    <td className="py-3.5 px-5 text-right">
                       <button
                         onClick={() => handleDownloadInvoice(p)}
                         disabled={downloadingId === p.id}
-                        className="py-1.5 px-3 bg-gym-orange/20 hover:bg-gym-orange text-gym-orange hover:text-white border border-gym-orange/40 rounded-lg text-xs font-bold transition-all inline-flex items-center space-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="py-1.5 px-3 bg-white hover:bg-slate-50 text-slate-700 hover:text-red-600 border border-slate-300 rounded-md text-xs font-semibold transition-colors inline-flex items-center space-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {downloadingId === p.id ? (
                           <>

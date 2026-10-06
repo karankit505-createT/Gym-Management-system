@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Flame, Check, X, HelpCircle, Award } from 'lucide-react';
+import { Check, X, HelpCircle } from 'lucide-react';
 import { planAPI } from '../services/api';
 
 const Membership = () => {
@@ -25,18 +25,21 @@ const Membership = () => {
   };
 
   return (
-    <div className="space-y-20 pb-20 pt-6">
+    <div className="space-y-12 pb-16 pt-6 font-sans bg-slate-50">
       
       {/* HERO SECTION */}
-      <section className="relative overflow-hidden py-16 bg-gradient-to-b from-gym-orange/10 via-transparent to-transparent text-center">
+      <section className="bg-white border-b border-slate-200 py-10 text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight mb-4 font-sans">
-            FLEXIBLE PLANS FOR <span className="gradient-text">EVERY GOAL</span>
+          <span className="text-red-600 text-xs font-bold uppercase tracking-wider block mb-1">
+            Simple Pricing Structure
+          </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-black text-slate-900 uppercase tracking-tight mb-2">
+            GYM MEMBERSHIP <span className="text-red-600">PLANS</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-gym-muted max-w-2xl mx-auto font-normal leading-relaxed">
-            Transparent pricing with zero hidden admission or maintenance fees. Upgrade, downgrade, or cancel anytime.
+          <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
+            Transparent pricing plans with no hidden charges. Select a plan to start your membership instantly.
           </p>
 
         </div>
@@ -45,7 +48,7 @@ const Membership = () => {
       {/* PRICING CARDS GRID */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {loading ? (
-          <div className="text-center py-12 text-gym-muted">Loading membership plans...</div>
+          <div className="text-center py-12 text-slate-500 text-xs">Loading membership plans...</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             {plans.map((plan, index) => {
@@ -53,60 +56,55 @@ const Membership = () => {
               return (
                 <div
                   key={plan.id}
-                  className={`bg-gym-card border rounded-3xl p-6 relative flex flex-col justify-between transition-all duration-300 ${
+                  className={`bg-white border rounded-md p-5 relative flex flex-col justify-between transition-colors ${
                     isPopular 
-                      ? 'border-gym-orange shadow-2xl glow-orange transform -translate-y-2' 
-                      : 'border-gym-border/80 hover:border-gym-orange/50'
+                      ? 'border-red-600 shadow-sm' 
+                      : 'border-slate-200 hover:border-slate-300'
                   }`}
                 >
                   {isPopular && (
-                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gym-orange text-white text-[11px] font-extrabold uppercase px-4 py-1 rounded-full tracking-wider shadow-lg flex items-center space-x-1">
-                      <Flame className="w-3 h-3 fill-white" />
-                      <span>MOST POPULAR</span>
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[10px] font-bold uppercase px-3 py-0.5 rounded-sm tracking-wider">
+                      MOST POPULAR
                     </span>
                   )}
 
                   <div>
-                    <div className="border-b border-gym-border/60 pb-4 mb-4">
-                      <h3 className="text-xl font-black text-white mb-1">{plan.name}</h3>
-                      <p className="text-xs text-gym-muted">{plan.duration_days} Days Full Access</p>
+                    <div className="border-b border-slate-200 pb-3 mb-3">
+                      <h3 className="text-lg font-heading font-black text-slate-900 uppercase">{plan.name}</h3>
+                      <p className="text-xs text-slate-500">{plan.duration_days} Days Full Access</p>
                     </div>
 
-                    <div className="flex items-baseline space-x-1 my-4">
-                      <span className="text-4xl font-black text-white font-sans">₹{parseFloat(plan.price).toFixed(0)}</span>
-                      <span className="text-xs text-gym-muted font-semibold">/ {plan.duration_days} days</span>
+                    <div className="flex items-baseline space-x-1 my-3">
+                      <span className="text-3xl font-heading font-black text-slate-900">₹{parseFloat(plan.price).toFixed(0)}</span>
+                      <span className="text-xs text-slate-500 font-medium">/ {plan.duration_days} days</span>
                     </div>
 
-                    <p className="text-xs text-slate-300 leading-relaxed mb-6 bg-gym-dark/50 p-3 rounded-xl border border-gym-border/40">
+                    <p className="text-xs text-slate-600 leading-relaxed mb-4 bg-slate-50 p-2.5 rounded border border-slate-200">
                       {plan.description}
                     </p>
 
-                    <ul className="space-y-3 text-xs text-slate-300 mb-6">
+                    <ul className="space-y-2 text-xs text-slate-700 mb-6">
                       <li className="flex items-start space-x-2">
-                        <Check className="w-4 h-4 text-gym-orange shrink-0 mt-0.5" />
-                        <span>Full Access to Gym Equipment</span>
+                        <Check className="w-3.5 h-3.5 text-red-600 shrink-0 mt-0.5" />
+                        <span>Full Access to Workout Floor</span>
                       </li>
                       <li className="flex items-start space-x-2">
-                        <Check className="w-4 h-4 text-gym-orange shrink-0 mt-0.5" />
-                        <span>Locker Room & Shower Access</span>
+                        <Check className="w-3.5 h-3.5 text-red-600 shrink-0 mt-0.5" />
+                        <span>Locker & Change Room Access</span>
                       </li>
                       <li className="flex items-start space-x-2">
-                        <Check className="w-4 h-4 text-gym-orange shrink-0 mt-0.5" />
+                        <Check className="w-3.5 h-3.5 text-red-600 shrink-0 mt-0.5" />
                         <span>Digital PDF Receipt Invoice</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <Check className="w-4 h-4 text-gym-orange shrink-0 mt-0.5" />
-                        <span>IronPulse App Account</span>
                       </li>
                     </ul>
                   </div>
 
                   <Link
                     to="/member/choose-plan"
-                    className={`w-full py-3 px-4 rounded-xl text-xs font-bold text-center transition-all ${
+                    className={`w-full py-2 px-3 rounded-md text-xs font-bold text-center transition-colors ${
                       isPopular
-                        ? 'bg-gym-orange hover:bg-gym-orangeHover text-white shadow-lg shadow-gym-orange/30'
-                        : 'bg-gym-dark border border-gym-border hover:bg-gym-orange hover:text-white text-slate-200'
+                        ? 'bg-red-600 hover:bg-red-700 text-white'
+                        : 'bg-slate-900 hover:bg-slate-800 text-white'
                     }`}
                   >
                     Select Plan
@@ -120,64 +118,56 @@ const Membership = () => {
 
       {/* MATRIX TABLE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 space-y-2">
-          <h2 className="text-3xl font-black text-white uppercase">PLAN FEATURE COMPARISON</h2>
-          <p className="text-gym-muted text-sm">Side-by-side breakdown of all membership benefits</p>
+        <div className="mb-4 border-b border-slate-200 pb-2">
+          <h2 className="text-xl font-heading font-black text-slate-900 uppercase">PLAN COMPARISON TABLE</h2>
         </div>
 
-        <div className="overflow-x-auto bg-gym-card border border-gym-border/80 rounded-3xl">
-          <table className="w-full text-left text-sm text-slate-300">
-            <thead className="bg-gym-orange/10 text-xs font-bold uppercase text-white border-b border-gym-border">
+        <div className="overflow-x-auto bg-white border border-slate-200 rounded-md">
+          <table className="w-full text-left text-xs text-slate-700 table-clean">
+            <thead>
               <tr>
-                <th className="py-4 px-6">Features</th>
-                <th className="py-4 px-6 text-center">Monthly (₹999)</th>
-                <th className="py-4 px-6 text-center">Quarterly (₹2,499)</th>
-                <th className="py-4 px-6 text-center">Half-Yearly (₹4,499)</th>
-                <th className="py-4 px-6 text-center">Yearly VIP (₹7,999)</th>
+                <th>Features</th>
+                <th className="text-center">Monthly (₹999)</th>
+                <th className="text-center">Quarterly (₹2,499)</th>
+                <th className="text-center">Half-Yearly (₹4,499)</th>
+                <th className="text-center">Yearly VIP (₹7,999)</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gym-border/40">
-              <tr className="hover:bg-gym-dark/30">
-                <td className="py-4 px-6 font-semibold text-white">Gym Floor & Equipment Access</td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
+            <tbody>
+              <tr>
+                <td className="font-semibold text-slate-900">Equipment Access</td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
               </tr>
-              <tr className="hover:bg-gym-dark/30">
-                <td className="py-4 px-6 font-semibold text-white">Locker Room & Shower Access</td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
+              <tr>
+                <td className="font-semibold text-slate-900">Locker Room</td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
               </tr>
-              <tr className="hover:bg-gym-dark/30">
-                <td className="py-4 px-6 font-semibold text-white">Group HIIT & Yoga Classes</td>
-                <td className="py-4 px-6 text-center"><X className="w-5 h-5 text-gym-muted/40 mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
+              <tr>
+                <td className="font-semibold text-slate-900">Group Cardio Sessions</td>
+                <td className="text-center"><X className="w-4 h-4 text-slate-300 mx-auto" /></td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
               </tr>
-              <tr className="hover:bg-gym-dark/30">
-                <td className="py-4 px-6 font-semibold text-white">Complimentary PT Sessions</td>
-                <td className="py-4 px-6 text-center"><X className="w-5 h-5 text-gym-muted/40 mx-auto" /></td>
-                <td className="py-4 px-6 text-center text-xs font-semibold text-white">1 Session</td>
-                <td className="py-4 px-6 text-center text-xs font-semibold text-white">5 Sessions</td>
-                <td className="py-4 px-6 text-center text-xs font-semibold text-gym-orange">Unlimited Consults</td>
+              <tr>
+                <td className="font-semibold text-slate-900">PT Consultation</td>
+                <td className="text-center"><X className="w-4 h-4 text-slate-300 mx-auto" /></td>
+                <td className="text-center font-bold text-slate-800">1 Session</td>
+                <td className="text-center font-bold text-slate-800">5 Sessions</td>
+                <td className="text-center font-bold text-red-600">Included</td>
               </tr>
-              <tr className="hover:bg-gym-dark/30">
-                <td className="py-4 px-6 font-semibold text-white">Steam Room & Sauna Lounge</td>
-                <td className="py-4 px-6 text-center"><X className="w-5 h-5 text-gym-muted/40 mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><X className="w-5 h-5 text-gym-muted/40 mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
-              </tr>
-              <tr className="hover:bg-gym-dark/30">
-                <td className="py-4 px-6 font-semibold text-white">24/7 VIP Access</td>
-                <td className="py-4 px-6 text-center"><X className="w-5 h-5 text-gym-muted/40 mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><X className="w-5 h-5 text-gym-muted/40 mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><X className="w-5 h-5 text-gym-muted/40 mx-auto" /></td>
-                <td className="py-4 px-6 text-center"><Check className="w-5 h-5 text-gym-orange mx-auto" /></td>
+              <tr>
+                <td className="font-semibold text-slate-900">Steam Room</td>
+                <td className="text-center"><X className="w-4 h-4 text-slate-300 mx-auto" /></td>
+                <td className="text-center"><X className="w-4 h-4 text-slate-300 mx-auto" /></td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
+                <td className="text-center"><Check className="w-4 h-4 text-red-600 mx-auto" /></td>
               </tr>
             </tbody>
           </table>
@@ -186,49 +176,48 @@ const Membership = () => {
 
       {/* FAQ SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 space-y-2">
-          <h2 className="text-3xl font-black text-white uppercase">FREQUENTLY ASKED QUESTIONS</h2>
-          <p className="text-gym-muted text-sm">Quick answers to common membership inquiries</p>
+        <div className="mb-6 border-b border-slate-200 pb-2">
+          <h2 className="text-xl font-heading font-black text-slate-900 uppercase">FREQUENTLY ASKED QUESTIONS</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-gym-card border border-gym-border/80 p-6 rounded-2xl space-y-2">
-            <h4 className="text-base font-bold text-white flex items-center space-x-2">
-              <HelpCircle className="w-5 h-5 text-gym-orange shrink-0" />
-              <span>Are there any hidden admission or maintenance fees?</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-white border border-slate-200 p-4 rounded-md space-y-1">
+            <h4 className="text-xs font-bold text-slate-900 flex items-center space-x-2">
+              <HelpCircle className="w-4 h-4 text-red-600 shrink-0" />
+              <span>Are there admission or extra maintenance fees?</span>
             </h4>
-            <p className="text-xs text-gym-muted leading-relaxed">
-              No! Our membership prices are 100% transparent. The price listed is all you pay for your plan duration.
+            <p className="text-xs text-slate-600 leading-relaxed">
+              No extra admission fees. The plan price listed above is the final cost.
             </p>
           </div>
 
-          <div className="bg-gym-card border border-gym-border/80 p-6 rounded-2xl space-y-2">
-            <h4 className="text-base font-bold text-white flex items-center space-x-2">
-              <HelpCircle className="w-5 h-5 text-gym-orange shrink-0" />
-              <span>Can I pause my membership if I travel?</span>
+          <div className="bg-white border border-slate-200 p-4 rounded-md space-y-1">
+            <h4 className="text-xs font-bold text-slate-900 flex items-center space-x-2">
+              <HelpCircle className="w-4 h-4 text-red-600 shrink-0" />
+              <span>How do I pay online?</span>
             </h4>
-            <p className="text-xs text-gym-muted leading-relaxed">
-              Yes, Half-Yearly and Yearly VIP plans allow up to 30 days of membership freeze upon request.
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Click 'Select Plan' and proceed to pay securely via Razorpay (UPI, Google Pay, Cards, NetBanking).
             </p>
           </div>
 
-          <div className="bg-gym-card border border-gym-border/80 p-6 rounded-2xl space-y-2">
-            <h4 className="text-base font-bold text-white flex items-center space-x-2">
-              <HelpCircle className="w-5 h-5 text-gym-orange shrink-0" />
-              <span>How do I pay using Razorpay?</span>
+          <div className="bg-white border border-slate-200 p-4 rounded-md space-y-1">
+            <h4 className="text-xs font-bold text-slate-900 flex items-center space-x-2">
+              <HelpCircle className="w-4 h-4 text-red-600 shrink-0" />
+              <span>Will I get a receipt?</span>
             </h4>
-            <p className="text-xs text-gym-muted leading-relaxed">
-              You can choose your plan and click 'Select Plan' to instantly pay via UPI, GPay, Credit/Debit cards, or NetBanking.
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Yes, a downloadable PDF receipt invoice is immediately generated in your Member Dashboard.
             </p>
           </div>
 
-          <div className="bg-gym-card border border-gym-border/80 p-6 rounded-2xl space-y-2">
-            <h4 className="text-base font-bold text-white flex items-center space-x-2">
-              <HelpCircle className="w-5 h-5 text-gym-orange shrink-0" />
-              <span>Will I receive a receipt for my payment?</span>
+          <div className="bg-white border border-slate-200 p-4 rounded-md space-y-1">
+            <h4 className="text-xs font-bold text-slate-900 flex items-center space-x-2">
+              <HelpCircle className="w-4 h-4 text-red-600 shrink-0" />
+              <span>What are the gym operating hours?</span>
             </h4>
-            <p className="text-xs text-gym-muted leading-relaxed">
-              Yes, an instant digital PDF receipt invoice is generated and available for download in your Member Dashboard.
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Monday through Friday 5:00 AM to 11:00 PM. Weekends 6:00 AM to 10:00 PM.
             </p>
           </div>
         </div>

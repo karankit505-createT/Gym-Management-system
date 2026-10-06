@@ -158,19 +158,19 @@ const ManageStaff = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gym-border pb-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
-          <span className="text-gym-orange text-[10px] sm:text-xs font-bold uppercase tracking-widest">Admin Control</span>
-          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">STAFF MANAGEMENT</h1>
+          <span className="text-orange-600 text-xs sm:text-sm font-bold uppercase tracking-wider">Admin Control</span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900 uppercase tracking-tight mt-1">STAFF MANAGEMENT</h1>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <button
             onClick={handleExportCsv}
             disabled={exporting}
-            className="w-full sm:w-auto px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 min-h-[44px] disabled:opacity-50"
+            className="w-full sm:w-auto px-5 h-11 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-md shadow-xs transition-colors flex items-center justify-center space-x-2 disabled:opacity-50"
           >
             <Download className="w-4 h-4" />
             <span>{exporting ? 'Exporting...' : 'Export Staff CSV'}</span>
@@ -178,7 +178,7 @@ const ManageStaff = () => {
 
           <button
             onClick={() => setShowAddModal(true)}
-            className="w-full sm:w-auto px-5 py-3 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 min-h-[44px]"
+            className="w-full sm:w-auto px-5 h-11 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm rounded-md shadow-xs transition-colors flex items-center justify-center space-x-2"
           >
             <Plus className="w-4 h-4" />
             <span>Add New Staff</span>
@@ -187,58 +187,58 @@ const ManageStaff = () => {
       </div>
 
       {msg && (
-        <div className="bg-emerald-500/15 border border-emerald-500/50 text-emerald-300 text-xs p-3.5 rounded-xl flex items-center space-x-2">
-          <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+        <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm p-4 rounded-md flex items-center space-x-2.5 font-medium">
+          <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0" />
           <span>{msg}</span>
         </div>
       )}
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500/50 text-red-300 text-xs p-3.5 rounded-xl flex items-center space-x-2">
-          <ShieldAlert className="w-4 h-4 text-red-400 flex-shrink-0" />
+        <div className="bg-red-50 border border-red-200 text-red-700 text-sm p-4 rounded-md flex items-center space-x-2.5 font-medium">
+          <ShieldAlert className="w-5 h-5 text-red-600 flex-shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {loading ? (
-        <div className="text-center py-20 text-gym-muted">Loading staff list...</div>
+        <div className="text-center py-20 text-slate-600 font-medium text-base">Loading staff list...</div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {staffList.map((st) => (
-            <div key={st.id} className="bg-gym-card border border-gym-border/80 rounded-3xl p-6 relative flex flex-col justify-between space-y-4">
+            <div key={st.id} className="bg-white border border-slate-200 rounded-lg p-6 flex flex-col justify-between space-y-4 shadow-xs">
               <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-full bg-gym-orange/20 border border-gym-orange text-gym-orange font-bold text-base flex items-center justify-center">
+                <div className="flex items-center space-x-3.5">
+                  <div className="w-12 h-12 rounded-full bg-orange-100 border border-orange-200 text-orange-700 font-bold text-lg flex items-center justify-center font-heading">
                     {st.User?.name?.charAt(0)}
                   </div>
                   <div>
-                    <h3 className="font-bold text-white text-base">{st.User?.name}</h3>
-                    <p className="text-xs text-gym-orange font-semibold">{st.designation}</p>
+                    <h3 className="font-bold text-slate-900 text-base sm:text-lg">{st.User?.name}</h3>
+                    <p className="text-xs sm:text-sm text-orange-600 font-bold">{st.designation}</p>
                   </div>
                 </div>
 
                 <div className="flex space-x-1">
                   <button
                     onClick={() => handleOpenEditModal(st)}
-                    className="p-1.5 text-gym-muted hover:text-gym-orange hover:bg-gym-orange/10 rounded-lg transition-colors"
+                    className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
                     title="Edit Staff"
                   >
-                    <Edit3 className="w-4 h-4" />
+                    <Edit3 className="w-4.5 h-4.5" />
                   </button>
                   <button
                     onClick={() => handleOpenDeleteModal(st)}
-                    className="p-1.5 text-gym-muted hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                    className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
                     title="Delete Staff"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-4.5 h-4.5" />
                   </button>
                 </div>
               </div>
 
-              <div className="space-y-1 text-xs text-gym-muted border-t border-gym-border/40 pt-3">
-                <p>Email: <b className="text-slate-200">{st.User?.email}</b></p>
-                <p>Phone: <b className="text-slate-200">{st.User?.phone}</b></p>
-                <p>Permissions: <b className="text-slate-200">{st.permissions}</b></p>
+              <div className="space-y-1.5 text-xs sm:text-sm text-slate-600 border-t border-slate-100 pt-3.5">
+                <p>Email: <b className="text-slate-900 font-medium">{st.User?.email}</b></p>
+                <p>Phone: <b className="text-slate-900 font-mono font-medium">{st.User?.phone}</b></p>
+                <p>Permissions: <b className="text-slate-900 font-medium">{st.permissions}</b></p>
               </div>
             </div>
           ))}
@@ -258,40 +258,40 @@ const ManageStaff = () => {
 
       {/* ADD STAFF MODAL */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#161626] border border-gym-orange/50 rounded-2xl max-w-md w-[95%] sm:w-full p-5 sm:p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center border-b border-gym-border pb-3">
-              <h3 className="font-bold text-white text-base sm:text-lg">Add New Staff Account</h3>
-              <button onClick={() => setShowAddModal(false)} className="text-gym-muted hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
+          <div className="bg-white border border-slate-200 rounded-lg max-w-md w-full p-6 shadow-xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+              <h3 className="font-bold text-slate-900 text-base uppercase font-heading">Add New Staff Account</h3>
+              <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-slate-700 p-1">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleAddStaffSubmit} className="space-y-3">
+            <form onSubmit={handleAddStaffSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Full Name</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Full Name</label>
                 <input
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Email</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Email</label>
                 <input
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Phone</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Phone</label>
                 <input
                   type="tel"
                   required
@@ -299,52 +299,52 @@ const ManageStaff = () => {
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, '').slice(0, 10) })}
                   placeholder="10-digit mobile number"
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600 font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Password</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Password</label>
                 <div className="relative">
                   <input
                     type={showPassword ? 'text' : 'password'}
                     required
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 pr-10 text-sm text-white focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-300 rounded-md pl-3.5 pr-11 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-gym-muted hover:text-white transition-colors focus:outline-none"
+                    className="absolute right-3.5 top-3 text-slate-400 hover:text-slate-700 focus:outline-none"
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Designation</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Designation</label>
                 <input
                   type="text"
                   required
                   value={formData.designation}
                   onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600"
                 />
               </div>
 
-              <div className="flex justify-end space-x-2 pt-2">
+              <div className="flex justify-end space-x-2.5 pt-2">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 bg-gym-card text-gym-muted text-xs font-bold rounded-xl"
+                  className="px-4 h-11 bg-slate-100 text-slate-700 text-sm font-semibold rounded-md border border-slate-200"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-gym-orange hover:bg-gym-orangeHover text-white text-xs font-bold rounded-xl shadow-lg"
+                  className="px-5 h-11 bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold rounded-md shadow-xs"
                 >
                   Create Staff
                 </button>
@@ -356,83 +356,83 @@ const ManageStaff = () => {
 
       {/* EDIT STAFF MODAL */}
       {showEditModal && editingStaff && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#161626] border border-gym-orange/50 rounded-2xl max-w-md w-[95%] sm:w-full p-5 sm:p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center border-b border-gym-border pb-3">
-              <h3 className="font-bold text-white text-base sm:text-lg">Edit Staff Account</h3>
-              <button onClick={() => setShowEditModal(false)} className="text-gym-muted hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
+          <div className="bg-white border border-slate-200 rounded-lg max-w-md w-full p-6 shadow-xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+              <h3 className="font-bold text-slate-900 text-base uppercase font-heading">Edit Staff Account</h3>
+              <button onClick={() => setShowEditModal(false)} className="text-slate-400 hover:text-slate-700 p-1">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleEditStaffSubmit} className="space-y-3">
+            <form onSubmit={handleEditStaffSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Full Name</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Full Name</label>
                 <input
                   type="text"
                   required
                   value={editFormData.name}
                   onChange={(e) => setEditFormData({ ...editFormData, name: e.target.value })}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Email</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Email</label>
                 <input
                   type="email"
                   required
                   value={editFormData.email}
                   onChange={(e) => setEditFormData({ ...editFormData, email: e.target.value })}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Phone</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Phone</label>
                 <input
                   type="tel"
                   required
                   maxLength={10}
                   value={editFormData.phone}
                   onChange={(e) => setEditFormData({ ...editFormData, phone: e.target.value.replace(/\D/g, '').slice(0, 10) })}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600 font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">New Password (Leave blank to keep unchanged)</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">New Password (Optional)</label>
                 <input
                   type="password"
                   value={editFormData.password}
                   onChange={(e) => setEditFormData({ ...editFormData, password: e.target.value })}
                   placeholder="Enter new password"
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Designation</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Designation</label>
                 <input
                   type="text"
                   required
                   value={editFormData.designation}
                   onChange={(e) => setEditFormData({ ...editFormData, designation: e.target.value })}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600"
                 />
               </div>
 
-              <div className="flex justify-end space-x-2 pt-2">
+              <div className="flex justify-end space-x-2.5 pt-2">
                 <button
                   type="button"
                   onClick={() => setShowEditModal(false)}
-                  className="px-4 py-2 bg-gym-card text-gym-muted text-xs font-bold rounded-xl"
+                  className="px-4 h-11 bg-slate-100 text-slate-700 text-sm font-semibold rounded-md border border-slate-200"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-gym-orange hover:bg-gym-orangeHover text-white text-xs font-bold rounded-xl shadow-lg"
+                  className="px-5 h-11 bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold rounded-md shadow-xs transition-colors"
                 >
                   Update Staff
                 </button>

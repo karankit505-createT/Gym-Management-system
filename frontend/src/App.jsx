@@ -1,6 +1,17 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+
+// Scroll to top automatically on route change
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -38,7 +49,8 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-h-screen flex flex-col bg-gym-dark text-slate-100 font-sans selection:bg-gym-orange selection:text-white">
+        <ScrollToTop />
+        <div className="min-h-screen flex flex-col bg-[#F8F9FA] text-[#1F2937] font-sans selection:bg-orange-600 selection:text-white">
           <Navbar />
           
           <main className="flex-grow">

@@ -41,6 +41,10 @@ Attendance.belongsTo(User, { foreignKey: 'user_id' });
 
 const ContactInquiry = require('./ContactInquiry');
 
+// User & ContactInquiry (Assigned Staff)
+ContactInquiry.belongsTo(User, { as: 'AssignedStaff', foreignKey: 'assigned_to' });
+User.hasMany(ContactInquiry, { foreignKey: 'assigned_to' });
+
 // User & Announcement
 User.hasMany(Announcement, { foreignKey: 'created_by', onDelete: 'CASCADE' });
 Announcement.belongsTo(User, { as: 'Author', foreignKey: 'created_by' });

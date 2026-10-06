@@ -24,8 +24,12 @@ const ContactInquiry = sequelize.define('ContactInquiry', {
     allowNull: false
   },
   status: {
-    type: DataTypes.ENUM('Pending', 'Contacted', 'Resolved'),
-    defaultValue: 'Pending'
+    type: DataTypes.STRING,
+    defaultValue: 'New'
+  },
+  assigned_to: {
+    type: DataTypes.INTEGER,
+    allowNull: true
   },
   notes: {
     type: DataTypes.TEXT,

@@ -171,18 +171,18 @@ const ManageMembers = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gym-border pb-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
-          <span className="text-gym-orange text-[10px] sm:text-xs font-bold uppercase tracking-widest">Admin Control</span>
-          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">MEMBER MANAGEMENT</h1>
+          <span className="text-orange-600 text-xs sm:text-sm font-bold uppercase tracking-wider">Admin Control</span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900 uppercase tracking-tight mt-1">MEMBER MANAGEMENT</h1>
         </div>
 
         <button
           onClick={handleExportCsv}
           disabled={exporting}
-          className="w-full sm:w-auto px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 min-h-[44px] disabled:opacity-50"
+          className="w-full sm:w-auto px-5 h-11 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-md shadow-xs transition-colors flex items-center justify-center space-x-2 disabled:opacity-50"
         >
           <Download className="w-4 h-4" />
           <span>{exporting ? 'Exporting CSV...' : 'Export Members CSV'}</span>
@@ -190,72 +190,72 @@ const ManageMembers = () => {
       </div>
 
       {msg && (
-        <div className="bg-emerald-500/15 border border-emerald-500/50 text-emerald-300 text-xs p-3.5 rounded-xl flex items-center space-x-2">
-          <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+        <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm p-4 rounded-md flex items-center space-x-2.5 font-medium">
+          <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0" />
           <span>{msg}</span>
         </div>
       )}
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500/50 text-red-300 text-xs p-3.5 rounded-xl flex items-center space-x-2">
-          <ShieldAlert className="w-4 h-4 text-red-400 flex-shrink-0" />
+        <div className="bg-red-50 border border-red-200 text-red-700 text-sm p-4 rounded-md flex items-center space-x-2.5 font-medium">
+          <ShieldAlert className="w-5 h-5 text-red-600 flex-shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {/* FILTER & SEARCH STRIP */}
-      <div className="bg-gym-card border border-gym-border/80 rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="bg-white border border-slate-200 rounded-lg p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xs">
         
         {/* Search */}
-        <form onSubmit={handleSearch} className="flex-1 w-full flex gap-2">
+        <form onSubmit={handleSearch} className="flex-1 w-full flex gap-2.5">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-gym-muted absolute left-3.5 top-3" />
+            <Search className="w-5 h-5 text-slate-400 absolute left-3.5 top-3" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by Name, Email, or Phone..."
-              className="w-full bg-gym-dark border border-gym-border rounded-xl pl-10 pr-4 py-2.5 text-xs text-white focus:outline-none focus:border-gym-orange"
+              className="w-full bg-slate-50 border border-slate-300 rounded-md pl-11 pr-4 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 font-medium"
             />
           </div>
           <button
             type="submit"
-            className="px-4 py-2.5 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold text-xs rounded-xl"
+            className="px-5 h-11 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-sm rounded-md transition-colors shadow-xs"
           >
             Search
           </button>
         </form>
 
         {/* Status Filter Buttons */}
-        <div className="flex space-x-1.5 bg-gym-dark p-1 rounded-xl border border-gym-border text-xs w-full md:w-auto overflow-x-auto">
+        <div className="flex space-x-1.5 bg-slate-100 p-1.5 rounded-md border border-slate-200 text-xs sm:text-sm w-full md:w-auto overflow-x-auto">
           <button
             onClick={() => setStatusFilter('')}
-            className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
-              statusFilter === '' ? 'bg-gym-orange text-white' : 'text-gym-muted hover:text-white'
+            className={`px-3.5 h-9 rounded-md font-semibold transition-colors ${
+              statusFilter === '' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             All Members
           </button>
           <button
             onClick={() => setStatusFilter('active')}
-            className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
-              statusFilter === 'active' ? 'bg-gym-orange text-white' : 'text-gym-muted hover:text-white'
+            className={`px-3.5 h-9 rounded-md font-semibold transition-colors ${
+              statusFilter === 'active' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Active
           </button>
           <button
             onClick={() => setStatusFilter('expiring_soon')}
-            className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
-              statusFilter === 'expiring_soon' ? 'bg-gym-orange text-white' : 'text-gym-muted hover:text-white'
+            className={`px-3.5 h-9 rounded-md font-semibold transition-colors ${
+              statusFilter === 'expiring_soon' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Expiring Soon
           </button>
           <button
             onClick={() => setStatusFilter('expired')}
-            className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
-              statusFilter === 'expired' ? 'bg-gym-orange text-white' : 'text-gym-muted hover:text-white'
+            className={`px-3.5 h-9 rounded-md font-semibold transition-colors ${
+              statusFilter === 'expired' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Expired
@@ -266,12 +266,12 @@ const ManageMembers = () => {
 
       {/* MEMBERS TABLE */}
       {loading ? (
-        <div className="text-center py-20 text-gym-muted">Loading members list...</div>
+        <div className="text-center py-20 text-slate-600 font-medium text-base">Loading members list...</div>
       ) : (
-        <div className="bg-gym-card border border-gym-border/80 rounded-3xl overflow-hidden shadow-xl">
+        <div className="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-300">
-              <thead className="bg-gym-dark/80 text-xs text-gym-muted uppercase border-b border-gym-border">
+            <table className="w-full text-left text-sm text-slate-800 table-clean">
+              <thead className="bg-slate-50 text-slate-600 uppercase text-xs tracking-wider border-b border-slate-200 font-bold">
                 <tr>
                   <th className="py-4 px-6">Member</th>
                   <th className="py-4 px-6">Contact Info</th>
@@ -281,45 +281,45 @@ const ManageMembers = () => {
                   <th className="py-4 px-6 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gym-border/50">
+              <tbody className="divide-y divide-slate-100 font-medium">
                 {members.map((m) => {
                   const latestMem = m.Memberships && m.Memberships[0];
                   const isActive = latestMem && latestMem.status === 'active';
 
                   return (
-                    <tr key={m.id} className="hover:bg-gym-cardHover">
+                    <tr key={m.id} className="hover:bg-slate-50/80 transition-colors">
                       <td className="py-4 px-6">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-9 h-9 rounded-full bg-gym-orange/20 text-gym-orange font-bold flex items-center justify-center text-xs">
+                        <div className="flex items-center space-x-3.5">
+                          <div className="w-10 h-10 rounded-full bg-orange-100 border border-orange-200 text-orange-700 font-bold flex items-center justify-center text-sm font-heading">
                             {m.name.charAt(0)}
                           </div>
                           <div>
-                            <p className="font-bold text-white">{m.name}</p>
-                            <span className="text-[10px] text-gym-muted">ID: #{m.id}</span>
+                            <p className="font-bold text-slate-900 text-sm sm:text-base">{m.name}</p>
+                            <span className="text-xs text-slate-400 font-mono">ID: #{m.id}</span>
                           </div>
                         </div>
                       </td>
 
-                      <td className="py-4 px-6 text-xs">
-                        <p className="text-slate-200">{m.email}</p>
-                        <p className="text-gym-muted">{m.phone}</p>
+                      <td className="py-4 px-6 text-sm">
+                        <p className="text-slate-900 font-medium">{m.email}</p>
+                        <p className="text-slate-500 font-mono text-xs mt-0.5">{m.phone}</p>
                       </td>
 
-                      <td className="py-4 px-6 font-semibold text-white text-xs">
+                      <td className="py-4 px-6 font-bold text-slate-900 text-sm">
                         {latestMem ? latestMem.Plan?.name : 'No Plan'}
                       </td>
 
-                      <td className="py-4 px-6 text-xs font-mono text-gym-muted">
+                      <td className="py-4 px-6 text-sm font-mono text-slate-600">
                         {latestMem ? latestMem.end_date : 'N/A'}
                       </td>
 
                       <td className="py-4 px-6">
                         {isActive ? (
-                          <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase">
+                          <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold px-3 py-1 rounded-md uppercase">
                             ACTIVE
                           </span>
                         ) : (
-                          <span className="bg-red-500/20 text-red-400 border border-red-500/30 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase">
+                          <span className="bg-rose-50 text-rose-700 border border-rose-200 text-xs font-semibold px-3 py-1 rounded-md uppercase">
                             EXPIRED
                           </span>
                         )}
@@ -328,10 +328,10 @@ const ManageMembers = () => {
                       <td className="py-4 px-6 text-right space-x-2">
                         <button
                           onClick={() => handleOpenEditModal(m)}
-                          className="p-1.5 text-gym-muted hover:text-gym-orange hover:bg-gym-orange/10 rounded-lg transition-colors"
+                          className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
                           title="Edit Member Details"
                         >
-                          <Edit3 className="w-4 h-4" />
+                          <Edit3 className="w-4.5 h-4.5" />
                         </button>
                         <button
                           onClick={() => {
@@ -339,16 +339,16 @@ const ManageMembers = () => {
                             setModalAction('activate');
                             setShowMembershipModal(true);
                           }}
-                          className="py-1 px-2.5 bg-gym-orange/20 hover:bg-gym-orange text-gym-orange hover:text-white border border-gym-orange/30 rounded-lg text-xs font-semibold transition-colors"
+                          className="py-1.5 px-3 bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 rounded-md text-xs font-bold transition-colors"
                         >
                           Manual Action
                         </button>
                         <button
                           onClick={() => handleOpenDeleteModal(m)}
-                          className="p-1.5 text-gym-muted hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                          className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
                           title="Delete Member"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-4.5 h-4.5" />
                         </button>
                       </td>
                     </tr>
@@ -373,22 +373,22 @@ const ManageMembers = () => {
 
       {/* MANUAL MEMBERSHIP MODAL */}
       {showMembershipModal && selectedMember && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#161626] border border-gym-orange/50 rounded-2xl max-w-md w-[95%] sm:w-full p-5 sm:p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center border-b border-gym-border pb-3">
-              <h3 className="font-bold text-white text-sm sm:text-base">Membership Control: {selectedMember.name}</h3>
-              <button onClick={() => setShowMembershipModal(false)} className="text-gym-muted hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
+          <div className="bg-white border border-slate-200 rounded-lg max-w-md w-full p-6 shadow-xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+              <h3 className="font-bold text-slate-900 text-base uppercase font-heading">Membership Control: {selectedMember.name}</h3>
+              <button onClick={() => setShowMembershipModal(false)} className="text-slate-400 hover:text-slate-700 p-1">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <form onSubmit={handleUpdateMembership} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Select Action</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Select Action</label>
                 <select
                   value={modalAction}
                   onChange={(e) => setModalAction(e.target.value)}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-3 text-sm text-white focus:outline-none min-h-[44px]"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600 font-semibold"
                 >
                   <option value="activate">Activate / Assign Plan</option>
                   <option value="extend">Extend Existing Plan (Days)</option>
@@ -398,11 +398,11 @@ const ManageMembers = () => {
 
               {modalAction === 'activate' && (
                 <div>
-                  <label className="block text-xs font-medium text-gym-muted mb-1">Choose Plan</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Choose Plan</label>
                   <select
                     value={selectedPlanId}
                     onChange={(e) => setSelectedPlanId(e.target.value)}
-                    className="w-full bg-gym-dark border border-gym-border rounded-xl p-3 text-sm text-white focus:outline-none min-h-[44px]"
+                    className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600 font-semibold"
                   >
                     {plans.map((p) => (
                       <option key={p.id} value={p.id}>
@@ -415,19 +415,19 @@ const ManageMembers = () => {
 
               {modalAction === 'extend' && (
                 <div>
-                  <label className="block text-xs font-medium text-gym-muted mb-1">Extension Days</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Extension Days</label>
                   <input
                     type="number"
                     value={extensionDays}
                     onChange={(e) => setExtensionDays(e.target.value)}
-                    className="w-full bg-gym-dark border border-gym-border rounded-xl p-3 text-sm text-white focus:outline-none min-h-[44px]"
+                    className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600 font-medium"
                   />
                 </div>
               )}
 
               <button
                 type="submit"
-                className="w-full py-3 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold rounded-xl shadow-lg transition-all min-h-[44px]"
+                className="w-full h-11 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm rounded-md shadow-xs transition-colors"
               >
                 Apply Membership Update
               </button>
@@ -438,56 +438,56 @@ const ManageMembers = () => {
 
       {/* EDIT MEMBER PROFILE MODAL */}
       {showEditMemberModal && selectedMember && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#161626] border border-gym-orange/50 rounded-2xl max-w-md w-[95%] sm:w-full p-5 sm:p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center border-b border-gym-border pb-3">
-              <h3 className="font-bold text-white text-sm sm:text-base">Edit Member Profile</h3>
-              <button onClick={() => setShowEditMemberModal(false)} className="text-gym-muted hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
+          <div className="bg-white border border-slate-200 rounded-lg max-w-md w-full p-6 shadow-xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+              <h3 className="font-bold text-slate-900 text-base uppercase font-heading">Edit Member Profile</h3>
+              <button onClick={() => setShowEditMemberModal(false)} className="text-slate-400 hover:text-slate-700 p-1">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleUpdateMemberProfile} className="space-y-3">
+            <form onSubmit={handleUpdateMemberProfile} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Full Name</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Full Name</label>
                 <input
                   type="text"
                   required
                   value={editMemberForm.name}
                   onChange={(e) => setEditMemberForm({ ...editMemberForm, name: e.target.value })}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Email</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Email</label>
                 <input
                   type="email"
                   required
                   value={editMemberForm.email}
                   onChange={(e) => setEditMemberForm({ ...editMemberForm, email: e.target.value })}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Phone</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Phone</label>
                 <input
                   type="tel"
                   required
                   maxLength={10}
                   value={editMemberForm.phone}
                   onChange={(e) => setEditMemberForm({ ...editMemberForm, phone: e.target.value.replace(/\D/g, '').slice(0, 10) })}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600 font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Gender</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Gender</label>
                 <select
                   value={editMemberForm.gender}
                   onChange={(e) => setEditMemberForm({ ...editMemberForm, gender: e.target.value })}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600"
                 >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
@@ -496,26 +496,26 @@ const ManageMembers = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Address</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wider">Address</label>
                 <textarea
                   rows={2}
                   value={editMemberForm.address}
                   onChange={(e) => setEditMemberForm({ ...editMemberForm, address: e.target.value })}
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-md p-3 text-sm text-slate-900 focus:outline-none focus:border-orange-600"
                 />
               </div>
 
-              <div className="flex justify-end space-x-2 pt-2">
+              <div className="flex justify-end space-x-2.5 pt-2">
                 <button
                   type="button"
                   onClick={() => setShowEditMemberModal(false)}
-                  className="px-4 py-2 bg-gym-card text-gym-muted text-xs font-bold rounded-xl"
+                  className="px-4 h-11 bg-slate-100 text-slate-700 text-sm font-semibold rounded-md border border-slate-200"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-gym-orange hover:bg-gym-orangeHover text-white text-xs font-bold rounded-xl shadow-lg"
+                  className="px-5 h-11 bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold rounded-md shadow-xs transition-colors"
                 >
                   Save Profile Changes
                 </button>

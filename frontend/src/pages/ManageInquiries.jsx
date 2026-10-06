@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { contactAPI } from '../services/api';
+import { contactAPI, adminAPI } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import { 
   MessageSquare, 
@@ -13,12 +14,24 @@ import {
   AlertCircle,
   Filter,
   Calendar,
-  MessageCircle
+  MessageCircle,
+  UserCheck,
+  TrendingUp,
+  AlertTriangle,
+  Sparkles,
+  Save,
+  Loader2
 } from 'lucide-react';
 
 const ManageInquiries = () => {
+  const { role } = useAuth();
+  const isAdmin = role === 'admin';
+
   const [inquiries, setInquiries] = useState([]);
+  const [staffList, setStaffList] = useState([]);
+  const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [updatingId, setUpdatingId] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   
@@ -35,19 +48,46 @@ const ManageInquiries = () => {
   const [deleteError, setDeleteError] = useState('');
 
   useEffect(() => {
-    fetchInquiries();
-  }, []);
+    fetchInquiriesAndData();
+  }, [statusFilter]);
 
-  const fetchInquiries = async () => {
+  const fetchInquiriesAndData = async () => {
     try {
       setLoading(true);
       setError('');
-      const res = await contactAPI.getInquiries();
+
+      const params = {};
+      if (statusFilter !== 'ALL') {
+        params.status = statusFilter;
+      }
+
+      const res = await contactAPI.getInquiries(params);
       if (res.data.success) {
         setInquiries(res.data.inquiries);
       }
+
+      // Fetch stats if admin
+      if (isAdmin) {
+        try {
+          const statsRes = await contactAPI.getStats();
+          if (statsRes.data.success) {
+            setStats(statsRes.data.stats);
+          }
+        } catch (stErr) {
+          console.warn('Stats fetch notice:', stErr.message);
+        }
+
+        try {
+          const staffRes = await adminAPI.getStaffList();
+          if (staffRes.data.success) {
+            setStaffList(staffRes.data.staff || []);
+          }
+        } catch (stfErr) {
+          console.warn('Staff list fetch notice:', stfErr.message);
+        }
+      }
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to load inquiries.');
+      setError(err.response?.data?.message || 'Failed to load contact inquiries.');
     } finally {
       setLoading(false);
     }
@@ -55,28 +95,54 @@ const ManageInquiries = () => {
 
   const handleStatusChange = async (id, newStatus) => {
     try {
+      setUpdatingId(id);
       const res = await contactAPI.updateInquiry(id, { status: newStatus });
       if (res.data.success) {
-        setInquiries(prev => prev.map(item => item.id === id ? { ...item, status: newStatus } : item));
-        setSuccess(`Inquiry #${id} marked as ${newStatus}.`);
+        setInquiries(prev => prev.map(item => item.id === id ? { ...item, status: newStatus, updatedAt: new Date().toISOString() } : item));
+        setSuccess(`Inquiry status updated to "${newStatus}".`);
+        setTimeout(() => setSuccess(''), 3000);
+        if (isAdmin) {
+          contactAPI.getStats().then(s => s.data.success && setStats(s.data.stats)).catch(() => {});
+        }
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to update status.');
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
+  const handleAssignStaff = async (id, staffId) => {
+    try {
+      setUpdatingId(id);
+      const targetStaffId = staffId ? parseInt(staffId) : null;
+      const res = await contactAPI.assignInquiry(id, { assigned_to: targetStaffId });
+      if (res.data.success) {
+        setInquiries(prev => prev.map(item => item.id === id ? res.data.inquiry : item));
+        setSuccess(targetStaffId ? 'Inquiry assigned to staff successfully.' : 'Inquiry unassigned.');
         setTimeout(() => setSuccess(''), 3000);
       }
     } catch (err) {
-      setError('Failed to update status.');
+      setError(err.response?.data?.message || 'Failed to assign staff member.');
+    } finally {
+      setUpdatingId(null);
     }
   };
 
   const handleSaveNotes = async (id) => {
     try {
+      setUpdatingId(id);
       const res = await contactAPI.updateInquiry(id, { notes: noteText });
       if (res.data.success) {
         setInquiries(prev => prev.map(item => item.id === id ? { ...item, notes: noteText } : item));
         setEditingNotesId(null);
-        setSuccess('Notes updated successfully.');
+        setSuccess('Notes saved successfully.');
         setTimeout(() => setSuccess(''), 3000);
       }
     } catch (err) {
-      setError('Failed to save notes.');
+      setError(err.response?.data?.message || 'Failed to save notes.');
+    } finally {
+      setUpdatingId(null);
     }
   };
 
@@ -98,6 +164,9 @@ const ManageInquiries = () => {
         setInquiryToDelete(null);
         setSuccess('Inquiry deleted successfully.');
         setTimeout(() => setSuccess(''), 3000);
+        if (isAdmin) {
+          contactAPI.getStats().then(s => s.data.success && setStats(s.data.stats)).catch(() => {});
+        }
       }
     } catch (err) {
       setDeleteError(err.response?.data?.message || 'Failed to delete inquiry. Please try again.');
@@ -106,266 +175,377 @@ const ManageInquiries = () => {
     }
   };
 
-  // Filtering
+  // Client-side Search Filtering
   const filteredInquiries = inquiries.filter(item => {
+    const q = search.toLowerCase();
     const matchesSearch = 
-      item.name.toLowerCase().includes(search.toLowerCase()) ||
-      item.phone.includes(search) ||
-      item.email.toLowerCase().includes(search.toLowerCase()) ||
-      item.message.toLowerCase().includes(search.toLowerCase());
-    
-    const matchesStatus = statusFilter === 'ALL' || item.status === statusFilter;
+      item.name.toLowerCase().includes(q) ||
+      item.phone.includes(q) ||
+      item.email.toLowerCase().includes(q) ||
+      item.message.toLowerCase().includes(q) ||
+      (item.notes && item.notes.toLowerCase().includes(q)) ||
+      (item.AssignedStaff && item.AssignedStaff.name.toLowerCase().includes(q));
 
-    return matchesSearch && matchesStatus;
+    return matchesSearch;
   });
 
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'Pending':
+      case 'New':
         return (
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/10 border border-amber-500/40 text-amber-400">
-            <Clock className="w-3 h-3 mr-1" />
-            Pending
+          <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold bg-orange-50 text-orange-700 border border-orange-200">
+            <Sparkles className="w-3.5 h-3.5 mr-1.5" />
+            New Inquiry
           </span>
         );
       case 'Contacted':
         return (
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-blue-500/10 border border-blue-500/40 text-blue-400">
-            <PhoneCall className="w-3 h-3 mr-1" />
+          <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+            <PhoneCall className="w-3.5 h-3.5 mr-1.5" />
             Contacted
           </span>
         );
-      case 'Resolved':
+      case 'Visited':
         return (
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/10 border border-emerald-500/40 text-emerald-400">
-            <CheckCircle2 className="w-3 h-3 mr-1" />
-            Resolved
+          <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">
+            <UserCheck className="w-3.5 h-3.5 mr-1.5" />
+            Visited Gym
+          </span>
+        );
+      case 'Joined':
+        return (
+          <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />
+            Joined Member
+          </span>
+        );
+      case 'Not Interested':
+        return (
+          <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200">
+            Not Interested
+          </span>
+        );
+      case 'Pending':
+        return (
+          <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+            <Clock className="w-3.5 h-3.5 mr-1.5" />
+            Pending
           </span>
         );
       default:
-        return null;
+        return (
+          <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+            {status}
+          </span>
+        );
     }
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       
       {/* HEADER */}
-      <div className="border-b border-gym-border pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="border-b border-slate-200 pb-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <span className="text-gym-orange text-[10px] sm:text-xs font-bold uppercase tracking-widest">Admin Control</span>
-          <h1 className="text-xl sm:text-3xl font-black text-white uppercase tracking-tight flex items-center gap-2">
-            <MessageSquare className="w-6 h-6 sm:w-7 sm:h-7 text-gym-orange shrink-0" />
-            <span>CONTACT INQUIRIES & MESSAGES</span>
+          <span className="text-orange-600 text-xs sm:text-sm font-bold uppercase tracking-wider">
+            {isAdmin ? 'Admin Management Portal' : 'Staff Workspace'}
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-heading font-extrabold text-slate-900 uppercase tracking-tight flex items-center gap-3 mt-1">
+            <MessageSquare className="w-8 h-8 text-orange-600 shrink-0" />
+            <span>CONTACT INQUIRIES & LEADS</span>
           </h1>
         </div>
-        <div className="text-xs text-gym-muted bg-gym-card px-4 py-2 rounded-xl border border-gym-border">
-          Total Received: <span className="text-white font-bold">{inquiries.length}</span>
+        <div className="text-sm text-slate-700 bg-white px-4 py-2.5 rounded-lg border border-slate-200 font-semibold shadow-xs h-11 flex items-center">
+          Total Inquiries: <span className="text-slate-900 font-extrabold ml-1.5">{inquiries.length}</span>
         </div>
       </div>
 
+      {/* ADMIN SUMMARY METRIC CARDS */}
+      {isAdmin && stats && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-xs">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-xs font-bold text-orange-600 uppercase tracking-wider">New Inquiries</p>
+                <h3 className="text-4xl font-black text-slate-900 mt-1">{stats.newCount || 0}</h3>
+                <p className="text-xs text-slate-500 mt-1">Requires initial contact</p>
+              </div>
+              <div className="w-12 h-12 rounded-lg bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-600">
+                <Sparkles className="w-6 h-6" />
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-xs">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total This Month</p>
+                <h3 className="text-4xl font-black text-slate-900 mt-1">{stats.totalThisMonth || 0}</h3>
+                <p className="text-xs text-slate-500 mt-1">Received in current month</p>
+              </div>
+              <div className="w-12 h-12 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                <Calendar className="w-6 h-6" />
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-xs">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Conversion Rate</p>
+                <h3 className="text-4xl font-black text-slate-900 mt-1">{stats.conversionRate || 0}%</h3>
+                <p className="text-xs text-slate-500 mt-1">{stats.joinedCount || 0} Joined Members</p>
+              </div>
+              <div className="w-12 h-12 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+                <TrendingUp className="w-6 h-6" />
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-xs">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-xs font-bold text-amber-600 uppercase tracking-wider">Pending Follow-up (3+ Days)</p>
+                <h3 className="text-4xl font-black text-amber-700 mt-1">{stats.pendingFollowUpCount || 0}</h3>
+                <p className="text-xs text-slate-500 mt-1">Requires staff attention</p>
+              </div>
+              <div className="w-12 h-12 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
+                <AlertTriangle className="w-6 h-6" />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* NOTIFICATIONS */}
       {error && (
-        <div className="bg-red-500/10 border border-red-500/40 text-red-300 text-xs p-3.5 rounded-xl flex items-center justify-between">
+        <div className="bg-red-50 border border-red-200 text-red-700 text-sm p-4 rounded-lg flex items-center justify-between font-medium">
           <span>{error}</span>
-          <button onClick={() => setError('')} className="font-bold">✕</button>
+          <button onClick={() => setError('')} className="font-bold text-lg hover:text-red-900 ml-2">✕</button>
         </div>
       )}
 
       {success && (
-        <div className="bg-emerald-500/10 border border-emerald-500/40 text-emerald-300 text-xs p-3.5 rounded-xl flex items-center justify-between">
+        <div className="bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm p-4 rounded-lg flex items-center justify-between font-medium">
           <span>{success}</span>
-          <button onClick={() => setSuccess('')} className="font-bold">✕</button>
+          <button onClick={() => setSuccess('')} className="font-bold text-lg hover:text-emerald-900 ml-2">✕</button>
         </div>
       )}
 
       {/* CONTROLS (SEARCH & FILTER) */}
-      <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-gym-card p-4 rounded-2xl border border-gym-border">
+      <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
         {/* Search */}
         <div className="relative w-full md:w-96">
-          <Search className="w-4 h-4 text-gym-muted absolute left-3.5 top-3" />
+          <Search className="w-5 h-5 text-slate-400 absolute left-3.5 top-3" />
           <input
             type="text"
-            placeholder="Search by name, phone, email, message..."
+            placeholder="Search by name, phone, email, message, notes..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-gym-dark border border-gym-border rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder:text-gym-muted focus:outline-none focus:border-gym-orange"
+            className="w-full bg-slate-50 border border-slate-300 rounded-md pl-11 pr-4 h-11 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 font-medium"
           />
         </div>
 
-        {/* Filter */}
-        <div className="flex items-center space-x-2 w-full md:w-auto">
-          <Filter className="w-4 h-4 text-gym-muted" />
-          <span className="text-xs text-gym-muted font-semibold">Filter Status:</span>
+        {/* Status Filter */}
+        <div className="flex items-center space-x-3 w-full md:w-auto">
+          <Filter className="w-5 h-5 text-slate-500" />
+          <span className="text-sm text-slate-700 font-semibold">Filter Status:</span>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-gym-dark border border-gym-border text-xs text-white rounded-xl px-3 py-2 focus:outline-none focus:border-gym-orange"
+            className="bg-slate-50 border border-slate-300 text-sm text-slate-900 rounded-md px-3.5 h-11 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 font-semibold"
           >
-            <option value="ALL">All Inquiries ({inquiries.length})</option>
-            <option value="Pending">Pending ({inquiries.filter(i => i.status === 'Pending').length})</option>
-            <option value="Contacted">Contacted ({inquiries.filter(i => i.status === 'Contacted').length})</option>
-            <option value="Resolved">Resolved ({inquiries.filter(i => i.status === 'Resolved').length})</option>
+            <option value="ALL">All Statuses ({inquiries.length})</option>
+            <option value="New">New Inquiries</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Visited">Visited Gym</option>
+            <option value="Joined">Joined (Member)</option>
+            <option value="Not Interested">Not Interested</option>
           </select>
         </div>
       </div>
 
       {/* LIST OF INQUIRIES */}
       {loading ? (
-        <div className="text-center py-20 text-gym-muted text-sm">Loading contact inquiries...</div>
+        <div className="text-center py-20 text-slate-600 text-base flex items-center justify-center space-x-3 bg-white rounded-lg border border-slate-200 font-medium">
+          <Loader2 className="w-6 h-6 animate-spin text-orange-600" />
+          <span>Loading contact inquiries...</span>
+        </div>
       ) : filteredInquiries.length === 0 ? (
-        <div className="bg-gym-card border border-gym-border/60 rounded-3xl p-12 text-center space-y-3">
-          <MessageCircle className="w-12 h-12 text-gym-muted mx-auto" />
-          <h3 className="text-lg font-bold text-white">No inquiries found</h3>
-          <p className="text-xs text-gym-muted">When visitors fill out the contact form on the home page, their inquiries will appear here in real-time.</p>
+        <div className="bg-white border border-slate-200 rounded-lg p-16 text-center space-y-3 shadow-xs">
+          <MessageCircle className="w-14 h-14 text-slate-300 mx-auto" />
+          <h3 className="text-lg font-bold text-slate-900">No inquiries found</h3>
+          <p className="text-sm text-slate-500 max-w-md mx-auto">When visitors fill out the contact form on the landing page, their inquiries will appear here.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-4">
-          {filteredInquiries.map((inquiry) => (
-            <div
-              key={inquiry.id}
-              className="bg-gym-card border border-gym-border/80 hover:border-gym-orange/40 rounded-2xl p-6 transition-all space-y-4"
-            >
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-gym-border/50 pb-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-gym-orange/20 border border-gym-orange/50 flex items-center justify-center text-gym-orange font-black text-sm">
-                    {inquiry.name.charAt(0).toUpperCase()}
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-white flex items-center space-x-2">
-                      <span>{inquiry.name}</span>
-                    </h3>
-                    <div className="flex items-center space-x-3 text-xs text-gym-muted mt-0.5">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3 text-gym-orange" />
-                        {new Date(inquiry.createdAt).toLocaleString('en-IN', {
-                          day: 'numeric',
-                          month: 'short',
-                          year: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}
-                      </span>
+        <div className="grid grid-cols-1 gap-5">
+          {filteredInquiries.map((inquiry) => {
+            const isUpdating = updatingId === inquiry.id;
+            return (
+              <div
+                key={inquiry.id}
+                className={`bg-white border rounded-lg p-6 transition-colors space-y-4 shadow-xs ${
+                  inquiry.status === 'New' 
+                    ? 'border-orange-300 bg-orange-50/15' 
+                    : 'border-slate-200 hover:border-slate-300'
+                }`}
+              >
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100 pb-4">
+                  <div className="flex items-center space-x-3.5">
+                    <div className="w-11 h-11 rounded-full bg-orange-100 border border-orange-200 flex items-center justify-center text-orange-700 font-bold text-base">
+                      {inquiry.name.charAt(0)}
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-900 flex items-center space-x-2">
+                        <span>{inquiry.name}</span>
+                      </h3>
+                      <div className="flex items-center space-x-3 text-xs sm:text-sm text-slate-500 mt-0.5">
+                        <span className="flex items-center gap-1.5 font-mono">
+                          <Calendar className="w-4 h-4 text-slate-400" />
+                          {new Date(inquiry.createdAt).toLocaleString('en-IN', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </span>
+                      </div>
                     </div>
                   </div>
+
+                  <div className="flex flex-wrap items-center gap-3">
+                    {getStatusBadge(inquiry.status)}
+
+                    {/* Change Status Dropdown */}
+                    <div className="flex items-center space-x-2">
+                      <span className="text-xs sm:text-sm text-slate-600 font-semibold">Status:</span>
+                      <select
+                        disabled={isUpdating}
+                        value={inquiry.status || 'New'}
+                        onChange={(e) => handleStatusChange(inquiry.id, e.target.value)}
+                        className="bg-slate-50 border border-slate-300 text-xs sm:text-sm text-slate-900 rounded-md px-3 h-10 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 font-semibold disabled:opacity-50"
+                      >
+                        <option value="New">New</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Visited">Visited Gym</option>
+                        <option value="Joined">Joined (Member)</option>
+                        <option value="Not Interested">Not Interested</option>
+                      </select>
+                    </div>
+
+                    {/* Delete Button (ADMIN ONLY) */}
+                    {isAdmin && (
+                      <button
+                        onClick={() => handleOpenDeleteModal(inquiry)}
+                        className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                        title="Delete Inquiry"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    )}
+                  </div>
                 </div>
 
-                <div className="flex items-center space-x-3">
-                  {getStatusBadge(inquiry.status)}
+                {/* CONTACT DETAILS & MESSAGE BODY */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 text-sm">
+                  
+                  {/* Contact info column */}
+                  <div className="space-y-2.5 bg-slate-50 p-4 rounded-md border border-slate-200">
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Contact Details</span>
+                    <div className="flex items-center space-x-2.5 text-slate-900">
+                      <PhoneCall className="w-4 h-4 text-orange-600 shrink-0" />
+                      <a href={`tel:${inquiry.phone}`} className="hover:underline hover:text-orange-600 font-bold font-mono text-sm sm:text-base">
+                        {inquiry.phone}
+                      </a>
+                    </div>
+                    <div className="flex items-center space-x-2.5 text-slate-900">
+                      <Mail className="w-4 h-4 text-orange-600 shrink-0" />
+                      <a href={`mailto:${inquiry.email}`} className="hover:underline hover:text-orange-600 font-medium text-sm">
+                        {inquiry.email}
+                      </a>
+                    </div>
+                  </div>
 
-                  {/* Change Status Dropdown */}
-                  <select
-                    value={inquiry.status}
-                    onChange={(e) => handleStatusChange(inquiry.id, e.target.value)}
-                    className="bg-gym-dark border border-gym-border text-xs text-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-gym-orange font-medium"
-                  >
-                    <option value="Pending">Set Pending</option>
-                    <option value="Contacted">Set Contacted</option>
-                    <option value="Resolved">Set Resolved</option>
-                  </select>
+                  {/* Inquiry message column */}
+                  <div className="lg:col-span-2 space-y-2.5 bg-slate-50 p-4 rounded-md border border-slate-200">
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Inquiry Message</span>
+                    <p className="text-slate-800 leading-relaxed text-sm sm:text-base whitespace-pre-wrap font-normal">
+                      "{inquiry.message}"
+                    </p>
+                  </div>
 
-                  <button
-                    onClick={() => handleOpenDeleteModal(inquiry)}
-                    className="p-2 text-gym-muted hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
-                    title="Delete Inquiry"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
                 </div>
+
+                {/* NOTES SECTION */}
+                <div className="pt-3 text-sm border-t border-slate-100">
+                  {editingNotesId === inquiry.id ? (
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                      <input
+                        type="text"
+                        placeholder="Add internal follow-up notes (e.g., Called customer, scheduled trial session)..."
+                        value={noteText}
+                        onChange={(e) => setNoteText(e.target.value)}
+                        className="flex-1 bg-slate-50 border border-slate-300 rounded-md px-3.5 h-11 text-sm text-slate-900 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600"
+                      />
+                      <div className="flex items-center space-x-2">
+                        <button
+                          onClick={() => handleSaveNotes(inquiry.id)}
+                          disabled={isUpdating}
+                          className="px-4 h-11 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-md text-sm flex items-center space-x-1.5"
+                        >
+                          <Save className="w-4 h-4" />
+                          <span>Save Notes</span>
+                        </button>
+                        <button
+                          onClick={() => setEditingNotesId(null)}
+                          className="px-3.5 h-11 bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-900 rounded-md text-sm font-semibold"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-slate-600">
+                      <div>
+                        <strong className="text-slate-900 font-bold">Follow-up Notes: </strong>
+                        {inquiry.notes ? (
+                          <span className="text-slate-800 font-medium italic">{inquiry.notes}</span>
+                        ) : (
+                          <span className="italic text-slate-400">No notes added yet</span>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => {
+                          setEditingNotesId(inquiry.id);
+                          setNoteText(inquiry.notes || '');
+                        }}
+                        className="text-orange-600 hover:underline font-bold text-sm shrink-0"
+                      >
+                        {inquiry.notes ? 'Edit Notes' : '+ Add Note'}
+                      </button>
+                    </div>
+                  )}
+                </div>
+
               </div>
-
-              {/* CONTACT DETAILS & MESSAGE BODY */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 text-xs">
-                
-                {/* Contact info column */}
-                <div className="space-y-2 bg-gym-dark/50 p-3.5 rounded-xl border border-gym-border/40">
-                  <span className="text-[10px] font-bold text-gym-muted uppercase tracking-wider">Contact Info</span>
-                  <div className="flex items-center space-x-2 text-slate-200">
-                    <PhoneCall className="w-3.5 h-3.5 text-gym-orange shrink-0" />
-                    <a href={`tel:${inquiry.phone}`} className="hover:underline hover:text-gym-orange font-semibold">
-                      {inquiry.phone}
-                    </a>
-                  </div>
-                  <div className="flex items-center space-x-2 text-slate-200">
-                    <Mail className="w-3.5 h-3.5 text-gym-orange shrink-0" />
-                    <a href={`mailto:${inquiry.email}`} className="hover:underline hover:text-gym-orange">
-                      {inquiry.email}
-                    </a>
-                  </div>
-                </div>
-
-                {/* Inquiry message column */}
-                <div className="lg:col-span-2 space-y-2 bg-gym-dark/50 p-3.5 rounded-xl border border-gym-border/40">
-                  <span className="text-[10px] font-bold text-gym-muted uppercase tracking-wider">Message</span>
-                  <p className="text-slate-200 leading-relaxed text-xs whitespace-pre-wrap">
-                    "{inquiry.message}"
-                  </p>
-                </div>
-
-              </div>
-
-              {/* NOTES SECTION */}
-              <div className="pt-1 text-xs border-t border-gym-border/40">
-                {editingNotesId === inquiry.id ? (
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="text"
-                      placeholder="Add internal follow-up notes (e.g., Called user on 30 Sept, agreed to visit tomorrow)..."
-                      value={noteText}
-                      onChange={(e) => setNoteText(e.target.value)}
-                      className="flex-1 bg-gym-dark border border-gym-border rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-gym-orange"
-                    />
-                    <button
-                      onClick={() => handleSaveNotes(inquiry.id)}
-                      className="px-3 py-1.5 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold rounded-xl text-xs"
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={() => setEditingNotesId(null)}
-                      className="px-3 py-1.5 bg-gym-dark border border-gym-border text-gym-muted hover:text-white rounded-xl text-xs"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-between text-gym-muted">
-                    <span>
-                      <strong className="text-slate-300">Admin Notes: </strong>
-                      {inquiry.notes ? (
-                        <span className="text-slate-200 italic">{inquiry.notes}</span>
-                      ) : (
-                        <span className="italic text-slate-500">No notes added yet</span>
-                      )}
-                    </span>
-                    <button
-                      onClick={() => {
-                        setEditingNotesId(inquiry.id);
-                        setNoteText(inquiry.notes || '');
-                      }}
-                      className="text-gym-orange hover:underline font-bold text-[11px]"
-                    >
-                      {inquiry.notes ? 'Edit Notes' : '+ Add Note'}
-                    </button>
-                  </div>
-                )}
-              </div>
-
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
-      {/* CONFIRM DELETE MODAL */}
-      <ConfirmDeleteModal
-        isOpen={showDeleteModal}
-        onClose={() => setShowDeleteModal(false)}
-        onConfirm={handleConfirmDelete}
-        itemName={inquiryToDelete ? `inquiry from ${inquiryToDelete.name}` : 'this inquiry'}
-        itemType="Inquiry"
-        isDeleting={isDeleting}
-        error={deleteError}
-      />
+      {/* CONFIRM DELETE MODAL (ADMIN ONLY) */}
+      {isAdmin && (
+        <ConfirmDeleteModal
+          isOpen={showDeleteModal}
+          onClose={() => setShowDeleteModal(false)}
+          onConfirm={handleConfirmDelete}
+          itemName={inquiryToDelete ? `inquiry from ${inquiryToDelete.name}` : 'this inquiry'}
+          itemType="Inquiry"
+          isDeleting={isDeleting}
+          error={deleteError}
+        />
+      )}
 
     </div>
   );

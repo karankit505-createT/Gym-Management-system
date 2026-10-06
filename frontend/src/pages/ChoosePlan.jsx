@@ -67,40 +67,40 @@ const ChoosePlan = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-gym-border pb-6">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
           <button
             onClick={() => navigate(-1)}
-            className="text-xs text-gym-muted hover:text-white flex items-center space-x-1 mb-2 min-h-[44px]"
+            className="text-xs text-slate-500 hover:text-slate-800 flex items-center space-x-1 mb-2"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back</span>
           </button>
-          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">CHOOSE YOUR MEMBERSHIP PLAN</h1>
-          <p className="text-xs text-gym-muted">Select a plan duration to proceed to instant checkout with Razorpay</p>
+          <h1 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 uppercase">CHOOSE YOUR MEMBERSHIP PLAN</h1>
+          <p className="text-xs text-slate-500">Select a plan duration to proceed to instant checkout with Razorpay</p>
         </div>
       </div>
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500/50 text-red-300 text-xs p-3.5 rounded-xl flex items-center space-x-2">
-          <ShieldCheck className="w-4 h-4 shrink-0 text-red-400" />
+        <div className="bg-red-50 border border-red-200 text-red-700 text-xs p-3.5 rounded-md flex items-center space-x-2">
+          <ShieldCheck className="w-4 h-4 shrink-0 text-red-600" />
           <span>{error}</span>
         </div>
       )}
 
       {successMessage && (
-        <div className="bg-emerald-500/15 border-2 border-emerald-500/60 text-emerald-300 text-sm p-4 rounded-2xl text-center font-bold animate-bounce">
-          🎉 {successMessage}
+        <div className="bg-emerald-50 border border-emerald-300 text-emerald-800 text-sm p-4 rounded-md text-center font-bold">
+          Payment successful! Your membership is now active.
         </div>
       )}
 
       {loading ? (
-        <div className="text-center py-20 text-gym-muted">Loading available plans...</div>
+        <div className="text-center py-20 text-slate-500">Loading available plans...</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {plans.map((plan, index) => {
             const isHighlighted = index === 1;
             const isProcessing = purchasingPlanId === plan.id;
@@ -108,34 +108,39 @@ const ChoosePlan = () => {
             return (
               <div
                 key={plan.id}
-                className={`bg-gym-card border rounded-2xl sm:rounded-3xl p-5 sm:p-6 relative flex flex-col justify-between transition-all duration-300 ${
-                  isHighlighted ? 'border-gym-orange shadow-2xl glow-orange' : 'border-gym-border hover:border-gym-border/80'
+                className={`bg-white border rounded-lg p-6 flex flex-col justify-between shadow-sm relative ${
+                  isHighlighted ? 'border-red-600 ring-1 ring-red-600' : 'border-slate-200'
                 }`}
               >
+                {isHighlighted && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[10px] uppercase font-bold tracking-wider px-3 py-0.5 rounded-full">
+                    Most Popular
+                  </span>
+                )}
                 <div>
-                  <h3 className="text-lg sm:text-xl font-extrabold text-white mb-1">{plan.name}</h3>
-                  <p className="text-xs text-gym-muted mb-4">{plan.duration_days} Days Unlimited Gym Access</p>
+                  <h3 className="text-lg font-bold font-heading text-slate-900 mb-1 uppercase">{plan.name}</h3>
+                  <p className="text-xs text-slate-500 mb-4">{plan.duration_days} Days Unlimited Access</p>
 
                   <div className="my-4">
-                    <span className="text-3xl sm:text-4xl font-black text-white font-sans">₹{parseFloat(plan.price).toFixed(2)}</span>
-                    <span className="text-xs text-gym-muted ml-1">/ total</span>
+                    <span className="text-3xl font-bold font-sans text-slate-900">₹{parseFloat(plan.price).toFixed(2)}</span>
+                    <span className="text-xs text-slate-500 ml-1">/ total</span>
                   </div>
 
-                  <p className="text-xs text-slate-300 leading-relaxed mb-6 bg-gym-dark/50 p-3 rounded-xl border border-gym-border/40">
+                  <p className="text-xs text-slate-600 leading-relaxed mb-6 bg-slate-50 p-3 rounded-md border border-slate-200">
                     {plan.description}
                   </p>
 
-                  <ul className="space-y-2.5 text-xs text-slate-300 mb-6">
+                  <ul className="space-y-2.5 text-xs text-slate-700 mb-6">
                     <li className="flex items-center space-x-2">
-                      <Check className="w-4 h-4 text-gym-orange shrink-0" />
+                      <Check className="w-4 h-4 text-red-600 shrink-0" />
                       <span>Full Access to Gym Equipment</span>
                     </li>
                     <li className="flex items-center space-x-2">
-                      <Check className="w-4 h-4 text-gym-orange shrink-0" />
+                      <Check className="w-4 h-4 text-red-600 shrink-0" />
                       <span>Free Digital PDF Invoice Receipt</span>
                     </li>
                     <li className="flex items-center space-x-2">
-                      <Check className="w-4 h-4 text-gym-orange shrink-0" />
+                      <Check className="w-4 h-4 text-red-600 shrink-0" />
                       <span>Razorpay Secure Test Payment</span>
                     </li>
                   </ul>
@@ -145,10 +150,10 @@ const ChoosePlan = () => {
                   type="button"
                   disabled={isProcessing}
                   onClick={() => handleSelectPlan(plan.id)}
-                  className={`w-full py-3.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 min-h-[44px] ${
+                  className={`w-full py-3 px-4 rounded-md text-xs font-semibold transition-colors flex items-center justify-center space-x-2 min-h-[42px] ${
                     isHighlighted
-                      ? 'bg-gym-orange hover:bg-gym-orangeHover text-white shadow-lg shadow-gym-orange/30'
-                      : 'bg-gym-dark hover:bg-gym-orange hover:text-white border border-gym-border text-slate-200'
+                      ? 'bg-red-600 hover:bg-red-700 text-white shadow-sm'
+                      : 'bg-slate-900 hover:bg-slate-800 text-white shadow-sm'
                   }`}
                 >
                   {isProcessing ? (

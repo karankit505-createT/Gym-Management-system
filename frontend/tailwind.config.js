@@ -6,18 +6,27 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Poppins', 'sans-serif'],
+        heading: ['Barlow Condensed', 'sans-serif'],
+      },
       colors: {
         gym: {
-          dark: "#0F0F1A",
-          card: "#1A1A2E",
-          cardHover: "#23233D",
-          orange: "#FF4500",
-          orangeHover: "#E03E00",
-          accent: "#FF6B00",
-          text: "#E2E8F0",
-          muted: "#94A3B8",
-          border: "#2E2E48"
+          dark: "#F8F9FA",
+          card: "#FFFFFF",
+          cardHover: "#F3F4F6",
+          orange: "#EA580C",
+          orangeHover: "#C2410C",
+          accent: "#EA580C",
+          text: "#1F2937",
+          muted: "#4B5563",
+          border: "#E5E7EB",
+          navy: "#1F2937"
         }
+      },
+      borderRadius: {
+        'crisp': '6px',
+        'editorial': '8px'
       }
     },
   },

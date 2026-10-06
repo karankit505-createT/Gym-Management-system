@@ -1,7 +1,8 @@
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const { Parser } = require('json2csv');
-const { User, Plan, Membership, Payment, Staff, Announcement, Attendance, OtpVerification } = require('../models');
+const { User, Plan, Membership, Payment, Staff, Announcement, Attendance, OtpVerification, ContactInquiry } = require('../models');
+const { syncToMongo } = require('../utils/mongoSync');
 
 // 1. Admin Dashboard Stats
 exports.getDashboardStats = async (req, res) => {
@@ -77,6 +78,32 @@ exports.getDashboardStats = async (req, res) => {
       monthlyTrend.push({ month: monthLabel, revenue: rev, transactions: monthPayments.length });
     }
 
+    // Inquiry Statistics Calculation
+    const allInquiries = await ContactInquiry.findAll();
+    let totalInquiriesThisMonth = 0;
+    let newInquiriesCount = 0;
+    let joinedInquiriesCount = 0;
+    const threeDaysAgo = new Date(now.getTime() - (3 * 24 * 60 * 60 * 1000));
+    let pendingFollowUpCount = 0;
+
+    allInquiries.forEach(inq => {
+      const created = new Date(inq.createdAt);
+      const updated = new Date(inq.updatedAt || inq.createdAt);
+      const st = inq.status || 'New';
+
+      if (created >= startOfMonth) totalInquiriesThisMonth++;
+      if (st === 'New') newInquiriesCount++;
+      if (st === 'Joined') joinedInquiriesCount++;
+
+      if (st !== 'Joined' && st !== 'Not Interested' && updated <= threeDaysAgo) {
+        pendingFollowUpCount++;
+      }
+    });
+
+    const inquiryConversionRate = allInquiries.length > 0 
+      ? parseFloat(((joinedInquiriesCount / allInquiries.length) * 100).toFixed(1)) 
+      : 0;
+
     return res.status(200).json({
       success: true,
       stats: {
@@ -89,7 +116,13 @@ exports.getDashboardStats = async (req, res) => {
         totalRevenue,
         monthlyRevenue,
         planBreakdown,
-        monthlyTrend
+        monthlyTrend,
+        // Inquiry Stats
+        totalInquiries: allInquiries.length,
+        totalInquiriesThisMonth,
+        newInquiriesCount,
+        inquiryConversionRate,
+        pendingFollowUpCount
       }
     });
   } catch (error) {
@@ -186,6 +219,10 @@ exports.updateMemberMembership = async (req, res) => {
 
     if (action === 'deactivate') {
       await Membership.update({ status: 'expired' }, { where: { user_id: id } });
+      const deactivatedMems = await Membership.findAll({ where: { user_id: id } });
+      for (const dm of deactivatedMems) {
+        syncToMongo('memberships', dm).catch(err => console.error(err));
+      }
       return res.status(200).json({ success: true, message: 'Membership deactivated successfully' });
     }
 
@@ -199,6 +236,7 @@ exports.updateMemberMembership = async (req, res) => {
       currentEnd.setDate(currentEnd.getDate() + parseInt(extension_days || 30));
       activeMem.end_date = currentEnd.toISOString().split('T')[0];
       await activeMem.save();
+      syncToMongo('memberships', activeMem).catch(err => console.error(err));
       return res.status(200).json({ success: true, message: 'Membership extended successfully', membership: activeMem });
     }
 
@@ -221,6 +259,7 @@ exports.updateMemberMembership = async (req, res) => {
       end_date: endObj.toISOString().split('T')[0],
       status: 'active'
     });
+    syncToMongo('memberships', newMembership).catch(err => console.error(err));
 
     return res.status(200).json({ success: true, message: 'Membership manually activated!', membership: newMembership });
   } catch (error) {
@@ -265,6 +304,16 @@ exports.deleteMember = async (req, res) => {
     await Announcement.destroy({ where: { created_by: id } });
 
     await user.destroy();
+
+    // Clean up MongoDB documents
+    const mongoose = require('mongoose');
+    if (mongoose.connection && mongoose.connection.db) {
+      const numericId = parseInt(id);
+      mongoose.connection.db.collection('users').deleteOne({ $or: [{ mysql_id: numericId }, { email: user.email }] }).catch(() => {});
+      mongoose.connection.db.collection('memberships').deleteMany({ user_id: numericId }).catch(() => {});
+      mongoose.connection.db.collection('payments').deleteMany({ user_id: numericId }).catch(() => {});
+    }
+
     return res.status(200).json({ success: true, message: 'Member deleted successfully' });
   } catch (error) {
     console.error('Delete Member Error:', error);
@@ -347,6 +396,16 @@ exports.addStaff = async (req, res) => {
       designation: designation.trim(),
       permissions: permissions || 'attendance,members_view',
       added_by_admin_id: req.user ? req.user.id : null
+    });
+
+    await syncToMongo('users', {
+      mysql_id: user.id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      role: user.role,
+      is_verified: true,
+      designation: designation.trim()
     });
 
     return res.status(201).json({ success: true, message: 'Staff member added successfully', staff, user });

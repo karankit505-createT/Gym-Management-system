@@ -13,48 +13,48 @@ const ConfirmDeleteModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm transition-opacity">
-      <div className="bg-[#161626] border border-red-500/30 rounded-2xl max-w-md w-[95%] sm:w-full p-5 sm:p-6 shadow-2xl space-y-4 sm:space-y-5 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
+      <div className="bg-white border border-slate-200 rounded-lg max-w-md w-full p-6 shadow-xl space-y-4">
         
         {/* Header */}
         <div className="flex justify-between items-start">
           <div className="flex items-center space-x-3">
-            <div className="p-2.5 sm:p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400">
-              <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6" />
+            <div className="p-2.5 bg-red-50 border border-red-200 rounded-md text-red-600">
+              <AlertTriangle className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-white text-base sm:text-lg capitalize">Delete {itemType}</h3>
-              <p className="text-xs text-gym-muted">Confirm permanent deletion</p>
+              <h3 className="font-bold font-heading text-slate-900 text-base uppercase">Delete {itemType}</h3>
+              <p className="text-xs text-slate-500">Confirm permanent deletion</p>
             </div>
           </div>
           <button
             onClick={onClose}
             disabled={isDeleting}
-            className="text-gym-muted hover:text-white p-2 rounded-lg transition-colors disabled:opacity-50 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="text-slate-400 hover:text-slate-700 p-1 disabled:opacity-50"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Message */}
-        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-          Are you sure you want to delete <strong className="text-white font-semibold">{itemName}</strong>? This action cannot be undone and all associated records will be permanently removed.
+        <p className="text-xs text-slate-600 leading-relaxed">
+          Are you sure you want to delete <strong className="text-slate-900 font-semibold">{itemName}</strong>? This action cannot be undone and all associated records will be permanently removed.
         </p>
 
         {/* Error message */}
         {error && (
-          <div className="bg-red-500/10 border border-red-500/50 text-red-300 text-xs p-3 rounded-xl">
+          <div className="bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-md">
             {error}
           </div>
         )}
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row sm:justify-end gap-2.5 sm:space-x-3 pt-2">
+        <div className="flex flex-col sm:flex-row sm:justify-end gap-2.5 sm:space-x-2 pt-2">
           <button
             type="button"
             onClick={onClose}
             disabled={isDeleting}
-            className="w-full sm:w-auto px-4 py-3 bg-gym-card hover:bg-gym-dark text-slate-300 hover:text-white text-xs font-bold rounded-xl border border-gym-border transition-all disabled:opacity-50 min-h-[44px]"
+            className="w-full sm:w-auto px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-md border border-slate-200 transition-colors disabled:opacity-50"
           >
             Cancel
           </button>
@@ -63,7 +63,7 @@ const ConfirmDeleteModal = ({
             type="button"
             onClick={onConfirm}
             disabled={isDeleting}
-            className="w-full sm:w-auto px-5 py-3 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
+            className="w-full sm:w-auto px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-md shadow-sm transition-colors flex items-center justify-center space-x-2 disabled:opacity-50"
           >
             {isDeleting ? (
               <>

@@ -10,7 +10,14 @@ import {
   Send,
   Trophy,
   CheckCircle2,
-  Loader2
+  Loader2,
+  ShieldCheck,
+  Clock,
+  UserCheck,
+  Phone,
+  Mail,
+  MapPin,
+  Quote
 } from 'lucide-react';
 
 const Home = () => {
@@ -49,84 +56,79 @@ const Home = () => {
   };
 
   return (
-    <div className="space-y-20 pb-20">
+    <div className="space-y-16 pb-16 bg-slate-50 font-sans">
       
-      {/* 1. HERO BANNER SECTION */}
-      <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
-        <div className="absolute top-0 right-0 -z-10 w-96 h-96 bg-gym-orange/20 rounded-full filter blur-[120px]"></div>
-        <div className="absolute bottom-0 left-0 -z-10 w-96 h-96 bg-purple-600/10 rounded-full filter blur-[140px]"></div>
-
+      {/* 1. HERO SECTION */}
+      <section className="bg-white border-b border-slate-200 py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
-            <div className="space-y-6 text-center lg:text-left">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight font-sans">
-                UNLEASH YOUR <br />
-                <span className="gradient-text">ULTIMATE POTENTIAL</span>
+            {/* Left Content */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center space-x-2 bg-red-50 border border-red-200 px-3 py-1 rounded-md text-red-700 text-xs font-bold uppercase tracking-wider">
+                <Dumbbell className="w-3.5 h-3.5" />
+                <span>Premier Fitness Club</span>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black text-slate-900 tracking-tight leading-none uppercase">
+                TRAIN HARD. <br />
+                <span className="text-red-600">STAY DISCIPLINED.</span>
               </h1>
 
-              <p className="text-base sm:text-lg text-gym-muted max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
-                Welcome to IronPulse Gym — state-of-the-art strength arenas, certified personal coaches, dynamic aerobic zones, and premium wellness facilities built for real results.
+              <p className="text-base text-slate-600 max-w-xl leading-relaxed">
+                IronPulse Gym provides modern heavy strength machines, free weights area, group cardio classes, and certified fitness coaches for beginner to advanced lifters.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                 <Link
                   to="/register"
-                  className="w-full sm:w-auto px-8 py-4 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold rounded-xl shadow-xl shadow-gym-orange/30 transition-all transform hover:-translate-y-0.5 flex items-center justify-center space-x-2"
+                  className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold text-sm rounded-md transition-colors text-center inline-flex items-center justify-center space-x-2"
                 >
-                  <span>Start Your Membership</span>
-                  <ArrowRight className="w-5 h-5" />
+                  <span>Start Membership</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
 
                 <Link
                   to="/membership"
-                  className="w-full sm:w-auto px-8 py-4 bg-gym-card hover:bg-gym-cardHover border border-gym-border text-slate-200 font-semibold rounded-xl transition-all text-center"
+                  className="px-6 py-3 bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-bold text-sm rounded-md transition-colors text-center"
                 >
-                  View Membership Plans
+                  View Pricing Plans
                 </Link>
               </div>
 
-              {/* Stats Counters */}
-              <div className="grid grid-cols-3 gap-4 pt-8 border-t border-gym-border/60">
+              {/* Real Gym Highlights */}
+              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200 text-slate-700">
                 <div>
-                  <h4 className="text-2xl lg:text-3xl font-extrabold text-white">250+</h4>
-                  <p className="text-xs text-gym-muted">Active Members</p>
+                  <h4 className="text-2xl font-heading font-black text-slate-900">5:00 AM</h4>
+                  <p className="text-xs text-slate-500 font-medium">Opens Daily</p>
                 </div>
                 <div>
-                  <h4 className="text-2xl lg:text-3xl font-extrabold text-white">5+</h4>
-                  <p className="text-xs text-gym-muted">Expert Trainers</p>
+                  <h4 className="text-2xl font-heading font-black text-slate-900">Certified</h4>
+                  <p className="text-xs text-slate-500 font-medium">Personal Trainers</p>
                 </div>
                 <div>
-                  <h4 className="text-2xl lg:text-3xl font-extrabold text-white">25+</h4>
-                  <p className="text-xs text-gym-muted">Modern Machines</p>
+                  <h4 className="text-2xl font-heading font-black text-slate-900">24/7 VIP</h4>
+                  <p className="text-xs text-slate-500 font-medium">Annual Access</p>
                 </div>
               </div>
 
             </div>
 
-            {/* Hero Image Card */}
-            <div className="relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none rounded-3xl overflow-hidden border border-gym-border/80 shadow-2xl bg-gym-card">
+            {/* Right Gym Photo Container */}
+            <div className="lg:col-span-5">
+              <div className="bg-white border border-slate-200 rounded-lg p-2 shadow-sm relative">
                 <img
                   src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80"
-                  alt="Gym Workout"
-                  className="w-full h-[420px] lg:h-[480px] object-cover opacity-90 hover:scale-105 transition-transform duration-700"
+                  alt="Gym Floor Area"
+                  className="w-full h-[380px] object-cover rounded-md"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gym-dark via-transparent to-transparent"></div>
-                
-                {/* Floating Badge */}
-                <div className="absolute bottom-6 left-6 right-6 p-4 glass-panel rounded-2xl border border-white/10 flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-3 bg-gym-orange/20 text-gym-orange rounded-xl border border-gym-orange/30">
-                      <Trophy className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="text-white font-bold text-sm">#1 Rated Gym 2026</h4>
-                      <p className="text-xs text-gym-muted">Voted Top Fitness Facility</p>
-                    </div>
+                <div className="mt-2 p-3 bg-slate-50 rounded-md border border-slate-200 flex items-center justify-between text-xs">
+                  <div className="flex items-center space-x-2 text-slate-800 font-semibold">
+                    <MapPin className="w-4 h-4 text-red-600 shrink-0" />
+                    <span>Sector 15 Main Arena</span>
                   </div>
-                  <span className="text-xs font-bold text-gym-orange bg-gym-orange/10 px-3 py-1 rounded-full border border-gym-orange/30">
-                    5.0 ★★★★★
+                  <span className="text-[10px] text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200 font-mono">
+                    Photo Placeholder
                   </span>
                 </div>
               </div>
@@ -136,214 +138,275 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 2. EXPLORE OUR CLUB (QUICK NAV CARDS TO SPECIFIC PAGES) */}
+      {/* 2. EXPLORE SECTIONS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-3 mb-12">
-          <span className="text-gym-orange text-xs font-bold uppercase tracking-widest">Explore IronPulse</span>
-          <h2 className="text-3xl lg:text-4xl font-black text-white">EVERYTHING AT YOUR FINGERTIPS</h2>
-          <p className="text-gym-muted text-sm max-w-xl mx-auto">
-            Click on any section below to view detailed information, amenities, membership pricing, and transformation stories.
-          </p>
+        <div className="mb-8 border-b border-slate-200 pb-4">
+          <span className="text-red-600 text-xs font-bold uppercase tracking-wider block">IronPulse Overview</span>
+          <h2 className="text-2xl lg:text-3xl font-heading font-black text-slate-900 uppercase">OUR GYM SERVICES & FACILITIES</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
-          {/* About Card */}
-          <div className="bg-gym-card border border-gym-border/80 rounded-2xl p-6 flex flex-col justify-between hover:border-gym-orange/60 transition-all duration-300 group">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-gym-orange/20 border border-gym-orange/40 flex items-center justify-center text-gym-orange group-hover:scale-110 transition-transform">
-                <Award className="w-6 h-6" />
+          {/* Card 1: About */}
+          <div className="bg-white border border-slate-200 rounded-lg p-5 flex flex-col justify-between hover:border-red-400 transition-colors">
+            <div className="space-y-3">
+              <div className="w-10 h-10 rounded-md bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
+                <Award className="w-5 h-5" />
               </div>
-              <h3 className="text-xl font-extrabold text-white">About Us</h3>
-              <p className="text-xs text-gym-muted leading-relaxed">
-                Learn about our story, mission, certified coaches, and high-performance training culture.
+              <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">About IronPulse</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Read about our gym history, workout philosophy, equipment setup, and trainer qualifications.
               </p>
             </div>
             <Link
               to="/about"
-              className="mt-6 inline-flex items-center text-xs font-bold text-gym-orange hover:text-white transition-colors space-x-1"
+              className="mt-4 inline-flex items-center text-xs font-bold text-red-600 hover:text-red-700 space-x-1"
             >
               <span>Explore About Us</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          {/* Facilities Card */}
-          <div className="bg-gym-card border border-gym-border/80 rounded-2xl p-6 flex flex-col justify-between hover:border-gym-orange/60 transition-all duration-300 group">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-gym-orange/20 border border-gym-orange/40 flex items-center justify-center text-gym-orange group-hover:scale-110 transition-transform">
-                <Dumbbell className="w-6 h-6" />
+          {/* Card 2: Facilities */}
+          <div className="bg-white border border-slate-200 rounded-lg p-5 flex flex-col justify-between hover:border-red-400 transition-colors">
+            <div className="space-y-3">
+              <div className="w-10 h-10 rounded-md bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
+                <Dumbbell className="w-5 h-5" />
               </div>
-              <h3 className="text-xl font-extrabold text-white">Facilities & Equipment</h3>
-              <p className="text-xs text-gym-muted leading-relaxed">
-                Check out our 2,000 sq ft heavy strength arena, cardio studio, steam sauna, and smoothie bar.
+              <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Facilities & Equipment</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Check out squat racks, bench presses, cardio treadmills, steam room, and personal lockers.
               </p>
             </div>
             <Link
               to="/facilities"
-              className="mt-6 inline-flex items-center text-xs font-bold text-gym-orange hover:text-white transition-colors space-x-1"
+              className="mt-4 inline-flex items-center text-xs font-bold text-red-600 hover:text-red-700 space-x-1"
             >
-              <span>View All Facilities</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>View Facilities</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          {/* Membership Plans Card */}
-          <div className="bg-gym-card border border-gym-border/80 rounded-2xl p-6 flex flex-col justify-between hover:border-gym-orange/60 transition-all duration-300 group">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-gym-orange/20 border border-gym-orange/40 flex items-center justify-center text-gym-orange group-hover:scale-110 transition-transform">
-                <Sparkles className="w-6 h-6" />
+          {/* Card 3: Membership */}
+          <div className="bg-white border border-slate-200 rounded-lg p-5 flex flex-col justify-between hover:border-red-400 transition-colors">
+            <div className="space-y-3">
+              <div className="w-10 h-10 rounded-md bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
+                <ShieldCheck className="w-5 h-5" />
               </div>
-              <h3 className="text-xl font-extrabold text-white">Membership Plans</h3>
-              <p className="text-xs text-gym-muted leading-relaxed">
-                Compare Monthly, Pro, Elite, and VIP yearly plans with instant online Razorpay payment & digital invoices.
+              <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Membership Plans</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Monthly, quarterly, half-yearly and annual membership packages with instant online activation.
               </p>
             </div>
             <Link
               to="/membership"
-              className="mt-6 inline-flex items-center text-xs font-bold text-gym-orange hover:text-white transition-colors space-x-1"
+              className="mt-4 inline-flex items-center text-xs font-bold text-red-600 hover:text-red-700 space-x-1"
             >
               <span>View Pricing Plans</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          {/* Testimonials Card */}
-          <div className="bg-gym-card border border-gym-border/80 rounded-2xl p-6 flex flex-col justify-between hover:border-gym-orange/60 transition-all duration-300 group">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-gym-orange/20 border border-gym-orange/40 flex items-center justify-center text-gym-orange group-hover:scale-110 transition-transform">
-                <Star className="w-6 h-6" />
+          {/* Card 4: Reviews */}
+          <div className="bg-white border border-slate-200 rounded-lg p-5 flex flex-col justify-between hover:border-red-400 transition-colors">
+            <div className="space-y-3">
+              <div className="w-10 h-10 rounded-md bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
+                <Star className="w-5 h-5" />
               </div>
-              <h3 className="text-xl font-extrabold text-white">Member Reviews</h3>
-              <p className="text-xs text-gym-muted leading-relaxed">
-                Read real transformation stories, member feedback, and continuous video success testimonials.
+              <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Member Feedback</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Read feedback and reviews from our active gym members about training and environment.
               </p>
             </div>
             <Link
               to="/testimonials"
-              className="mt-6 inline-flex items-center text-xs font-bold text-gym-orange hover:text-white transition-colors space-x-1"
+              className="mt-4 inline-flex items-center text-xs font-bold text-red-600 hover:text-red-700 space-x-1"
             >
-              <span>Read Testimonials</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Read Feedback</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
         </div>
       </section>
 
+      {/* RUNNING TESTIMONIALS MARQUEE SECTION */}
+      <section className="space-y-4 overflow-hidden py-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          <div>
+            <span className="text-orange-600 text-xs font-bold uppercase tracking-wider block">Real Member Feedback</span>
+            <h2 className="text-2xl font-heading font-black text-slate-900 uppercase">RUNNING TESTIMONIALS & REVIEWS</h2>
+          </div>
+          <Link
+            to="/testimonials"
+            className="text-xs font-bold text-orange-600 hover:text-orange-700 flex items-center space-x-1"
+          >
+            <span>View All Reviews</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="relative w-full overflow-hidden bg-white py-4 border-y border-slate-200">
+          <div className="animate-marquee-left space-x-6">
+            {[
+              { initials: "VS", name: "Vikram Sethi", meta: "Quarterly Pro", quote: "IronPulse gym is very well equipped. Trainers guide properly on form!" },
+              { initials: "SR", name: "Sneha Roy", meta: "Yearly VIP", quote: "Clean gym area, good lockers, 5:00 AM opening time fits my routine!" },
+              { initials: "AS", name: "Amit Sharma", meta: "PT Client", quote: "Trained for 3 months. Lost 8kg and improved overall energy levels!" },
+              { initials: "RM", name: "Rohan Malhotra", meta: "Half-Yearly Gold", quote: "Great dumbbell range up to 50kg, sturdy power racks and clean showers!" },
+              { initials: "PV", name: "Pooja Verma", meta: "Monthly Pass", quote: "Super welcoming atmosphere for women. Trainers are extremely supportive!" },
+              { initials: "RK", name: "Rajesh Kumar", meta: "Yearly VIP", quote: "Top-notch bio-mechanical machines. Spacious setup and zero rush!" },
+              { initials: "VS", name: "Vikram Sethi", meta: "Quarterly Pro", quote: "IronPulse gym is very well equipped. Trainers guide properly on form!" },
+              { initials: "SR", name: "Sneha Roy", meta: "Yearly VIP", quote: "Clean gym area, good lockers, 5:00 AM opening time fits my routine!" },
+              { initials: "AS", name: "Amit Sharma", meta: "PT Client", quote: "Trained for 3 months. Lost 8kg and improved overall energy levels!" },
+              { initials: "RM", name: "Rohan Malhotra", meta: "Half-Yearly Gold", quote: "Great dumbbell range up to 50kg, sturdy power racks and clean showers!" },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="w-[320px] bg-slate-50 border border-slate-200 rounded-xl p-4 shrink-0 hover:border-orange-500 transition-colors"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex text-amber-500 space-x-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-500" />
+                    ))}
+                  </div>
+                  <Quote className="w-4 h-4 text-orange-300" />
+                </div>
+                <p className="text-xs text-slate-700 font-medium leading-relaxed line-clamp-2 mb-3">
+                  "{item.quote}"
+                </p>
+                <div className="flex items-center space-x-2.5 pt-2 border-t border-slate-200">
+                  <div className="w-7 h-7 rounded-md bg-orange-600 text-white font-bold flex items-center justify-center text-xs shrink-0">
+                    {item.initials}
+                  </div>
+                  <div className="overflow-hidden">
+                    <h4 className="text-xs font-bold text-slate-900 truncate">{item.name}</h4>
+                    <p className="text-[10px] text-slate-500 truncate">{item.meta}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 3. CONTACT FORM SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        <div className="bg-gym-card border border-gym-border/80 rounded-3xl p-8 lg:p-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white border border-slate-200 rounded-lg p-6 sm:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
-            <div className="space-y-4">
-              <span className="text-gym-orange text-xs font-bold uppercase tracking-widest">Get In Touch</span>
-              <h2 className="text-3xl font-black text-white">HAVE QUESTIONS? DROP US A MESSAGE!</h2>
-              <p className="text-gym-muted text-sm leading-relaxed">
-                Want to book a free 1-day trial pass or inquire about custom corporate packages? Fill out the form and our team will get back to you within 2 hours.
+            {/* Contact Info */}
+            <div className="lg:col-span-5 space-y-4">
+              <span className="text-red-600 text-xs font-bold uppercase tracking-wider block">Get In Touch</span>
+              <h2 className="text-2xl font-heading font-black text-slate-900 uppercase">CONTACT GYM DESK</h2>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Have questions regarding trial sessions, batch timings, or personal training? Send us a message and our staff will respond promptly.
               </p>
 
-              <div className="space-y-3 pt-4">
-                <div className="flex items-center space-x-3 text-xs text-slate-300">
-                  <CheckCircle2 className="w-4 h-4 text-gym-orange shrink-0" />
-                  <span>Free 1-Day Trial Access Pass</span>
+              <div className="space-y-3 pt-2 text-xs text-slate-700">
+                <div className="flex items-center space-x-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-red-600 shrink-0" />
+                  <span>Free 1-Day Trial Pass available</span>
                 </div>
-                <div className="flex items-center space-x-3 text-xs text-slate-300">
-                  <CheckCircle2 className="w-4 h-4 text-gym-orange shrink-0" />
-                  <span>Personal Trainer Consultation Included</span>
+                <div className="flex items-center space-x-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-red-600 shrink-0" />
+                  <span>Personal Trainer orientation</span>
                 </div>
-                <div className="flex items-center space-x-3 text-xs text-slate-300">
-                  <CheckCircle2 className="w-4 h-4 text-gym-orange shrink-0" />
-                  <span>Instant Confirmation via Email</span>
+                <div className="flex items-center space-x-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-red-600 shrink-0" />
+                  <span>Direct phone & WhatsApp support</span>
                 </div>
               </div>
             </div>
 
-            <form onSubmit={handleContactSubmit} className="space-y-4">
-              {contactSubmitted && (
-                <div className="bg-emerald-500/10 border border-emerald-500/40 text-emerald-300 text-xs p-3.5 rounded-xl flex items-center space-x-2">
-                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
-                  <span>Thank you! Your inquiry has been saved. Our team will get back to you within 2 hours.</span>
-                </div>
-              )}
-
-              {contactError && (
-                <div className="bg-red-500/10 border border-red-500/40 text-red-300 text-xs p-3.5 rounded-xl">
-                  {contactError}
-                </div>
-              )}
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-medium text-gym-muted mb-1">Your Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    placeholder="John Doe"
-                    className="w-full bg-gym-dark border border-gym-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gym-orange"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-medium text-gym-muted mb-1">Phone Number</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    placeholder="+91 98765 43210"
-                    className="w-full bg-gym-dark border border-gym-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gym-orange"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Email Address</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  placeholder="john@example.com"
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gym-orange"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-gym-muted mb-1">Message</label>
-                <textarea
-                  rows={3}
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  placeholder="How can we help you?"
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gym-orange"
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                disabled={submitting}
-                className="w-full py-3 bg-gym-orange hover:bg-gym-orangeHover disabled:opacity-50 text-white font-bold rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2"
-              >
-                {submitting ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Sending Inquiry...</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-4 h-4" />
-                    <span>Send Message</span>
-                  </>
+            {/* Contact Form */}
+            <div className="lg:col-span-7">
+              <form onSubmit={handleContactSubmit} className="space-y-4">
+                {contactSubmitted && (
+                  <div className="bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs p-3 rounded-md flex items-center space-x-2 font-medium">
+                    <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                    <span>Thank you! Your message has been received. We will contact you soon.</span>
+                  </div>
                 )}
-              </button>
-            </form>
+
+                {contactError && (
+                  <div className="bg-red-50 border border-red-300 text-red-800 text-xs p-3 rounded-md font-medium">
+                    {contactError}
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Your Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="John Doe"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-md px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-red-600 focus:bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Phone Number</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      required
+                      placeholder="+91 98765 43210"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-md px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-red-600 focus:bg-white"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="john@example.com"
+                    className="w-full bg-slate-50 border border-slate-300 rounded-md px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-red-600 focus:bg-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Message</label>
+                  <textarea
+                    rows={3}
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    placeholder="Ask about trial pass, batch timing, or fees..."
+                    className="w-full bg-slate-50 border border-slate-300 rounded-md px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-red-600 focus:bg-white"
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full py-2.5 bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white font-bold text-xs rounded-md transition-colors flex items-center justify-center space-x-2"
+                >
+                  {submitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Sending Message...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      <span>Send Inquiry</span>
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
 
           </div>
         </div>

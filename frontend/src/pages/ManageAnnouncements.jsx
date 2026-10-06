@@ -79,88 +79,99 @@ const ManageAnnouncements = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       
-      <div className="border-b border-gym-border pb-4">
-        <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">GYM ANNOUNCEMENTS</h1>
-        <p className="text-xs text-gym-muted">Post important notices, holiday hours, or new class schedules for members</p>
+      <div className="border-b border-slate-200 pb-5">
+        <span className="text-orange-600 text-xs sm:text-sm font-bold uppercase tracking-wider block mb-1">
+          Admin Control
+        </span>
+        <h1 className="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900 uppercase tracking-tight">
+          GYM ANNOUNCEMENTS & NOTICES
+        </h1>
+        <p className="text-sm sm:text-base text-slate-600 mt-1">
+          Post important notices, holiday hours, or new class schedules for all member dashboards.
+        </p>
       </div>
 
       {msg && (
-        <div className="bg-emerald-500/15 border border-emerald-500/50 text-emerald-300 text-xs p-3.5 rounded-xl flex items-center space-x-2">
-          <CheckCircle className="w-4 h-4 text-emerald-400" />
+        <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm p-4 rounded-lg flex items-center space-x-2.5 font-medium">
+          <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
           <span>{msg}</span>
         </div>
       )}
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500/50 text-red-300 text-xs p-3.5 rounded-xl">
+        <div className="bg-red-50 border border-red-200 text-red-700 text-sm p-4 rounded-lg font-medium">
           {error}
         </div>
       )}
 
       {/* CREATE ANNOUNCEMENT FORM */}
-      <div className="bg-gym-card border border-gym-border/80 rounded-3xl p-6 lg:p-8 space-y-4">
-        <h3 className="font-extrabold text-white text-base flex items-center space-x-2">
-          <Megaphone className="w-5 h-5 text-gym-orange" />
+      <div className="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 space-y-5 shadow-xs">
+        <h3 className="font-bold text-slate-900 text-base uppercase font-heading flex items-center space-x-2.5 border-b border-slate-100 pb-4">
+          <Megaphone className="w-5 h-5 text-orange-600" />
           <span>Post New Announcement</span>
         </h3>
 
-        <form onSubmit={handlePostSubmit} className="space-y-3">
+        <form onSubmit={handlePostSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-gym-muted mb-1">Title</label>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Notice Title</label>
             <input
               type="text"
               required
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="e.g. 🏋️ New Cardio Machines Arrived!"
-              className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+              placeholder="e.g. New Cardio Equipment Installed"
+              className="w-full h-11 bg-slate-50 border border-slate-300 rounded-lg px-3.5 text-sm sm:text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:border-orange-600"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gym-muted mb-1">Message</label>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Message Content</label>
             <textarea
-              rows={3}
+              rows={4}
               required
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Write notice details here..."
-              className="w-full bg-gym-dark border border-gym-border rounded-xl p-2.5 text-sm text-white focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm sm:text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:border-orange-600"
             ></textarea>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="py-3 px-6 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold text-xs rounded-xl shadow-lg transition-all"
+            className="h-11 px-6 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-sm rounded-lg shadow-xs transition-colors flex items-center justify-center space-x-2"
           >
-            Post Announcement
+            <Plus className="w-5 h-5" />
+            <span>{loading ? 'Posting Notice...' : 'Post Announcement'}</span>
           </button>
         </form>
       </div>
 
       {/* ANNOUNCEMENT LIST */}
-      <div className="bg-gym-card border border-gym-border/80 rounded-3xl p-6 space-y-4">
-        <h3 className="font-extrabold text-white text-base">Active Notices ({announcements.length})</h3>
+      <div className="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 space-y-5 shadow-xs">
+        <h3 className="font-bold text-slate-900 text-base uppercase font-heading border-b border-slate-100 pb-4">
+          Active Notices ({announcements.length})
+        </h3>
 
         {announcements.length === 0 ? (
-          <p className="text-xs text-gym-muted text-center py-6">No announcements posted currently.</p>
+          <p className="text-sm text-slate-500 text-center py-8">No announcements posted currently.</p>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-4">
             {announcements.map((a) => (
-              <div key={a.id} className="p-4 bg-gym-dark/50 border border-gym-border/40 rounded-2xl flex items-start justify-between">
+              <div key={a.id} className="p-5 bg-slate-50 border border-slate-200 rounded-lg flex items-start justify-between gap-4">
                 <div>
-                  <h4 className="font-bold text-sm text-gym-orange">{a.title}</h4>
-                  <p className="text-xs text-slate-300 mt-1 leading-relaxed">{a.message}</p>
-                  <span className="text-[10px] text-gym-muted block mt-2">{new Date(a.createdAt).toLocaleString()}</span>
+                  <h4 className="font-bold text-base text-orange-600">{a.title}</h4>
+                  <p className="text-sm sm:text-base text-slate-700 mt-1.5 leading-relaxed">{a.message}</p>
+                  <span className="text-xs text-slate-500 block mt-2.5 font-mono">{new Date(a.createdAt).toLocaleString()}</span>
                 </div>
                 <button
                   onClick={() => handleOpenDeleteModal(a)}
-                  className="p-1.5 text-gym-muted hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                  className="h-10 w-10 flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors shrink-0"
+                  title="Delete Notice"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 className="w-5 h-5" />
                 </button>
               </div>
             ))}

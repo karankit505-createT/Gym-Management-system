@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 const { connectDB, sequelize } = require('./config/db');
-const { autoSeed } = require('./utils/autoSeed');
+const { autoSeed, syncExistingUsersToMongo } = require('./utils/autoSeed');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -79,6 +79,7 @@ app.use('/api/payment', paymentRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/inquiries', contactRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
@@ -103,6 +104,7 @@ const startServer = async () => {
       try {
         await mongoose.connect(process.env.MONGO_URI, { serverSelectionTimeoutMS: 8000 });
         console.log('[Database] Connected successfully to MongoDB Atlas!');
+        await syncExistingUsersToMongo();
       } catch (mongoErr) {
         console.warn('[Database Notice] MongoDB Atlas Connection Notice:', mongoErr.message);
       }

@@ -83,25 +83,25 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-3 sm:px-4 py-8 sm:py-12">
-      <div className="w-full max-w-md bg-gym-card border border-gym-border/80 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl glow-orange">
+    <div className="min-h-[85vh] flex items-center justify-center px-4 py-10 bg-slate-50">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-lg p-6 sm:p-8 shadow-sm space-y-6">
         
         {/* Header */}
         <div className="text-center space-y-2 mb-6">
-          <div className="inline-flex p-2.5 sm:p-3 bg-gym-orange/20 rounded-2xl border border-gym-orange/40 mb-1">
-            <Dumbbell className="w-7 h-7 sm:w-8 sm:h-8 text-gym-orange" />
+          <div className="inline-flex p-3 bg-red-50 rounded-md border border-red-100 mb-1">
+            <Dumbbell className="w-7 h-7 text-red-600" />
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
-            {otpRequired ? 'Verify Your OTP' : 'Welcome Back'}
+          <h2 className="text-2xl font-bold font-heading text-slate-900 uppercase tracking-wide">
+            {otpRequired ? 'Verify OTP Code' : 'Portal Sign In'}
           </h2>
-          <p className="text-xs text-gym-muted">
+          <p className="text-xs text-slate-500">
             {otpRequired ? `Enter 6-digit code sent to ${unverifiedEmail}` : 'Sign in to access your gym membership dashboard'}
           </p>
         </div>
 
         {error && (
-          <div className="mb-4 bg-red-500/10 border border-red-500/50 text-red-300 text-xs p-3 rounded-xl flex items-center space-x-2">
-            <ShieldCheck className="w-4 h-4 shrink-0 text-red-400" />
+          <div className="bg-red-50 border border-red-200 text-red-700 text-xs p-3.5 rounded-md flex items-center space-x-2.5">
+            <ShieldCheck className="w-4 h-4 shrink-0 text-red-600" />
             <span>{error}</span>
           </div>
         )}
@@ -110,15 +110,15 @@ const Login = () => {
         {otpRequired ? (
           <form onSubmit={handleOtpSubmit} className="space-y-4">
             {otpDebugCode && (
-              <div className="bg-gym-orange/10 border border-gym-orange/30 text-gym-orange text-xs p-2.5 rounded-xl text-center">
+              <div className="bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-md text-center font-mono">
                 Demo Dev OTP: <b>{otpDebugCode}</b>
               </div>
             )}
 
             <div>
-              <label className="block text-xs font-medium text-gym-muted mb-1">Enter 6-Digit OTP</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">Enter 6-Digit OTP</label>
               <div className="relative">
-                <KeyRound className="w-5 h-5 text-gym-muted absolute left-3.5 top-3" />
+                <KeyRound className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
                 <input
                   type="text"
                   required
@@ -126,7 +126,7 @@ const Login = () => {
                   value={otpCode}
                   onChange={(e) => setOtpCode(e.target.value)}
                   placeholder="123456"
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl pl-11 pr-4 py-2.5 text-center tracking-widest text-lg font-bold text-white focus:outline-none focus:border-gym-orange"
+                  className="w-full bg-slate-50 border border-slate-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 rounded-md pl-11 pr-4 py-2.5 text-center tracking-widest text-lg font-mono font-bold text-slate-900 focus:outline-none transition-all"
                 />
               </div>
             </div>
@@ -134,50 +134,50 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+              className="w-full py-3 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-medium text-xs rounded-md shadow-sm transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 min-h-[44px]"
             >
-              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <span>Verify OTP & Login</span>}
+              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <span>Verify OTP & Sign In</span>}
             </button>
           </form>
         ) : (
           /* Standard Login Form */
           <form onSubmit={handleLoginSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-gym-muted mb-1">Email or Phone Number</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">Email or Phone Number</label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-gym-muted absolute left-3.5 top-3" />
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
                 <input
                   type="text"
                   required
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
                   placeholder="admin@ironpulse.com or phone"
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-gym-orange"
+                  className="w-full bg-slate-50 border border-slate-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 rounded-md pl-10 pr-4 py-2.5 text-xs text-slate-900 focus:outline-none transition-all min-h-[42px]"
                 />
               </div>
             </div>
 
             <div>
-              <div className="flex justify-between items-center mb-1">
-                <label className="text-xs font-medium text-gym-muted">Password</label>
-                <Link to="/forgot-password" className="text-xs text-gym-orange hover:underline font-medium">
+              <div className="flex justify-between items-center mb-1.5">
+                <label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">Password</label>
+                <Link to="/forgot-password" className="text-xs text-red-600 hover:text-red-700 hover:underline font-semibold">
                   Forgot Password?
                 </Link>
               </div>
               <div className="relative">
-                <Lock className="w-4 h-4 text-gym-muted absolute left-3.5 top-3" />
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-gym-dark border border-gym-border rounded-xl pl-10 pr-10 py-2.5 text-sm text-white focus:outline-none focus:border-gym-orange"
+                  className="w-full bg-slate-50 border border-slate-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 rounded-md pl-10 pr-10 py-2.5 text-xs text-slate-900 focus:outline-none transition-all min-h-[42px]"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-3 text-gym-muted hover:text-white transition-colors focus:outline-none"
+                  className="absolute right-3.5 top-3.5 text-slate-400 hover:text-slate-700 transition-colors focus:outline-none"
                   title={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -188,11 +188,11 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-gym-orange hover:bg-gym-orangeHover text-white font-bold rounded-xl shadow-lg shadow-gym-orange/25 transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+              className="w-full py-3 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-semibold text-xs rounded-md shadow-sm transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 min-h-[44px]"
             >
               {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
                 <>
-                  <span>Sign In</span>
+                  <span>Sign In to Account</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
@@ -201,36 +201,36 @@ const Login = () => {
         )}
 
         {/* Demo Account Quick Fill Helper */}
-        <div className="mt-6 pt-4 border-t border-gym-border/50 text-center space-y-2">
-          <p className="text-[11px] text-gym-muted uppercase tracking-wider font-semibold">Quick Demo Login Accounts</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        <div className="pt-4 border-t border-slate-200 text-center space-y-2.5">
+          <p className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Quick Demo Login Accounts</p>
+          <div className="grid grid-cols-3 gap-2">
             <button
               type="button"
               onClick={() => fillDemoAccount('member')}
-              className="py-2.5 px-2 bg-gym-dark hover:bg-gym-orange/20 text-slate-300 hover:text-gym-orange border border-gym-border text-xs font-semibold rounded-xl transition-colors min-h-[44px] flex items-center justify-center"
+              className="py-2 px-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-xs font-medium rounded-md transition-colors min-h-[38px] flex items-center justify-center"
             >
-              Member Demo
+              Member
             </button>
             <button
               type="button"
               onClick={() => fillDemoAccount('staff')}
-              className="py-2.5 px-2 bg-gym-dark hover:bg-gym-orange/20 text-slate-300 hover:text-gym-orange border border-gym-border text-xs font-semibold rounded-xl transition-colors min-h-[44px] flex items-center justify-center"
+              className="py-2 px-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-xs font-medium rounded-md transition-colors min-h-[38px] flex items-center justify-center"
             >
-              Staff Demo
+              Staff
             </button>
             <button
               type="button"
               onClick={() => fillDemoAccount('admin')}
-              className="py-2.5 px-2 bg-gym-dark hover:bg-gym-orange/20 text-slate-300 hover:text-gym-orange border border-gym-border text-xs font-semibold rounded-xl transition-colors min-h-[44px] flex items-center justify-center"
+              className="py-2 px-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-xs font-medium rounded-md transition-colors min-h-[38px] flex items-center justify-center"
             >
-              Admin Demo
+              Admin
             </button>
           </div>
         </div>
 
-        <div className="mt-6 text-center text-xs text-gym-muted">
+        <div className="pt-2 text-center text-xs text-slate-500">
           Don't have a gym account yet?{' '}
-          <Link to="/register" className="text-gym-orange font-bold hover:underline">
+          <Link to="/register" className="text-red-600 font-semibold hover:underline">
             Register Here
           </Link>
         </div>
