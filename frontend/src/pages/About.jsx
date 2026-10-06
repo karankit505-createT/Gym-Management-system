@@ -93,61 +93,77 @@ const About = () => {
 
       {/* TRAINERS LIST */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-6 border-b border-slate-200 pb-3">
+        <div className="mb-10 text-center space-y-2">
           <span className="text-red-600 text-xs font-bold uppercase tracking-wider block">Gym Instructors</span>
-          <h2 className="text-2xl font-heading font-black text-slate-900 uppercase">CERTIFIED COACHES</h2>
+          <h2 className="text-3xl sm:text-4xl font-heading font-black text-slate-900 uppercase tracking-tight">CERTIFIED COACHES</h2>
+          <div className="w-16 h-1 bg-red-600 mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           
-          <div className="bg-white border border-slate-200 rounded-md overflow-hidden p-4 space-y-3">
-            <div className="h-48 bg-slate-100 border border-slate-200 rounded-md overflow-hidden relative">
+          {/* Coach 1 */}
+          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden p-6 text-center space-y-4 shadow-sm hover:shadow-xl hover:border-red-500 transition-all duration-300 flex flex-col items-center justify-between group">
+            <div className="w-full h-64 sm:h-72 bg-slate-100 border border-slate-200 rounded-xl overflow-hidden relative shadow-inner">
               <img 
-                src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=600&q=80" 
+                src="/images/coach_alex_rivera.jpg" 
                 alt="Alex Rivera" 
-                className="w-full h-full object-cover" 
+                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" 
               />
             </div>
-            <div className="space-y-1">
-              <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Alex Rivera</h3>
-              <p className="text-xs font-bold text-red-600 uppercase">Senior Strength Coach</p>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Specializes in barbell strength training, powerlifting form, and progressive overload.
-              </p>
+            <div className="space-y-2 w-full flex-grow flex flex-col justify-between">
+              <div>
+                <h3 className="text-xl font-heading font-extrabold text-slate-900 uppercase tracking-wide">Alex Rivera</h3>
+                <span className="inline-block bg-red-50 text-red-600 border border-red-200 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider my-2">
+                  Senior Strength Coach
+                </span>
+                <p className="text-xs text-slate-600 leading-relaxed max-w-xs mx-auto">
+                  Specializes in barbell strength training, powerlifting form, and progressive overload.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-md overflow-hidden p-4 space-y-3">
-            <div className="h-48 bg-slate-100 border border-slate-200 rounded-md overflow-hidden relative">
+          {/* Coach 2 */}
+          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden p-6 text-center space-y-4 shadow-sm hover:shadow-xl hover:border-red-500 transition-all duration-300 flex flex-col items-center justify-between group">
+            <div className="w-full h-64 sm:h-72 bg-slate-100 border border-slate-200 rounded-xl overflow-hidden relative shadow-inner">
               <img 
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80" 
+                src="/images/coach_priya_sharma.jpg" 
                 alt="Priya Sharma" 
-                className="w-full h-full object-cover" 
+                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" 
               />
             </div>
-            <div className="space-y-1">
-              <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Priya Sharma</h3>
-              <p className="text-xs font-bold text-red-600 uppercase">HIIT & Conditioning Specialist</p>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Leads group cardio sessions, bodyweight conditioning, and endurance training.
-              </p>
+            <div className="space-y-2 w-full flex-grow flex flex-col justify-between">
+              <div>
+                <h3 className="text-xl font-heading font-extrabold text-slate-900 uppercase tracking-wide">Priya Sharma</h3>
+                <span className="inline-block bg-red-50 text-red-600 border border-red-200 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider my-2">
+                  HIIT & Conditioning Specialist
+                </span>
+                <p className="text-xs text-slate-600 leading-relaxed max-w-xs mx-auto">
+                  Leads group cardio sessions, bodyweight conditioning, and endurance training.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-md overflow-hidden p-4 space-y-3">
-            <div className="h-48 bg-slate-100 border border-slate-200 rounded-md overflow-hidden relative">
+          {/* Coach 3 */}
+          <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden p-6 text-center space-y-4 shadow-sm hover:shadow-xl hover:border-red-500 transition-all duration-300 flex flex-col items-center justify-between group">
+            <div className="w-full h-64 sm:h-72 bg-slate-100 border border-slate-200 rounded-xl overflow-hidden relative shadow-inner">
               <img 
-                src="https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?auto=format&fit=crop&w=600&q=80" 
+                src="/images/coach_marcus_vance.jpg" 
                 alt="Marcus Vance" 
-                className="w-full h-full object-cover" 
+                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" 
               />
             </div>
-            <div className="space-y-1">
-              <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Marcus Vance</h3>
-              <p className="text-xs font-bold text-red-600 uppercase">Bodybuilding & Hypertrophy</p>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Focuses on muscle hypertrophy, diet structuring, and customized gym routines.
-              </p>
+            <div className="space-y-2 w-full flex-grow flex flex-col justify-between">
+              <div>
+                <h3 className="text-xl font-heading font-extrabold text-slate-900 uppercase tracking-wide">Marcus Vance</h3>
+                <span className="inline-block bg-red-50 text-red-600 border border-red-200 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider my-2">
+                  Bodybuilding & Hypertrophy
+                </span>
+                <p className="text-xs text-slate-600 leading-relaxed max-w-xs mx-auto">
+                  Focuses on muscle hypertrophy, diet structuring, and customized gym routines.
+                </p>
+              </div>
             </div>
           </div>
 

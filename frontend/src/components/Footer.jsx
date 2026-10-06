@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Dumbbell, MapPin, Phone, Mail, Clock, Instagram, Facebook, Twitter, Youtube, ShieldCheck } from 'lucide-react';
+import { Dumbbell, MapPin, Phone, Mail, Clock, Instagram, Facebook, Youtube, ShieldCheck } from 'lucide-react';
+
+const WhatsAppIcon = ({ className }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.461c-1.92 0-3.692-.51-5.234-1.397l-5.817 1.526 1.553-5.673c-.971-1.603-1.536-3.488-1.536-5.503 0-5.625 4.576-10.201 10.201-10.201 5.626 0 10.202 4.576 10.202 10.201 0 5.626-4.576 10.201-10.169 10.201m0-18.401c-4.53 0-8.201 3.672-8.201 8.201 0 1.794.574 3.456 1.554 4.819l-.992 3.626 3.714-.974c1.317.868 2.888 1.378 4.575 1.378 4.53 0 8.201-3.672 8.201-8.201.001-4.529-3.67-8.201-8.201-8.201z"/>
+  </svg>
+);
 
 const Footer = () => {
   return (
@@ -28,8 +34,8 @@ const Footer = () => {
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" className="p-2.5 bg-gym-card hover:bg-gym-orange hover:text-white rounded-lg text-slate-400 transition-colors">
                 <Facebook className="w-4 h-4" />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="Twitter" className="p-2.5 bg-gym-card hover:bg-gym-orange hover:text-white rounded-lg text-slate-400 transition-colors">
-                <Twitter className="w-4 h-4" />
+              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" title="WhatsApp" className="p-2.5 bg-gym-card hover:bg-emerald-600 hover:text-white rounded-lg text-slate-400 transition-colors">
+                <WhatsAppIcon className="w-4 h-4" />
               </a>
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube Channel" className="p-2.5 bg-gym-card hover:bg-gym-orange hover:text-white rounded-lg text-slate-400 transition-colors">
                 <Youtube className="w-4 h-4" />

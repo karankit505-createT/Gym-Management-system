@@ -148,6 +148,116 @@ const Testimonials = () => {
         </div>
       </section>
 
+      {/* BEFORE & AFTER TRANSFORMATION STORIES WITH PHOTOS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8">
+        <div className="mb-6 border-b border-slate-200 pb-3 flex items-center justify-between">
+          <div>
+            <span className="text-orange-600 text-xs font-bold uppercase tracking-wider block">Transformation Results</span>
+            <h2 className="text-2xl font-heading font-black text-slate-900 uppercase">MEMBER TRANSFORMATION STORIES</h2>
+          </div>
+          <span className="text-xs text-slate-500 font-mono bg-white px-3 py-1 rounded border border-slate-200 font-semibold">
+            Real Results
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden p-5 space-y-3 shadow-xs hover:border-orange-500 transition-colors group">
+            <div className="h-56 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 relative">
+              <img 
+                src="/images/client_transform_rahul.jpg" 
+                alt="Siddharth Menon Transformation" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+              />
+            </div>
+            <div className="space-y-1">
+              <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Siddharth Menon</h3>
+              <p className="text-xs font-bold text-orange-600 uppercase">12-Week Fat Loss & Strength Shred</p>
+              <p className="text-xs text-slate-600 leading-relaxed italic">
+                "Dropped 16kg of body fat while adding 40kg to my deadlift through progressive overload."
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-md border border-slate-200 text-center text-xs">
+              <div>
+                <span className="block text-[10px] text-slate-500 uppercase font-semibold">Weight</span>
+                <strong className="text-slate-900 text-xs font-sans">96&rarr;80kg</strong>
+              </div>
+              <div>
+                <span className="block text-[10px] text-slate-500 uppercase font-semibold">Body Fat</span>
+                <strong className="text-slate-900 text-xs font-sans">28%&rarr;14%</strong>
+              </div>
+              <div>
+                <span className="block text-[10px] text-slate-500 uppercase font-semibold">Time</span>
+                <strong className="text-orange-600 text-xs font-sans">12 Wks</strong>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden p-5 space-y-3 shadow-xs hover:border-orange-500 transition-colors group">
+            <div className="h-56 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 relative">
+              <img 
+                src="/images/client_transform_ananya.jpg" 
+                alt="Pooja Deshmukh Transformation" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+              />
+            </div>
+            <div className="space-y-1">
+              <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Pooja Deshmukh</h3>
+              <p className="text-xs font-bold text-orange-600 uppercase">16-Week Athletic Body Recomp</p>
+              <p className="text-xs text-slate-600 leading-relaxed italic">
+                "Sculpted peak core strength, eliminated back pain, and built lean muscle definition."
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-md border border-slate-200 text-center text-xs">
+              <div>
+                <span className="block text-[10px] text-slate-500 uppercase font-semibold">Weight</span>
+                <strong className="text-slate-900 text-xs font-sans">68&rarr;59kg</strong>
+              </div>
+              <div>
+                <span className="block text-[10px] text-slate-500 uppercase font-semibold">Squat PR</span>
+                <strong className="text-slate-900 text-xs font-sans">20&rarr;75kg</strong>
+              </div>
+              <div>
+                <span className="block text-[10px] text-slate-500 uppercase font-semibold">Time</span>
+                <strong className="text-orange-600 text-xs font-sans">16 Wks</strong>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden p-5 space-y-3 shadow-xs hover:border-orange-500 transition-colors group">
+            <div className="h-56 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 relative">
+              <img 
+                src="/images/client_transform_karan.jpg" 
+                alt="Manish Kapoor Transformation" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+              />
+            </div>
+            <div className="space-y-1">
+              <h3 className="text-lg font-heading font-bold text-slate-900 uppercase">Manish Kapoor</h3>
+              <p className="text-xs font-bold text-orange-600 uppercase">20-Week Lean Muscle Bulk</p>
+              <p className="text-xs text-slate-600 leading-relaxed italic">
+                "Went from a skinny frame to adding 8kg of solid muscle mass with targeted coaching."
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-md border border-slate-200 text-center text-xs">
+              <div>
+                <span className="block text-[10px] text-slate-500 uppercase font-semibold">Weight</span>
+                <strong className="text-slate-900 text-xs font-sans">58&rarr;67kg</strong>
+              </div>
+              <div>
+                <span className="block text-[10px] text-slate-500 uppercase font-semibold">Bench PR</span>
+                <strong className="text-slate-900 text-xs font-sans">40&rarr;95kg</strong>
+              </div>
+              <div>
+                <span className="block text-[10px] text-slate-500 uppercase font-semibold">Time</span>
+                <strong className="text-orange-600 text-xs font-sans">20 Wks</strong>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
     </div>
   );
 };
