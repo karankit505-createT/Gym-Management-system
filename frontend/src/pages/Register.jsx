@@ -74,7 +74,11 @@ const Register = () => {
         navigate('/member/dashboard');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed. Please check inputs.');
+      if (!err.response) {
+        setError('Unable to connect to backend server. Please check your internet or try again.');
+      } else {
+        setError(err.response?.data?.message || 'Registration failed. Please check inputs.');
+      }
     } finally {
       setLoading(false);
     }

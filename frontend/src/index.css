@@ -94,16 +94,16 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 .animate-marquee-left {
   display: flex;
   width: max-content;
-  animation: marquee-left 28s linear infinite;
+  animation: marquee-left 60s linear infinite;
 }
 
 .animate-marquee-right {
   display: flex;
   width: max-content;
-  animation: marquee-right 28s linear infinite;
+  animation: marquee-right 60s linear infinite;
 }
 
 .animate-marquee-left:hover,
 .animate-marquee-right:hover {
-  animation-play-state: paused;
+  animation-play-state: paused !important;
 }

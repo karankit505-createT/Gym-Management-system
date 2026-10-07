@@ -67,6 +67,7 @@ exports.register = async (req, res) => {
       role: newUser.role,
       gender: newUser.gender,
       address: newUser.address,
+      photo: newUser.photo,
       is_verified: true
     });
 

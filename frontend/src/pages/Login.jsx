@@ -41,6 +41,8 @@ const Login = () => {
         setOtpRequired(true);
         setUnverifiedEmail(err.response.data.email);
         setOtpDebugCode(err.response.data.otpDebug || '');
+      } else if (!err.response) {
+        setError('Unable to connect to backend server. Please check your network connection.');
       } else {
         setError(err.response?.data?.message || 'Invalid credentials. Please try again.');
       }

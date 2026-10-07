@@ -404,6 +404,7 @@ exports.addStaff = async (req, res) => {
       email: user.email,
       phone: user.phone,
       role: user.role,
+      photo: user.photo,
       is_verified: true,
       designation: designation.trim()
     });

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Star, Quote, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Star, Quote, Sparkles, Pause, Play, Gauge } from 'lucide-react';
 
 const reviewsData = [
   {
@@ -77,6 +77,12 @@ const reviewsData = [
 ];
 
 const Testimonials = () => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isManuallyPaused, setIsManuallyPaused] = useState(false);
+  const [speedDuration, setSpeedDuration] = useState('60s');
+
+  const isPaused = isHovered || isManuallyPaused;
+
   return (
     <div className="space-y-10 pb-20 pt-6 font-sans bg-slate-50 min-h-[70vh]">
       
@@ -98,23 +104,80 @@ const Testimonials = () => {
         </div>
       </section>
 
-      {/* SINGLE CONTINUOUS RUNNING MARQUEE TRACK */}
-      <section className="space-y-6 overflow-hidden py-6">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      {/* SINGLE CONTINUOUS RUNNING MARQUEE TRACK WITH CONTROLS */}
+      <section className="space-y-4 overflow-hidden py-6">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <span className="text-xs font-bold text-orange-600 uppercase tracking-wider block">Live Stream</span>
+            <span className="text-xs font-bold text-orange-600 uppercase tracking-wider block">Live Reviews Stream</span>
             <h2 className="text-xl sm:text-2xl font-bold font-heading text-slate-900 uppercase">
-              REVIEWS (HOVER TO PAUSE)
+              MEMBER TESTIMONIALS
             </h2>
           </div>
-          <span className="text-xs text-slate-500 font-bold font-mono bg-white px-3 py-1 rounded-md border border-slate-200">
-            ⚡ Running Marquee
-          </span>
+
+          {/* CONTROLS: PAUSE/PLAY & SPEED SELECTOR */}
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={() => setIsManuallyPaused(!isManuallyPaused)}
+              className={`inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
+                isManuallyPaused
+                  ? 'bg-amber-500 text-white border-amber-600 shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+              }`}
+            >
+              {isManuallyPaused ? <Play className="w-3.5 h-3.5 fill-current" /> : <Pause className="w-3.5 h-3.5 fill-current" />}
+              <span>{isManuallyPaused ? 'Resume Motion' : 'Pause Stream'}</span>
+            </button>
+
+            <div className="flex items-center bg-white border border-slate-300 rounded-lg p-0.5 text-xs font-semibold text-slate-600">
+              <span className="px-2 text-[11px] text-slate-400 flex items-center gap-1 font-bold">
+                <Gauge className="w-3 h-3 text-orange-500" /> Speed:
+              </span>
+              <button
+                onClick={() => setSpeedDuration('260s')}
+                className={`px-2.5 py-1 rounded-md transition-colors ${
+                  speedDuration === '260s' ? 'bg-orange-600 text-white font-bold' : 'hover:bg-slate-100 text-slate-700'
+                }`}
+              >
+                Ultra Slow
+              </button>
+              <button
+                onClick={() => setSpeedDuration('180s')}
+                className={`px-2.5 py-1 rounded-md transition-colors ${
+                  speedDuration === '180s' ? 'bg-orange-600 text-white font-bold' : 'hover:bg-slate-100 text-slate-700'
+                }`}
+              >
+                Slow
+              </button>
+              <button
+                onClick={() => setSpeedDuration('110s')}
+                className={`px-2.5 py-1 rounded-md transition-colors ${
+                  speedDuration === '110s' ? 'bg-orange-600 text-white font-bold' : 'hover:bg-slate-100 text-slate-700'
+                }`}
+              >
+                Normal
+              </button>
+            </div>
+
+            <span className="text-xs text-slate-500 font-bold font-mono bg-white px-3 py-1.5 rounded-lg border border-slate-200 flex items-center space-x-1.5">
+              <span className={`w-2 h-2 rounded-full ${isPaused ? 'bg-amber-500 animate-pulse' : 'bg-emerald-500 animate-pulse'}`}></span>
+              <span>{isPaused ? (isHovered ? 'Hover Paused' : 'Paused') : 'Scrolling'}</span>
+            </span>
+          </div>
         </div>
 
         {/* Single Running Track */}
-        <div className="relative w-full overflow-hidden bg-white py-6 border-y border-slate-200 shadow-xs">
-          <div className="animate-marquee-left space-x-6">
+        <div 
+          className="relative w-full overflow-hidden bg-white py-6 border-y border-slate-200 shadow-xs cursor-pointer"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <div 
+            className="animate-marquee-left space-x-6"
+            style={{
+              animationDuration: speedDuration,
+              animationPlayState: isPaused ? 'paused' : 'running'
+            }}
+          >
             {[...reviewsData, ...reviewsData].map((item, idx) => (
               <div
                 key={idx}
@@ -162,12 +225,12 @@ const Testimonials = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
-          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden p-5 space-y-3 shadow-xs hover:border-orange-500 transition-colors group">
-            <div className="h-56 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 relative">
+          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden p-5 space-y-3 shadow-xs hover:border-orange-500 transition-all group">
+            <div className="aspect-[4/3] bg-slate-900 rounded-lg overflow-hidden border border-slate-200 relative flex items-center justify-center">
               <img 
                 src="/images/client_transform_rahul.jpg" 
                 alt="Siddharth Menon Transformation" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500" 
               />
             </div>
             <div className="space-y-1">
@@ -193,12 +256,12 @@ const Testimonials = () => {
             </div>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden p-5 space-y-3 shadow-xs hover:border-orange-500 transition-colors group">
-            <div className="h-56 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 relative">
+          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden p-5 space-y-3 shadow-xs hover:border-orange-500 transition-all group">
+            <div className="aspect-[4/3] bg-slate-900 rounded-lg overflow-hidden border border-slate-200 relative flex items-center justify-center">
               <img 
                 src="/images/client_transform_ananya.jpg" 
                 alt="Pooja Deshmukh Transformation" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500" 
               />
             </div>
             <div className="space-y-1">
@@ -224,12 +287,12 @@ const Testimonials = () => {
             </div>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden p-5 space-y-3 shadow-xs hover:border-orange-500 transition-colors group">
-            <div className="h-56 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 relative">
+          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden p-5 space-y-3 shadow-xs hover:border-orange-500 transition-all group">
+            <div className="aspect-[4/3] bg-slate-900 rounded-lg overflow-hidden border border-slate-200 relative flex items-center justify-center">
               <img 
                 src="/images/client_transform_karan.jpg" 
                 alt="Manish Kapoor Transformation" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500" 
               />
             </div>
             <div className="space-y-1">

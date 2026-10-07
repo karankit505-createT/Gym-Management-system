@@ -17,10 +17,15 @@ import {
   Phone,
   Mail,
   MapPin,
-  Quote
+  Quote,
+  Pause,
+  Play,
+  Gauge
 } from 'lucide-react';
 
 const Home = () => {
+  const [marqueeHovered, setMarqueeHovered] = useState(false);
+  const [marqueePaused, setMarqueePaused] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -237,17 +242,42 @@ const Home = () => {
             <span className="text-orange-600 text-xs font-bold uppercase tracking-wider block">Real Member Feedback</span>
             <h2 className="text-2xl font-heading font-black text-slate-900 uppercase">RUNNING TESTIMONIALS & REVIEWS</h2>
           </div>
-          <Link
-            to="/testimonials"
-            className="text-xs font-bold text-orange-600 hover:text-orange-700 flex items-center space-x-1"
-          >
-            <span>View All Reviews</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={() => setMarqueePaused(!marqueePaused)}
+              className={`inline-flex items-center space-x-1.5 px-3 py-1 rounded-md text-xs font-bold border transition-colors cursor-pointer ${
+                marqueePaused
+                  ? 'bg-amber-500 text-white border-amber-600'
+                  : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+              }`}
+            >
+              {marqueePaused ? <Play className="w-3 h-3 fill-current" /> : <Pause className="w-3 h-3 fill-current" />}
+              <span>{marqueePaused ? 'Resume' : 'Pause'}</span>
+            </button>
+
+            <Link
+              to="/testimonials"
+              className="text-xs font-bold text-orange-600 hover:text-orange-700 flex items-center space-x-1 bg-orange-50 px-2.5 py-1 rounded-md border border-orange-200"
+            >
+              <span>View All</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
 
-        <div className="relative w-full overflow-hidden bg-white py-4 border-y border-slate-200">
-          <div className="animate-marquee-left space-x-6">
+        <div 
+          className="relative w-full overflow-hidden bg-white py-4 border-y border-slate-200 cursor-pointer"
+          onMouseEnter={() => setMarqueeHovered(true)}
+          onMouseLeave={() => setMarqueeHovered(false)}
+        >
+          <div 
+            className="animate-marquee-left space-x-6"
+            style={{
+              animationDuration: '60s',
+              animationPlayState: (marqueeHovered || marqueePaused) ? 'paused' : 'running'
+            }}
+          >
             {[
               { initials: "VS", name: "Vikram Sethi", meta: "Quarterly Pro", quote: "IronPulse gym is very well equipped. Trainers guide properly on form!" },
               { initials: "SR", name: "Sneha Roy", meta: "Yearly VIP", quote: "Clean gym area, good lockers, 5:00 AM opening time fits my routine!" },
